@@ -72,6 +72,93 @@ RECOMMENDED that the user agent does not re-use size/location across different
 origins as this may provide malicious websites an avenue for fingerprinting
 a user.
 
+# API # {#api}
+
+<pre class="idl">
+[Exposed=Window]
+partial interface Navigator {
+  [SameObject] readonly attribute PictureInPicture pictureInPicture;
+};
+
+[Exposed=Window]
+interface PictureInPicture : EventTarget {
+  Promise&lt;DocumentPictureInPictureWindow&gt; requestWindow(
+    optional PictureInPictureWindowOptions options = {});
+  attribute EventHandler onenterpictureinpicture;
+  attribute EventHandler onleavepictureinpicture;
+};
+
+dictionary PictureInPictureWindowOptions {
+  float initialAspectRatio = 0.0;
+  boolean lockAspectRatio = false;
+};
+
+interface DocumentPictureInPictureWindow {
+  readonly attribute Document? document;
+  Promise&lt;undefined&gt; setAspectRatio(float aspectRatio);
+  Promise&lt;undefined&gt; setLockAspectRatio(boolean lockAspectRatio);
+};
+
+[Exposed=Window]
+interface DocumentPictureInPictureEvent : Event {
+  constructor(DOMString type, DocumentPictureInPictureEventInit eventInitDict);
+  [SameObject] readonly attribute DocumentPictureInPictureWindow
+    pictureInPictureWindow;
+};
+
+dictionary DocumentPictureInPictureEventInit : EventInit {
+  required DocumentPictureInPictureWindow pictureInPictureWindow;
+};
+</pre>
+
+<p>
+A {{PictureInPicture}} object allows websites to create and open a new
+{{DocumentPictureInPictureWindow}} as well as listen for events related to
+opening and closing a {{DocumentPictureInPictureWindow}}.
+
+The {{requestWindow(options)}} method, when invoked, MUST return <a>a new promise</a>
+|promise| and run the following steps <a>in parallel</a>:
+
+1. Run the <a>open DocumentPictureInPictureWindow</a> algorithm with |options|.
+2. If the previous step threw an exception, reject |promise| with that exception
+    and abort these steps.
+3. Return |promise| with the {{DocumentPictureInPictureWindow}} from step 1.
+
+</p>
+
+<p>
+A {{DocumentPictureInPictureWindow}} object represents an always-on-top PiP
+window opened by {{requestWindow()}}. It gives the website a handle into the
+{{Document}} contained in the window.
+</p>
+
+<p>
+The {{setAspectRatio(aspectRatio)}} method, when invoked, MUST return
+<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
+
+1. Run the <a>set aspect ratio</a> algorithm with |aspectRatio|.
+2. If the previous step threw an exception, reject |promise| with that exception
+    and abort these steps.
+3. Resolve and return |promise|.
+
+</p>
+
+<p>
+The {{setLockAspectRatio(lockAspectRatio)}} method, when invoked, MUST return
+<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
+
+1. Run the <a>set lock aspect ratio</a> algorithm with |lockAspectRatio|.
+2. If the previous step threw an exception, reject |promise| with that exception
+    and abort these steps.
+3. Resolve and return |promise|.
+
+</p>
+
+: <dfn event for="PictureInPicture">enterpictureinpicture</dfn>
+:: Fired on {{PictureInPicture}} when a PiP window is opened.
+: <dfn event for="PictureInPicture">leavepictureinpicture</dfn>
+:: Fired on {{PictureInPicture}} when a PiP window is closed.
+
 # Concepts # {#concepts}
 
 ## Open DocumentPictureInPictureWindow ## {#open-pip}
@@ -208,93 +295,6 @@ have attributes that use a <a>relative-URL string</a> (e.g.
 break. To prevent this, the user agent MUST parse <a>relative-URL string</a>s as
 if they were being parsed on the {{Document}} that opened the
 {{DocumentPictureInPictureWindow}}.
-
-# API # {#api}
-
-<pre class="idl">
-[Exposed=Window]
-partial interface Navigator {
-  [SameObject] readonly attribute PictureInPicture pictureInPicture;
-};
-
-[Exposed=Window]
-interface PictureInPicture : EventTarget {
-  Promise&lt;DocumentPictureInPictureWindow&gt; requestWindow(
-    optional PictureInPictureWindowOptions options = {});
-  attribute EventHandler onenterpictureinpicture;
-  attribute EventHandler onleavepictureinpicture;
-};
-
-dictionary PictureInPictureWindowOptions {
-  float initialAspectRatio = 0.0;
-  boolean lockAspectRatio = false;
-};
-
-interface DocumentPictureInPictureWindow {
-  readonly attribute Document? document;
-  Promise&lt;undefined&gt; setAspectRatio(float aspectRatio);
-  Promise&lt;undefined&gt; setLockAspectRatio(boolean lockAspectRatio);
-};
-
-[Exposed=Window]
-interface DocumentPictureInPictureEvent : Event {
-  constructor(DOMString type, DocumentPictureInPictureEventInit eventInitDict);
-  [SameObject] readonly attribute DocumentPictureInPictureWindow
-    pictureInPictureWindow;
-};
-
-dictionary DocumentPictureInPictureEventInit : EventInit {
-  required DocumentPictureInPictureWindow pictureInPictureWindow;
-};
-</pre>
-
-<p>
-A {{PictureInPicture}} object allows websites to create and open a new
-{{DocumentPictureInPictureWindow}} as well as listen for events related to
-opening and closing a {{DocumentPictureInPictureWindow}}.
-
-The {{requestWindow(options)}} method, when invoked, MUST return <a>a new promise</a>
-|promise| and run the following steps <a>in parallel</a>:
-
-1. Run the <a>open DocumentPictureInPictureWindow</a> algorithm with |options|.
-2. If the previous step threw an exception, reject |promise| with that exception
-    and abort these steps.
-3. Return |promise| with the {{DocumentPictureInPictureWindow}} from step 1.
-
-</p>
-
-<p>
-A {{DocumentPictureInPictureWindow}} object represents an always-on-top PiP
-window opened by {{requestWindow()}}. It gives the website a handle into the
-{{Document}} contained in the window.
-</p>
-
-<p>
-The {{setAspectRatio(aspectRatio)}} method, when invoked, MUST return
-<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
-
-1. Run the <a>set aspect ratio</a> algorithm with |aspectRatio|.
-2. If the previous step threw an exception, reject |promise| with that exception
-    and abort these steps.
-3. Resolve and return |promise|.
-
-</p>
-
-<p>
-The {{setLockAspectRatio(lockAspectRatio)}} method, when invoked, MUST return
-<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
-
-1. Run the <a>set lock aspect ratio</a> algorithm with |lockAspectRatio|.
-2. If the previous step threw an exception, reject |promise| with that exception
-    and abort these steps.
-3. Resolve and return |promise|.
-
-</p>
-
-: <dfn event for="PictureInPicture">enterpictureinpicture</dfn>
-:: Fired on {{PictureInPicture}} when a PiP window is opened.
-: <dfn event for="PictureInPicture">leavepictureinpicture</dfn>
-:: Fired on {{PictureInPicture}} when a PiP window is closed.
 
 # Examples # {#examples}
 
