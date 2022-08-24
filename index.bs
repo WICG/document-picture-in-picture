@@ -320,6 +320,7 @@ function enterPiP() {
   const pipOptions = {
     initialAspectRatio: player.clientWidth / player.clientHeight,
     lockAspectRatio: true,
+    copyStyleSheets: true
   };
 
   navigator.pictureInPicture.requestWindow(pipOptions).then((_pipSession) => {
@@ -327,13 +328,6 @@ function enterPiP() {
 
     // Style remaining container to imply the player is in PiP.
     playerContainer.classList.add('pip-mode');
-
-    // Add styles to the PiP window.
-    const styleLink = document.createElement('link');
-    styleLink.href = 'pip.css';
-    styleLink.rel = 'stylesheet';
-    const pipBody = pipSession.document.body;
-    pipBody.append(styleLink);
 
     // Add player to the PiP window.
     pipBody.append(player);
