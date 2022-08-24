@@ -55,13 +55,13 @@ API are allowed on non-secure contexts.
 ## Spoofing ## {#spoofing}
 
 It is RECOMMENDED that the user agent provides enough UI on the
-{{DocumentPictureInPictureWindow}} to prevent malicious websites from abusing
+{{DocumentPictureInPictureSession}} to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
 UI. The website's inability to directly set the location or size of the PiP
 window helps alleviate some avenues of abuse.
 
 It is RECOMMENDED that the user agent makes it clear to the user which origin is
-controlling the {{DocumentPictureInPictureWindow}} at all times.
+controlling the {{DocumentPictureInPictureSession}} at all times.
 
 ## Fingerprinting ## {#fingerprinting}
 
@@ -77,24 +77,28 @@ a user.
 <pre class="idl">
 [Exposed=Window]
 partial interface Navigator {
-  [SameObject] readonly attribute PictureInPicture pictureInPicture;
+  [SameObject, SecureContext] readonly attribute PictureInPicture
+    pictureInPicture;
 };
 
 [Exposed=Window]
 interface PictureInPicture : EventTarget {
-  Promise&lt;DocumentPictureInPictureWindow&gt; requestWindow(
-    optional PictureInPictureWindowOptions options = {});
+  Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
+    optional DocumentPictureInPictureOptions options = {});
+  readonly attribute DocumentPictureInPictureSession session;
   attribute EventHandler onenterpictureinpicture;
-  attribute EventHandler onleavepictureinpicture;
 };
 
-dictionary PictureInPictureWindowOptions {
+dictionary DocumentPictureInPictureOptions {
   float initialAspectRatio = 0.0;
   boolean lockAspectRatio = false;
+  boolean copyStyleSheets = false;
 };
 
-interface DocumentPictureInPictureWindow {
-  readonly attribute Document? document;
+[Exposed=Window]
+interface DocumentPictureInPictureSession {
+  [SameObject] readonly attribute Document? document;
+  [SameObject] readonly attribute Window? window;
   Promise&lt;undefined&gt; setAspectRatio(float aspectRatio);
   Promise&lt;undefined&gt; setLockAspectRatio(boolean lockAspectRatio);
 };
@@ -102,32 +106,36 @@ interface DocumentPictureInPictureWindow {
 [Exposed=Window]
 interface DocumentPictureInPictureEvent : Event {
   constructor(DOMString type, DocumentPictureInPictureEventInit eventInitDict);
-  [SameObject] readonly attribute DocumentPictureInPictureWindow
-    pictureInPictureWindow;
+  [SameObject] readonly attribute DocumentPictureInPictureSession
+    pictureInPictureSession;
 };
 
 dictionary DocumentPictureInPictureEventInit : EventInit {
-  required DocumentPictureInPictureWindow pictureInPictureWindow;
+  required DocumentPictureInPictureSession pictureInPictureSession;
 };
 </pre>
 
 <p>
 A {{PictureInPicture}} object allows websites to create and open a new
-{{DocumentPictureInPictureWindow}} as well as listen for events related to
-opening and closing a {{DocumentPictureInPictureWindow}}.
+{{DocumentPictureInPictureSession}} as well as listen for events related to
+opening and closing a {{DocumentPictureInPictureSession}}.
+
+The {{PictureInPicture/session}} attribute's getter MUST return the currently
+open {{DocumentPictureInPictureSession}} for the current <a>browsing context</a>
+if there is one. Otherwise, it MUST return <code>null</code>.
 
 The {{requestWindow(options)}} method, when invoked, MUST return <a>a new promise</a>
 |promise| and run the following steps <a>in parallel</a>:
 
-1. Run the <a>open DocumentPictureInPictureWindow</a> algorithm with |options|.
+1. Run the <a>open DocumentPictureInPictureSession</a> algorithm with |options|.
 2. If the previous step threw an exception, reject |promise| with that exception
     and abort these steps.
-3. Return |promise| with the {{DocumentPictureInPictureWindow}} from step 1.
+3. Return |promise| with the {{DocumentPictureInPictureSession}} from step 1.
 
 </p>
 
 <p>
-A {{DocumentPictureInPictureWindow}} object represents an always-on-top PiP
+A {{DocumentPictureInPictureSession}} object represents an always-on-top PiP
 window opened by {{requestWindow()}}. It gives the website a handle into the
 {{Document}} contained in the window.
 </p>
@@ -156,14 +164,12 @@ The {{setLockAspectRatio(lockAspectRatio)}} method, when invoked, MUST return
 
 : <dfn event for="PictureInPicture">enterpictureinpicture</dfn>
 :: Fired on {{PictureInPicture}} when a PiP window is opened.
-: <dfn event for="PictureInPicture">leavepictureinpicture</dfn>
-:: Fired on {{PictureInPicture}} when a PiP window is closed.
 
 # Concepts # {#concepts}
 
-## Open DocumentPictureInPictureWindow ## {#open-pip}
+## Open DocumentPictureInPictureSession ## {#open-pip}
 
-When the <dfn>open DocumentPictureInPictureWindow</dfn> algorithm is invoked
+When the <dfn>open DocumentPictureInPictureSession</dfn> algorithm is invoked
 with |options| on |pictureInPicture| of type {{PictureInPicture}}, the user
 agent MUST run the following steps:
 
@@ -173,74 +179,59 @@ agent MUST run the following steps:
     <a>transient activation</a>, throw a {{NotAllowedError}} and abort these
     steps.
 3. The user agent MAY choose to close any existing
-    {{DocumentPictureInPictureWindow}}s or
+    {{DocumentPictureInPictureSession}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
 4. Let |target browsing context| be a new <a>browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
-5. If |options["initialAspectRatio"]| exists and is greater than zero:
-    1. OPTIONALLY, clamp or ignore |options["initialAspectRatio"]| if it is too
-        large or too small in order to fit a user-friendly window size.
+5. If |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}} exists
+    and is greater than zero:
+    1. OPTIONALLY, clamp or ignore |options|'s
+        {{DocumentPictureInPictureOptions/initialAspectRatio}} if it is too large
+        or too small in order to fit a user-friendly window size.
     2. Set the window size for the |target browsing context| to a |width| and
         |height| such that |width| divided by |height| is approximately
-        |options["initialAspectRatio"]|.
-    3. If |options["lockAspectRatio"]| exists and is <code>true</code>, then the
-        window should be configured such that when a user resizes it, the aspect
-        ratio of the window should remain constant.
+        |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}}.
+    3. If |options|'s {{DocumentPictureInPictureOptions/lockAspectRatio}} exists
+        and is <code>true</code>, then the window should be configured such that
+        when a user resizes it, the aspect ratio of the window should remain
+        constant.
 6. Configure the window containing |target browsing context| to float on top of
     other windows.
-7. Let |pipWindow| be a {{DocumentPictureInPictureWindow}} object with the
-    {{DocumentPictureInPictureWindow/document}} attribute set to |target
-    browsing context|'s <a>associated Document</a>.
-8. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
+7. If |options|'s {{DocumentPictureInPictureOptions/copyStyleSheets}} exists and
+    is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
+    <a>associated Document</a> should be copied and applied to the
+    |target browsing context|'s <a>associated Document</a>. This is a one-time
+    copy, and any further changes to the current <a>associated Document</a>'s
+    <a>CSS style sheet</a>s will not be copied.
+8. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
+    {{DocumentPictureInPictureSession/document}} attribute set to |target
+    browsing context|'s <a>associated Document</a> and the
+    {{DocumentPictureInPictureSession/window}} attribute set to
+    {{DocumentPictureInPictureSession/document}}'s {{Document/defaultView}}.
+9. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
     using {{DocumentPictureInPictureEvent}} on |pictureInPicture| with its
     {{bubbles}} attribute initialized to <code>true</code> and its
-    {{DocumentPictureInPictureEvent/pictureInPictureWindow}} attribute
-    initialized to |pipWindow|.
-9. Return |pipWindow|.
+    {{DocumentPictureInPictureEvent/pictureInPictureSession}} attribute
+    initialized to |pipSession|.
+10. Return |pipSession|.
 
 <p class="note">
 While the aspect ratio of the window can be configured by the website, the
 initial size and position is left to the discretion of the user agent.
 </p>
 
-## Close DocumentPictureInPictureWindow ## {#close-pip}
-
-The window represented by a {{DocumentPictureInPictureWindow}} object can be
-closed for a few reasons: the <a method for="Window">close()</a> method on the
-{{Window}} object, the user clicking a close button on the window UI, the user
-agent deciding to close the window because another PiP window is opening, the
-user agent closing the window because the opener window has closed, etc. When
-the window represented by a {{DocumentPictureInPictureWindow}} object is closed
-for any reason, the user agent MUST run the following steps:
-
-1. Let |pipWindow| be the {{DocumentPictureInPictureWindow}} which is closing.
-2. Let |pictureInPicture| be the {{PictureInPicture}} object on which
-    {{requestWindow()}} was called to create |pipWindow|.
-3. <a>Queue a task</a> to <a>fire an event</a> named {{leavepictureinpicture}}
-    using {{DocumentPictureInPictureEvent}} on |pictureInPicture| with its
-    {{bubbles}} attribute initialized to <code>true</code> and its
-    {{DocumentPictureInPictureEvent/pictureInPictureWindow}} attribute
-    initialized to |pipWindow|.
-
-<p class="note">
-The user agent MUST fire the {{leavepictureinpicture}} event before unloading
-the {{Document}} associated with the {{DocumentPictureInPictureWindow}} to give
-the website a chance to move any elements they need back into the original
-window.
-</p>
-
 ## Set Aspect Ratio ## {#concept-set-aspect-ratio}
 
 When the <dfn>set aspect ratio</dfn> algorithm is invoked with |aspectRatio| on
-|pipWindow| of type {{DocumentPictureInPictureWindow}}, the user agent MUST run
+|pipSession| of type {{DocumentPictureInPictureSession}}, the user agent MUST run
 the following steps:
 
 1. If |aspectRatio| <= 0, throw a {{RangeError}} and abort these steps.
-2. If |pipWindow| has already closed, throw an {{InvalidStateError}} and abort
+2. If |pipSession| has already closed, throw an {{InvalidStateError}} and abort
     these steps.
 3. OPTIONALLY, clamp or ignore |aspectRatio| if it is too large or too small in
     order to fit a user-friendly window size.
-4. Resize the window represented by |pipWindow| to a |width| and |height| such
+4. Resize the window represented by |pipSession| to a |width| and |height| such
     that |width| divided by |height| is approximately |aspectRatio| or the
     alternative value determined in step 3.
 
@@ -253,16 +244,16 @@ original total area and position as possible.
 ## Lock Aspect Ratio ## {#concept-lock-aspect-ratio}
 
 When the <dfn>set lock aspect ratio</dfn> algorithm is invoked with
-|lockAspectRatio| on |pipWindow| of type {{DocumentPictureInPictureWindow}}, the
+|lockAspectRatio| on |pipSession| of type {{DocumentPictureInPictureSession}}, the
 user agent MUST run the following steps:
 
-1. If |pipWindow| has already closed, throw an {{InvalidStateError}} and abort
+1. If |pipSession| has already closed, throw an {{InvalidStateError}} and abort
     these steps.
 2. If |lockAspectRatio| is <code>true</code>, then the window represented by
-    |pipWindow| should be configured such that when a user resizes it, the
+    |pipSession| should be configured such that when a user resizes it, the
     aspect ratio of the window should remain constant.
 3. If |lockAspectRatio| is <code>false</code>, the the window represented by
-    |pipWindow| should no longer be configured to keep the aspect ratio
+    |pipSession| should no longer be configured to keep the aspect ratio
     constant.
 
 ## Document Picture-in-Picture Support ## {#pip-support}
@@ -275,7 +266,7 @@ a user preference that disables it or a platform limitation. It is
 
 Whether only one window is allowed in Picture-in-Picture mode is left to the
 implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while a {{DocumentPictureInPictureWindow}} or
+Picture-in-Picture request while a {{DocumentPictureInPictureSession}} or
 <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>
 is already open will be left as an implementation detail: the current window
 could be closed, the Picture-in-Picture request could be rejected, or multiple
@@ -285,16 +276,16 @@ Picture-in-Picture status changes.
 
 ## Relative URLs ## {#relative-urls}
 
-A primary use case of {{DocumentPictureInPictureWindow}} is to put existing
+A primary use case of {{DocumentPictureInPictureSession}} is to put existing
 elements (e.g. an {{HTMLVideoElement}}) into an always-on-top window so the user
 can continue to see them while multitasking. However, sometimes these elements
 have attributes that use a <a>relative-URL string</a> (e.g.
 <a attribute for="HTMLMediaElement">src</a>). Since the {{Document}} in a
-{{DocumentPictureInPictureWindow}} is always navigated to the
+{{DocumentPictureInPictureSession}} is always navigated to the
 <code>about:blank</code> <a>URL</a>, these <a>relative-URL string</a>s would
 break. To prevent this, the user agent MUST parse <a>relative-URL string</a>s as
 if they were being parsed on the {{Document}} that opened the
-{{DocumentPictureInPictureWindow}}.
+{{DocumentPictureInPictureSession}}.
 
 # Examples # {#examples}
 
@@ -320,7 +311,7 @@ if they were being parsed on the {{Document}} that opened the
 
 <pre class="lang-javascript">
 // Handle to the picture-in-picture window.
-let pipWindow = null;
+let pipSession = null;
 
 function enterPiP() {
   const player = document.querySelector('#player');
@@ -331,8 +322,8 @@ function enterPiP() {
     lockAspectRatio: true,
   };
 
-  navigator.pictureInPicture.requestWindow(pipOptions).then((_pipWin) => {
-    pipWindow = _pipWin;
+  navigator.pictureInPicture.requestWindow(pipOptions).then((_pipSession) => {
+    pipSession = _pipSession;
 
     // Style remaining container to imply the player is in PiP.
     playerContainer.classList.add('pip-mode');
@@ -341,20 +332,20 @@ function enterPiP() {
     const styleLink = document.createElement('link');
     styleLink.href = 'pip.css';
     styleLink.rel = 'stylesheet';
-    const pipBody = pipWindow.document.body;
+    const pipBody = pipSession.document.body;
     pipBody.append(styleLink);
 
     // Add player to the PiP window.
     pipBody.append(player);
 
     // Listen for the PiP closing event to put the video back.
-    navigator.pictureInPicture.addEventListener('leavepictureinpicture', onLeavePiP, { once: true });
+    pipSession.window.addEventListener('unload', onLeavePiP.bind(pipSession), { once: true });
   });
 }
 
 // Called when the PiP window has closed.
-function onLeavePiP(event) {
-  if (event.pictureInPictureWindow !== pipWindow) {
+function onLeavePiP() {
+  if (this !== pipSession) {
     return;
   }
 
@@ -363,20 +354,20 @@ function onLeavePiP(event) {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipWindow.document.querySelector('#player');
+  const player = pipSession.document.querySelector('#player');
   playerContainer.append(player);
 
-  pipWindow = null;
+  pipSession = null;
 }
 </pre>
 
 ## Accessing elements on the PiP Window ## {#example-access-elements}
 
 The document attribute provides access to the DOM of the
-{{DocumentPictureInPictureWindow}} object:
+{{DocumentPictureInPictureSession}} object:
 
 <pre class="lang-javascript">
-const video = pipWindow.document.querySelector('#video');
+const video = pipSession.document.querySelector('#video');
 video.loop = true;
 </pre>
 
@@ -386,25 +377,25 @@ As part of creating an improved picture-in-picture experience, websites will oft
 customize buttons and controls that need to respond to user input events such as clicks.
 
 <pre class="lang-javascript">
-const video = pipWindow.document.querySelector('#video');
-const muteButton = pipWindow.document.createElement('button');
+const video = pipSession.document.querySelector('#video');
+const muteButton = pipSession.document.createElement('button');
 muteButton.textContent = 'Toggle mute';
 muteButton.addEventListener('click', () => {
   video.muted = !video.muted;
 });
-pipWindow.document.body.append(muteButton);
+pipSession.document.body.append(muteButton);
 </pre>
 
 ## Exiting PiP ## {#example-exiting-pip}
 
-The website may want to close the {{DocumentPictureInPictureWindow}} without the
+The website may want to close the {{DocumentPictureInPictureSession}} without the
 user explicitly clicking on the window's close button. They can do this by using
 the <a method for="Window">close()</a> method on the {{Window}} object:
 
 <pre class="lang-javascript">
 // This will close the PiP window and trigger our existing onLeavePiP()
 // listener.
-pipWindow.document.defaultView.close();
+pipSession.window.close();
 </pre>
 
 ## Changing aspect ratio ## {#example-aspect-ratio}
@@ -412,7 +403,7 @@ pipWindow.document.defaultView.close();
 Sometimes the website will want to change the aspect ratio after the PiP window
 is open (e.g., because a new video is playing with a different aspect ratio).
 The website can change it via the {{setAspectRatio()}} method on the
-{{DocumentPictureInPictureWindow}} object.
+{{DocumentPictureInPictureSession}} object.
 
 <pre class="lang-javascript">
 const newVideo = document.createElement('video');
@@ -420,11 +411,11 @@ newVideo.id = 'video';
 newVideo.src = 'newvideo.webm';
 newVideo.addEventListener('loadedmetadata', async (_) => {
   const aspectRatio = newVideo.videoWidth / newVideo.videoHeight;
-  const player = pipWindow.document.querySelector('#player');
-  const oldVideo = pipWindow.document.querySelector('#video');
+  const player = pipSession.document.querySelector('#player');
+  const oldVideo = pipSession.document.querySelector('#video');
   player.remove(oldVideo);
   player.append(newVideo);
-  await pipWindow.setAspectRatio(aspectRatio);
+  await pipSession.setAspectRatio(aspectRatio);
 });
 newVideo.load();
 </pre>
@@ -434,15 +425,16 @@ newVideo.load();
 When the PiP window is closed for any reason (either because the website
 initiated it or the user closed it), the website will often want to get the
 elements back out of the PiP window. The website can perform this in an event
-handler for the {{leavepictureinpicture}} event on the {{PictureInPicture}}
-object. This is shown in the <code>onLeavePiP()</code> handler in
+handler for the {{Window/unload}} event on the
+{{DocumentPictureInPictureSession/window}} object. This is shown in the
+<code>onLeavePiP()</code> handler in
 <a href="#example-video-player">video player example</a> above and is copied
 below:
 
 <pre class="lang-javascript">
 // Called when the PiP window has closed.
-function onLeavePiP(event) {
-  if (event.pictureInPictureWindow !== pipWindow) {
+function onLeavePiP() {
+  if (this !== pipSession) {
     return;
   }
 
@@ -451,10 +443,10 @@ function onLeavePiP(event) {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipWindow.document.querySelector('#player');
+  const player = pipSession.document.querySelector('#player');
   playerContainer.append(player);
 
-  pipWindow = null;
+  pipSession = null;
 }
 </pre>
 
