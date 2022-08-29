@@ -77,12 +77,12 @@ a user.
 <pre class="idl">
 [Exposed=Window]
 partial interface Navigator {
-  [SameObject, SecureContext] readonly attribute PictureInPicture
-    pictureInPicture;
+  [SameObject, SecureContext] readonly attribute DocumentPictureInPicture
+    documentPictureInPicture;
 };
 
 [Exposed=Window]
-interface PictureInPicture : EventTarget {
+interface DocumentPictureInPicture : EventTarget {
   Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
   readonly attribute DocumentPictureInPictureSession session;
@@ -107,20 +107,20 @@ interface DocumentPictureInPictureSession {
 interface DocumentPictureInPictureEvent : Event {
   constructor(DOMString type, DocumentPictureInPictureEventInit eventInitDict);
   [SameObject] readonly attribute DocumentPictureInPictureSession
-    pictureInPictureSession;
+    documentPictureInPictureSession;
 };
 
 dictionary DocumentPictureInPictureEventInit : EventInit {
-  required DocumentPictureInPictureSession pictureInPictureSession;
+  required DocumentPictureInPictureSession documentPictureInPictureSession;
 };
 </pre>
 
 <p>
-A {{PictureInPicture}} object allows websites to create and open a new
+A {{DocumentPictureInPicture}} object allows websites to create and open a new
 {{DocumentPictureInPictureSession}} as well as listen for events related to
 opening and closing a {{DocumentPictureInPictureSession}}.
 
-The {{PictureInPicture/session}} attribute's getter MUST return the currently
+The {{DocumentPictureInPicture/session}} attribute's getter MUST return the currently
 open {{DocumentPictureInPictureSession}} for the current <a>browsing context</a>
 if there is one. Otherwise, it MUST return <code>null</code>.
 
@@ -162,16 +162,16 @@ The {{setLockAspectRatio(lockAspectRatio)}} method, when invoked, MUST return
 
 </p>
 
-: <dfn event for="PictureInPicture">enterpictureinpicture</dfn>
-:: Fired on {{PictureInPicture}} when a PiP window is opened.
+: <dfn event for="DocumentPictureInPicture">enterpictureinpicture</dfn>
+:: Fired on {{DocumentPictureInPicture}} when a PiP window is opened.
 
 # Concepts # {#concepts}
 
 ## Open DocumentPictureInPictureSession ## {#open-pip}
 
 When the <dfn>open DocumentPictureInPictureSession</dfn> algorithm is invoked
-with |options| on |pictureInPicture| of type {{PictureInPicture}}, the user
-agent MUST run the following steps:
+with |options| on |documentPictureInPicture| of type
+{{DocumentPictureInPicture}}, the user agent MUST run the following steps:
 
 1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
     {{NotSupportedError}} and abort these steps.
@@ -209,9 +209,9 @@ agent MUST run the following steps:
     {{DocumentPictureInPictureSession/window}} attribute set to
     {{DocumentPictureInPictureSession/document}}'s {{Document/defaultView}}.
 9. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
-    using {{DocumentPictureInPictureEvent}} on |pictureInPicture| with its
-    {{bubbles}} attribute initialized to <code>true</code> and its
-    {{DocumentPictureInPictureEvent/pictureInPictureSession}} attribute
+    using {{DocumentPictureInPictureEvent}} on |documentPictureInPicture| with
+    its {{bubbles}} attribute initialized to <code>true</code> and its
+    {{DocumentPictureInPictureEvent/documentPictureInPictureSession}} attribute
     initialized to |pipSession|.
 10. Return |pipSession|.
 
@@ -323,7 +323,7 @@ function enterPiP() {
     copyStyleSheets: true
   };
 
-  navigator.pictureInPicture.requestWindow(pipOptions).then((_pipSession) => {
+  navigator.documentPictureInPicture.requestWindow(pipOptions).then((_pipSession) => {
     pipSession = _pipSession;
 
     // Style remaining container to imply the player is in PiP.
