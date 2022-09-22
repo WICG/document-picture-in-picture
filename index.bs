@@ -49,9 +49,6 @@ conforming IDL fragments, as described in the Web IDL specification. [[!WEBIDL]]
 
 The API is limited to [[SECURE-CONTEXTS]].
 
-TODO: Why? Especially given that both the original PiP API and the window.open()
-API are allowed on non-secure contexts.
-
 ## Spoofing ## {#spoofing}
 
 It is RECOMMENDED that the user agent provides enough UI on the
