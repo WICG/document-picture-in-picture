@@ -81,23 +81,24 @@ partial interface Navigator {
     documentPictureInPicture;
 };
 
-[Exposed=Window]
+[Exposed=Window, SecureContext]
 interface DocumentPictureInPicture : EventTarget {
-  Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
+  [NewObject, RaisesException] Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
   readonly attribute DocumentPictureInPictureSession session;
   attribute EventHandler onenterpictureinpicture;
 };
 
 dictionary DocumentPictureInPictureOptions {
+  long width = 0;
+  long height = 0;
   float initialAspectRatio = 0.0;
   boolean lockAspectRatio = false;
   boolean copyStyleSheets = false;
 };
 
-[Exposed=Window]
+[Exposed=Window, SecureContext]
 interface DocumentPictureInPictureSession {
-  [SameObject] readonly attribute Document? document;
   [SameObject] readonly attribute Window? window;
   Promise&lt;undefined&gt; setAspectRatio(float aspectRatio);
   Promise&lt;undefined&gt; setLockAspectRatio(boolean lockAspectRatio);
@@ -183,41 +184,58 @@ with |options| on |documentPictureInPicture| of type
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
 4. Let |target browsing context| be a new <a>browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
-5. If |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}} exists
-    and is greater than zero:
+5. If |options|'s {{DocumentPictureInPictureOptions/width}} exists and is
+    greater than zero:
     1. OPTIONALLY, clamp or ignore |options|'s
+        {{DocumentPictureInPictureOptions/width}} if it is too large or too
+        small in order to fit a user-friendly window size.
+    2. Set the window width for the |target browsing context| to |options|'s
+        {{DocumentPictureInPictureOptions/width}}.
+6. If |options|'s {{DocumentPictureInPictureOptions/height}} exists and is
+    greater than zero:
+    1. OPTIONALLY, clamp or ignore |options|'s
+        {{DocumentPictureInPictureOptions/height}} if it is too large or too
+        small in order to fit a user-friendly window size.
+    2. Set the window height for the |target browsing context| to |options|'s
+        {{DocumentPictureInPictureOptions/height}}.
+7. If |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}} exists
+    and is greater than zero:
+    1. If |option|'s {{DocumentPictureInPictureOptions/width}} and
+        {{DocumentPictureInPictureOptions/height}} have been specified and don't
+        match the given {{DocumentPictureInPictureOptions/initialAspectRatio}},
+        the user agent MAY ignore the
+        {{DocumentPictureInPictureOptions/initialAspectRatio}}.
+    2. OPTIONALLY, clamp or ignore |options|'s
         {{DocumentPictureInPictureOptions/initialAspectRatio}} if it is too large
         or too small in order to fit a user-friendly window size.
-    2. Set the window size for the |target browsing context| to a |width| and
+    3. Set the window size for the |target browsing context| to a |width| and
         |height| such that |width| divided by |height| is approximately
         |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}}.
-    3. If |options|'s {{DocumentPictureInPictureOptions/lockAspectRatio}} exists
-        and is <code>true</code>, then the window should be configured such that
-        when a user resizes it, the aspect ratio of the window should remain
-        constant.
-6. Configure the window containing |target browsing context| to float on top of
+8. If |options|'s {{DocumentPictureInPictureOptions/lockAspectRatio}} exists
+    and is <code>true</code>, then the window should be configured such that
+    when a user resizes it, the aspect ratio of the window should remain
+    constant.
+9. Configure the window containing |target browsing context| to float on top of
     other windows.
-7. If |options|'s {{DocumentPictureInPictureOptions/copyStyleSheets}} exists and
+10. If |options|'s {{DocumentPictureInPictureOptions/copyStyleSheets}} exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
     |target browsing context|'s <a>associated Document</a>. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-8. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
-    {{DocumentPictureInPictureSession/document}} attribute set to |target
-    browsing context|'s <a>associated Document</a> and the
-    {{DocumentPictureInPictureSession/window}} attribute set to
-    {{DocumentPictureInPictureSession/document}}'s {{Document/defaultView}}.
-9. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
+11. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
+    {{DocumentPictureInPictureSession/window}} attribute set to |target
+    browsing context|.
+12. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
     using {{DocumentPictureInPictureEvent}} on |documentPictureInPicture| with
     its {{bubbles}} attribute initialized to <code>true</code> and its
     {{DocumentPictureInPictureEvent/documentPictureInPictureSession}} attribute
     initialized to |pipSession|.
-10. Return |pipSession|.
+13. Return |pipSession|.
 
 <p class="note">
-While the aspect ratio of the window can be configured by the website, the
-initial size and position is left to the discretion of the user agent.
+While the aspect ratio or size of the window can be configured by the website,
+the initial position is left to the discretion of the user agent.
 </p>
 
 ## Set Aspect Ratio ## {#concept-set-aspect-ratio}
@@ -330,7 +348,7 @@ function enterPiP() {
     playerContainer.classList.add('pip-mode');
 
     // Add player to the PiP window.
-    pipBody.append(player);
+    pipSession.window.document.body.append(player);
 
     // Listen for the PiP closing event to put the video back.
     pipSession.window.addEventListener('unload', onLeavePiP.bind(pipSession), { once: true });
@@ -348,7 +366,7 @@ function onLeavePiP() {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipSession.document.querySelector('#player');
+  const player = pipSession.window.document.querySelector('#player');
   playerContainer.append(player);
 
   pipSession = null;
@@ -371,13 +389,14 @@ As part of creating an improved picture-in-picture experience, websites will oft
 customize buttons and controls that need to respond to user input events such as clicks.
 
 <pre class="lang-javascript">
-const video = pipSession.document.querySelector('#video');
-const muteButton = pipSession.document.createElement('button');
+const pipDocument = pipSession.window.document;
+const video = pipDocument.querySelector('#video');
+const muteButton = pipDocument.document.createElement('button');
 muteButton.textContent = 'Toggle mute';
 muteButton.addEventListener('click', () => {
   video.muted = !video.muted;
 });
-pipSession.document.body.append(muteButton);
+pipDocument.body.append(muteButton);
 </pre>
 
 ## Exiting PiP ## {#example-exiting-pip}
@@ -405,8 +424,8 @@ newVideo.id = 'video';
 newVideo.src = 'newvideo.webm';
 newVideo.addEventListener('loadedmetadata', async (_) => {
   const aspectRatio = newVideo.videoWidth / newVideo.videoHeight;
-  const player = pipSession.document.querySelector('#player');
-  const oldVideo = pipSession.document.querySelector('#video');
+  const player = pipSession.window.document.querySelector('#player');
+  const oldVideo = pipSession.window.document.querySelector('#video');
   player.remove(oldVideo);
   player.append(newVideo);
   await pipSession.setAspectRatio(aspectRatio);
@@ -437,7 +456,7 @@ function onLeavePiP() {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipSession.document.querySelector('#player');
+  const player = pipSession.window.document.querySelector('#player');
   playerContainer.append(player);
 
   pipSession = null;
