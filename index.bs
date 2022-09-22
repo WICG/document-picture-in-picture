@@ -100,8 +100,6 @@ dictionary DocumentPictureInPictureOptions {
 [Exposed=Window, SecureContext]
 interface DocumentPictureInPictureSession {
   [SameObject] readonly attribute Window? window;
-  Promise&lt;undefined&gt; setAspectRatio(float aspectRatio);
-  Promise&lt;undefined&gt; setLockAspectRatio(boolean lockAspectRatio);
 };
 
 [Exposed=Window]
@@ -139,28 +137,6 @@ The {{requestWindow(options)}} method, when invoked, MUST return <a>a new promis
 A {{DocumentPictureInPictureSession}} object represents an always-on-top PiP
 window opened by {{requestWindow()}}. It gives the website a handle into the
 {{Document}} contained in the window.
-</p>
-
-<p>
-The {{setAspectRatio(aspectRatio)}} method, when invoked, MUST return
-<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
-
-1. Run the <a>set aspect ratio</a> algorithm with |aspectRatio|.
-2. If the previous step threw an exception, reject |promise| with that exception
-    and abort these steps.
-3. Resolve and return |promise|.
-
-</p>
-
-<p>
-The {{setLockAspectRatio(lockAspectRatio)}} method, when invoked, MUST return
-<a>a new promise</a> |promise| and run the following steps <a>in parallel</a>:
-
-1. Run the <a>set lock aspect ratio</a> algorithm with |lockAspectRatio|.
-2. If the previous step threw an exception, reject |promise| with that exception
-    and abort these steps.
-3. Resolve and return |promise|.
-
 </p>
 
 : <dfn event for="DocumentPictureInPicture">enterpictureinpicture</dfn>
@@ -237,42 +213,6 @@ with |options| on |documentPictureInPicture| of type
 While the aspect ratio or size of the window can be configured by the website,
 the initial position is left to the discretion of the user agent.
 </p>
-
-## Set Aspect Ratio ## {#concept-set-aspect-ratio}
-
-When the <dfn>set aspect ratio</dfn> algorithm is invoked with |aspectRatio| on
-|pipSession| of type {{DocumentPictureInPictureSession}}, the user agent MUST run
-the following steps:
-
-1. If |aspectRatio| <= 0, throw a {{RangeError}} and abort these steps.
-2. If |pipSession| has already closed, throw an {{InvalidStateError}} and abort
-    these steps.
-3. OPTIONALLY, clamp or ignore |aspectRatio| if it is too large or too small in
-    order to fit a user-friendly window size.
-4. Resize the window represented by |pipSession| to a |width| and |height| such
-    that |width| divided by |height| is approximately |aspectRatio| or the
-    alternative value determined in step 3.
-
-<p class="note">
-It is RECOMMENDED that when resizing to the new aspect ratio the user agent
-attempt to keep the total area and position of the window as consistent to the
-original total area and position as possible.
-</p>
-
-## Lock Aspect Ratio ## {#concept-lock-aspect-ratio}
-
-When the <dfn>set lock aspect ratio</dfn> algorithm is invoked with
-|lockAspectRatio| on |pipSession| of type {{DocumentPictureInPictureSession}}, the
-user agent MUST run the following steps:
-
-1. If |pipSession| has already closed, throw an {{InvalidStateError}} and abort
-    these steps.
-2. If |lockAspectRatio| is <code>true</code>, then the window represented by
-    |pipSession| should be configured such that when a user resizes it, the
-    aspect ratio of the window should remain constant.
-3. If |lockAspectRatio| is <code>false</code>, the the window represented by
-    |pipSession| should no longer be configured to keep the aspect ratio
-    constant.
 
 ## Document Picture-in-Picture Support ## {#pip-support}
 
@@ -409,28 +349,6 @@ the <a method for="Window">close()</a> method on the {{Window}} object:
 // This will close the PiP window and trigger our existing onLeavePiP()
 // listener.
 pipSession.window.close();
-</pre>
-
-## Changing aspect ratio ## {#example-aspect-ratio}
-
-Sometimes the website will want to change the aspect ratio after the PiP window
-is open (e.g., because a new video is playing with a different aspect ratio).
-The website can change it via the {{setAspectRatio()}} method on the
-{{DocumentPictureInPictureSession}} object.
-
-<pre class="lang-javascript">
-const newVideo = document.createElement('video');
-newVideo.id = 'video';
-newVideo.src = 'newvideo.webm';
-newVideo.addEventListener('loadedmetadata', async (_) => {
-  const aspectRatio = newVideo.videoWidth / newVideo.videoHeight;
-  const player = pipSession.window.document.querySelector('#player');
-  const oldVideo = pipSession.window.document.querySelector('#video');
-  player.remove(oldVideo);
-  player.append(newVideo);
-  await pipSession.setAspectRatio(aspectRatio);
-});
-newVideo.load();
 </pre>
 
 ## Getting elements out of the PiP window when it closes ## {#example-elements-out-on-close}
