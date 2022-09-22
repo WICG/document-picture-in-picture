@@ -200,7 +200,7 @@ with |options| on |documentPictureInPicture| of type
         {{DocumentPictureInPictureOptions/height}}.
 7. If |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}} exists
     and is greater than zero:
-    1. If |option|'s {{DocumentPictureInPictureOptions/width}} and
+    1. If |options|'s {{DocumentPictureInPictureOptions/width}} and
         {{DocumentPictureInPictureOptions/height}} have been specified and don't
         match the given {{DocumentPictureInPictureOptions/initialAspectRatio}},
         the user agent MAY ignore the
