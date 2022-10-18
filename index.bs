@@ -80,7 +80,7 @@ partial interface Navigator {
 
 [Exposed=Window, SecureContext]
 interface DocumentPictureInPicture : EventTarget {
-  [NewObject, RaisesException] Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
+  [NewObject] Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
   readonly attribute DocumentPictureInPictureSession session;
   attribute EventHandler onenterpictureinpicture;
