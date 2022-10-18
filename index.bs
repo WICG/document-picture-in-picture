@@ -51,13 +51,13 @@ The API is limited to [[SECURE-CONTEXTS]].
 
 ## Spoofing ## {#spoofing}
 
-It is RECOMMENDED that the user agent provides enough UI on the
+It is recommended that the user agent provides enough UI on the
 {{DocumentPictureInPictureSession}} to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
 UI. The website's inability to directly set the location or size of the PiP
 window helps alleviate some avenues of abuse.
 
-It is RECOMMENDED that the user agent makes it clear to the user which origin is
+It is recommended that the user agent makes it clear to the user which origin is
 controlling the {{DocumentPictureInPictureSession}} at all times.
 
 ## Fingerprinting ## {#fingerprinting}
@@ -65,7 +65,7 @@ controlling the {{DocumentPictureInPictureSession}} at all times.
 When a PiP window is closed and then later re-opened, it can be useful for the
 user agent to re-use size and location of the previous PiP window (modulo
 aspect-ratio constraints) to provide a smoother user experience. However, it is
-RECOMMENDED that the user agent does not re-use size/location across different
+recommended that the user agent does not re-use size/location across different
 origins as this may provide malicious websites an avenue for fingerprinting
 a user.
 
@@ -116,11 +116,11 @@ A {{DocumentPictureInPicture}} object allows websites to create and open a new
 {{DocumentPictureInPictureSession}} as well as listen for events related to
 opening and closing a {{DocumentPictureInPictureSession}}.
 
-The {{DocumentPictureInPicture/session}} attribute's getter MUST return the currently
+The {{DocumentPictureInPicture/session}} attribute's getter must return the currently
 open {{DocumentPictureInPictureSession}} for the current <a>browsing context</a>
-if there is one. Otherwise, it MUST return <code>null</code>.
+if there is one. Otherwise, it must return <code>null</code>.
 
-The {{requestWindow(options)}} method, when invoked, MUST return <a>a new promise</a>
+The {{requestWindow(options)}} method, when invoked, must return <a>a new promise</a>
 |promise| and run the following steps <a>in parallel</a>:
 
 1. Run the <a>open DocumentPictureInPictureSession</a> algorithm with |options|.
@@ -145,28 +145,28 @@ window opened by {{requestWindow()}}. It gives the website a handle into the
 
 When the <dfn>open DocumentPictureInPictureSession</dfn> algorithm is invoked
 with |options| on |documentPictureInPicture| of type
-{{DocumentPictureInPicture}}, the user agent MUST run the following steps:
+{{DocumentPictureInPicture}}, the user agent must run the following steps:
 
 1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
     {{NotSupportedError}} and abort these steps.
 2. If the <a>relevant global object</a> of <a>this</a> does not have
     <a>transient activation</a>, throw a {{NotAllowedError}} and abort these
     steps.
-3. The user agent MAY choose to close any existing
+3. The user agent may choose to close any existing
     {{DocumentPictureInPictureSession}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
 4. Let |target browsing context| be a new <a>browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
 5. If |options|'s {{DocumentPictureInPictureOptions/width}} exists and is
     greater than zero:
-    1. OPTIONALLY, clamp or ignore |options|'s
+    1. Optionally, clamp or ignore |options|'s
         {{DocumentPictureInPictureOptions/width}} if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window width for the |target browsing context| to |options|'s
         {{DocumentPictureInPictureOptions/width}}.
 6. If |options|'s {{DocumentPictureInPictureOptions/height}} exists and is
     greater than zero:
-    1. OPTIONALLY, clamp or ignore |options|'s
+    1. Optionally, clamp or ignore |options|'s
         {{DocumentPictureInPictureOptions/height}} if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window height for the |target browsing context| to |options|'s
@@ -176,9 +176,9 @@ with |options| on |documentPictureInPicture| of type
     1. If |options|'s {{DocumentPictureInPictureOptions/width}} and
         {{DocumentPictureInPictureOptions/height}} have been specified and don't
         match the given {{DocumentPictureInPictureOptions/initialAspectRatio}},
-        the user agent MAY ignore the
+        the user agent may ignore the
         {{DocumentPictureInPictureOptions/initialAspectRatio}}.
-    2. OPTIONALLY, clamp or ignore |options|'s
+    2. Optionally, clamp or ignore |options|'s
         {{DocumentPictureInPictureOptions/initialAspectRatio}} if it is too large
         or too small in order to fit a user-friendly window size.
     3. Set the window size for the |target browsing context| to a |width| and
@@ -225,7 +225,7 @@ Picture-in-Picture request while a {{DocumentPictureInPictureSession}} or
 <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>
 is already open will be left as an implementation detail: the current window
 could be closed, the Picture-in-Picture request could be rejected, or multiple
-Picture-in-Picture windows could be created. Regardless, the user agent MUST
+Picture-in-Picture windows could be created. Regardless, the user agent must
 fire the appropriate events in order to notify the websites of the
 Picture-in-Picture status changes.
 
@@ -238,7 +238,7 @@ have attributes that use a <a>relative-URL string</a> (e.g.
 <a attribute for="HTMLMediaElement">src</a>). Since the {{Document}} in a
 {{DocumentPictureInPictureSession}} is always navigated to the
 <code>about:blank</code> <a>URL</a>, these <a>relative-URL string</a>s would
-break. To prevent this, the user agent MUST parse <a>relative-URL string</a>s as
+break. To prevent this, the user agent must parse <a>relative-URL string</a>s as
 if they were being parsed on the {{Document}} that opened the
 {{DocumentPictureInPictureSession}}.
 
