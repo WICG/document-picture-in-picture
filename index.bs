@@ -116,17 +116,71 @@ A {{DocumentPictureInPicture}} object allows websites to create and open a new
 {{DocumentPictureInPictureSession}} as well as listen for events related to
 opening and closing a {{DocumentPictureInPictureSession}}.
 
-The {{DocumentPictureInPicture/session}} attribute's getter must return the currently
-open {{DocumentPictureInPictureSession}} for the current <a>browsing context</a>
-if there is one. Otherwise, it must return <code>null</code>.
+The {{DocumentPictureInPicture/session}} getter steps are:
 
-The {{requestWindow(options)}} method, when invoked, must return <a>a new promise</a>
-|promise| and run the following steps <a>in parallel</a>:
+1. Return the last {{DocumentPictureInPictureSession}} opened by <a>this</a> if
+    it exists and is still open. Otherwise, return <code>null</code>.
 
-1. Run the <a>open DocumentPictureInPictureSession</a> algorithm with |options|.
-2. If the previous step threw an exception, reject |promise| with that exception
+The {{requestWindow(options)}} method steps are:
+
+1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
+    "{{NotSupportedError}}" {{DOMException}} and abort these steps.
+2. If the <a>relevant global object</a> of <a>this</a> does not have
+    <a>transient activation</a>, throw a "{{NotAllowedError}}" {{DOMException}}
     and abort these steps.
-3. Return |promise| with the {{DocumentPictureInPictureSession}} from step 1.
+3. The user agent may choose to close any existing
+    {{DocumentPictureInPictureSession}}s or
+        <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
+4. Let |target browsing context| be a new <a>browsing context</a> navigated to
+    the <code>about:blank</code> <a>URL</a>.
+5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+    greater than zero:
+    1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
+        small in order to fit a user-friendly window size.
+    2. Set the window width for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/width}}"].
+6. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+    greater than zero:
+    1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
+        small in order to fit a user-friendly window size.
+    2. Set the window height for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/height}}"].
+7. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
+    and is greater than zero:
+    1. If |options|["{{DocumentPictureInPictureOptions/width}}"] and
+        |options|["{{DocumentPictureInPictureOptions/height}}"] have been specified and don't
+        match |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"],
+        the user agent may ignore |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
+    2. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] if it is too large
+        or too small in order to fit a user-friendly window size.
+    3. Set the window size for the |target browsing context| to a |width| and
+        |height| such that |width| divided by |height| is approximately
+        |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
+8. If |options|["{{DocumentPictureInPictureOptions/lockAspectRatio}}"] exists
+    and is <code>true</code>, then the window should be configured such that
+    when a user resizes it, the aspect ratio of the window should remain
+    constant.
+9. Configure the window containing |target browsing context| to float on top of
+    other windows.
+10. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+    is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
+    <a>associated Document</a> should be copied and applied to the
+    |target browsing context|'s <a>associated Document</a>. This is a one-time
+    copy, and any further changes to the current <a>associated Document</a>'s
+    <a>CSS style sheet</a>s will not be copied.
+11. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
+    {{DocumentPictureInPictureSession/window}} attribute set to |target
+    browsing context|.
+12. <a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
+    the <a>relevant global object</a> of <a>this</a> to <a>fire an event</a>
+    named {{enterpictureinpicture}} using {{DocumentPictureInPictureEvent}} on
+    <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
+    and its {{DocumentPictureInPictureEvent/documentPictureInPictureSession}}
+    attribute initialized to |pipSession|.
+13. Return |pipSession|.
+
+<p class="note">
+While the aspect ratio or size of the window can be configured by the website,
+the initial position is left to the discretion of the user agent.
+</p>
 
 </p>
 
@@ -140,76 +194,6 @@ window opened by {{requestWindow()}}. It gives the website a handle into the
 :: Fired on {{DocumentPictureInPicture}} when a PiP window is opened.
 
 # Concepts # {#concepts}
-
-## Open DocumentPictureInPictureSession ## {#open-pip}
-
-When the <dfn>open DocumentPictureInPictureSession</dfn> algorithm is invoked
-with |options| on |documentPictureInPicture| of type
-{{DocumentPictureInPicture}}, the user agent must run the following steps:
-
-1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
-    {{NotSupportedError}} and abort these steps.
-2. If the <a>relevant global object</a> of <a>this</a> does not have
-    <a>transient activation</a>, throw a {{NotAllowedError}} and abort these
-    steps.
-3. The user agent may choose to close any existing
-    {{DocumentPictureInPictureSession}}s or
-        <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
-4. Let |target browsing context| be a new <a>browsing context</a> navigated to
-    the <code>about:blank</code> <a>URL</a>.
-5. If |options|'s {{DocumentPictureInPictureOptions/width}} exists and is
-    greater than zero:
-    1. Optionally, clamp or ignore |options|'s
-        {{DocumentPictureInPictureOptions/width}} if it is too large or too
-        small in order to fit a user-friendly window size.
-    2. Set the window width for the |target browsing context| to |options|'s
-        {{DocumentPictureInPictureOptions/width}}.
-6. If |options|'s {{DocumentPictureInPictureOptions/height}} exists and is
-    greater than zero:
-    1. Optionally, clamp or ignore |options|'s
-        {{DocumentPictureInPictureOptions/height}} if it is too large or too
-        small in order to fit a user-friendly window size.
-    2. Set the window height for the |target browsing context| to |options|'s
-        {{DocumentPictureInPictureOptions/height}}.
-7. If |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}} exists
-    and is greater than zero:
-    1. If |options|'s {{DocumentPictureInPictureOptions/width}} and
-        {{DocumentPictureInPictureOptions/height}} have been specified and don't
-        match the given {{DocumentPictureInPictureOptions/initialAspectRatio}},
-        the user agent may ignore the
-        {{DocumentPictureInPictureOptions/initialAspectRatio}}.
-    2. Optionally, clamp or ignore |options|'s
-        {{DocumentPictureInPictureOptions/initialAspectRatio}} if it is too large
-        or too small in order to fit a user-friendly window size.
-    3. Set the window size for the |target browsing context| to a |width| and
-        |height| such that |width| divided by |height| is approximately
-        |options|'s {{DocumentPictureInPictureOptions/initialAspectRatio}}.
-8. If |options|'s {{DocumentPictureInPictureOptions/lockAspectRatio}} exists
-    and is <code>true</code>, then the window should be configured such that
-    when a user resizes it, the aspect ratio of the window should remain
-    constant.
-9. Configure the window containing |target browsing context| to float on top of
-    other windows.
-10. If |options|'s {{DocumentPictureInPictureOptions/copyStyleSheets}} exists and
-    is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
-    <a>associated Document</a> should be copied and applied to the
-    |target browsing context|'s <a>associated Document</a>. This is a one-time
-    copy, and any further changes to the current <a>associated Document</a>'s
-    <a>CSS style sheet</a>s will not be copied.
-11. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
-    {{DocumentPictureInPictureSession/window}} attribute set to |target
-    browsing context|.
-12. <a>Queue a task</a> to <a>fire an event</a> named {{enterpictureinpicture}}
-    using {{DocumentPictureInPictureEvent}} on |documentPictureInPicture| with
-    its {{bubbles}} attribute initialized to <code>true</code> and its
-    {{DocumentPictureInPictureEvent/documentPictureInPictureSession}} attribute
-    initialized to |pipSession|.
-13. Return |pipSession|.
-
-<p class="note">
-While the aspect ratio or size of the window can be configured by the website,
-the initial position is left to the discretion of the user agent.
-</p>
 
 ## Document Picture-in-Picture Support ## {#pip-support}
 
