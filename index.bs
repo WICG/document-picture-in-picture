@@ -52,13 +52,13 @@ The API is limited to [[SECURE-CONTEXTS]].
 ## Spoofing ## {#spoofing}
 
 It is recommended that the user agent provides enough UI on the
-{{DocumentPictureInPictureSession}} to prevent malicious websites from abusing
+{{DocumentPictureInPicture}} window to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
 UI. The website's inability to directly set the location or size of the PiP
 window helps alleviate some avenues of abuse.
 
 It is recommended that the user agent makes it clear to the user which origin is
-controlling the {{DocumentPictureInPictureSession}} at all times.
+controlling the {{DocumentPictureInPicture}} window at all times.
 
 ## Fingerprinting ## {#fingerprinting}
 
