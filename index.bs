@@ -83,7 +83,7 @@ interface DocumentPictureInPicture : EventTarget {
   [NewObject] Promise&lt;DocumentPictureInPictureSession&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
   readonly attribute DocumentPictureInPictureSession session;
-  attribute EventHandler onenterpictureinpicture;
+  attribute EventHandler onenter;
 };
 
 dictionary DocumentPictureInPictureOptions {
@@ -116,12 +116,26 @@ A {{DocumentPictureInPicture}} object allows websites to create and open a new
 {{DocumentPictureInPictureSession}} as well as listen for events related to
 opening and closing a {{DocumentPictureInPictureSession}}.
 
-The {{DocumentPictureInPicture/session}} getter steps are:
+Each {{Navigator}} object has an associated <dfn for="Navigator">documentPictureInPicture API</dfn>,
+which is a new {{DocumentPictureInPicture}} instance created alongside the {{Navigator}}.
+
+<div algorithm>
+The <dfn attribute for="Navigator">documentPictureInPicture</dfn> getter steps are:
+
+1. Return <a>this</a>'s <a>documentPictureInPicture API</a>.
+
+</div>
+
+<div algorithm>
+The <dfn attribute for="DocumentPictureInPicture">session</dfn> getter steps are:
 
 1. Return the last {{DocumentPictureInPictureSession}} opened by <a>this</a> if
     it exists and is still open. Otherwise, return <code>null</code>.
 
-The {{requestWindow(options)}} method steps are:
+</div>
+
+<div algorithm>
+The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> method steps are:
 
 1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
     "{{NotSupportedError}}" {{DOMException}} and abort these steps.
@@ -169,28 +183,43 @@ The {{requestWindow(options)}} method steps are:
 11. Let |pipSession| be a {{DocumentPictureInPictureSession}} object with the
     {{DocumentPictureInPictureSession/window}} attribute set to |target
     browsing context|.
-12. <a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
-    the <a>relevant global object</a> of <a>this</a> to <a>fire an event</a>
-    named {{enterpictureinpicture}} using {{DocumentPictureInPictureEvent}} on
+12. <a>Queue a global task</a> on the
+    <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
+    given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
+    named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
     and its {{DocumentPictureInPictureEvent/documentPictureInPictureSession}}
     attribute initialized to |pipSession|.
 13. Return |pipSession|.
+
+</div>
 
 <p class="note">
 While the aspect ratio or size of the window can be configured by the website,
 the initial position is left to the discretion of the user agent.
 </p>
 
-</p>
-
 <p>
 A {{DocumentPictureInPictureSession}} object represents an always-on-top PiP
 window opened by {{requestWindow()}}. It gives the website a handle into the
 {{Document}} contained in the window.
+
+Each {{DocumentPictureInPictureSession}} object has an associated <dfn for="DocumentPictureInPictureSession">window</dfn>,
+which is set during the <a>requestWindow(options)</a> method steps.
 </p>
 
-: <dfn event for="DocumentPictureInPicture">enterpictureinpicture</dfn>
+<div algorithm>
+
+The <dfn attribute for="DocumentPictureInPictureSession">window</dfn> getter steps are:
+
+1. Return <a>this</a>'s <a>window</a>.
+
+</div>
+
+</p>
+
+
+: <dfn event for="DocumentPictureInPicture">enter</dfn>
 :: Fired on {{DocumentPictureInPicture}} when a PiP window is opened.
 
 # Concepts # {#concepts}
