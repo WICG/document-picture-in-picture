@@ -1,6 +1,6 @@
 # Document Picture-in-Picture Explained
 
-2022-10-10
+2022-10-31
 
 ## What's all this then?
 
@@ -21,62 +21,6 @@ existing `window.open()` API, with some differences:
 - The PiP window cannot be navigated (any `window.history` or `window.location`
     calls that change to a new document will close the PiP window).
 - The PiP window cannot open more windows.
-
-### Proposed spec
-
-```webidl
-[Exposed=Window]
-partial interface Navigator {
-  [SameObject, SecureContext] readonly attribute DocumentPictureInPicture
-    documentPictureInPicture;
-};
-
-[Exposed=Window]
-interface DocumentPictureInPicture : EventTarget {
-  // Opens a new picture-in-picture window.
-  Promise<DocumentPictureInPictureSession> requestWindow(
-    optional DocumentPictureInPictureOptions options = {});
-
-  // Accessor for the currently open picture-in-picture window, if one exists.
-  readonly attribute DocumentPictureInPictureSession session;
-
-  // Event fired when a picture-in-picture window is opened.
-  attribute EventHandler onenterpictureinpicture;
-};
-
-dictionary DocumentPictureInPictureOptions {
-  // The desired aspect ratio of the picture-in-picture window when it opens.
-  // An initial aspect ratio of 0.0 implies that the website does not care to
-  // set an initial aspect ratio and the UA can determine a size.
-  float initialAspectRatio = 0.0;
-
-  // True if the UA should force the aspect ratio of the picture-in-picture
-  // window to remain constant when the user resizes the window.
-  boolean lockAspectRatio = false;
-
-  // True if the UA should copy the stylesheets on the current document into the
-  // picture-in-picture document.
-  boolean copyStyleSheets = false;
-};
-
-[Exposed=Window]
-interface DocumentPictureInPictureSession {
-  [SameObject] readonly attribute Window? window;
-  Promise<undefined> setAspectRatio(float aspectRatio);
-  Promise<undefined> setLockAspectRatio(boolean lockAspectRatio);
-};
-
-[Exposed=Window]
-interface DocumentPictureInPictureEvent : Event {
-  constructor(DOMString type, DocumentPictureInPictureEventInit eventInitDict);
-  [SameObject] readonly attribute DocumentPictureInPictureSession
-    documentPictureInPictureSession;
-};
-
-dictionary DocumentPictureInPictureEventInit : EventInit {
-  required DocumentPictureInPictureSession documentPictureInPictureSession;
-};
-```
 
 ### Goals
 
@@ -135,7 +79,7 @@ muting another user, raising a hand, etc.
 
 ```js
 // Handle to the picture-in-picture window.
-let pipSession = null;
+let pipWindow = null;
 
 function enterPiP() {
   const player = document.querySelector('#player');
@@ -146,8 +90,8 @@ function enterPiP() {
     copyStyleSheets: true
   };
 
-  navigator.documentPictureInPicture.requestWindow(pipOptions).then((_pipSession) => {
-    pipSession = _pipSession;
+  navigator.documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
+    pipWindow = pipWin;
 
     // Style remaining container to imply the player is in PiP.
     playerContainer.classList.add('pip-mode');
@@ -156,13 +100,13 @@ function enterPiP() {
     pipBody.append(player);
 
     // Listen for the PiP closing event to put the video back.
-    pipSession.window.addEventListener('unload', onLeavePiP.bind(pipSession), { once: true });
+    pipWindow.addEventListener('unload', onLeavePiP.bind(pipWindow), { once: true });
   });
 }
 
 // Called when the PiP window has closed.
 function onLeavePiP() {
-  if (this !== pipSession) {
+  if (this !== pipWindow) {
     return;
   }
 
@@ -171,10 +115,10 @@ function onLeavePiP() {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipSession.document.querySelector('#player');
+  const player = pipWindow.document.querySelector('#player');
   playerContainer.append(player);
 
-  pipSession = null;
+  pipWindow = null;
 }
 ```
 
@@ -182,11 +126,8 @@ function onLeavePiP() {
 
 ### Accessing elements on the PiP window
 
-The `window` attribute provides access to the DOM of the
-`DocumentPictureInPictureSession` object:
-
 ```js
-const video = pipSession.window.document.querySelector('#video');
+const video = pipWindow.document.querySelector('#video');
 video.loop = true;
 ```
 
@@ -197,7 +138,7 @@ often want customize buttons and controls that need to respond to user input
 events such as clicks.
 
 ```js
-const pipDocument = pipSession.window.document;
+const pipDocument = pipWindow.document;
 const video = pipDocument.querySelector('#video');
 const muteButton = pipDocument.createElement('button');
 muteButton.textContent = 'Toggle mute';
@@ -209,36 +150,14 @@ pipDocument.body.append(muteButton);
 
 ### Exiting PiP
 
-The website may decide to close the `DocumentPictureInPictureSession` without
+The website may decide to close the `DocumentPictureInPicture` window without
 the user explicitly clicking on the window's close button. They can do this by
 using the `close()` method on the `Window` object:
 
 ```js
 // This will close the PiP window and trigger our existing onLeavePiP()
 // listener.
-pipSession.window.close();
-```
-
-### Changing aspect ratio
-
-Sometimes the website will want to change the aspect ratio after the PiP window
-is open (e.g., because a new video is playing with a different aspect ratio).
-The website can change it via the `setAspectRatio()` method on the
-`DocumentPictureInPictureSession`:
-
-```js
-const newVideo = document.createElement('video');
-newVideo.id = 'video';
-newVideo.src = 'newvideo.webm';
-newVideo.addEventListener('loadedmetadata', async (_) => {
-  const aspectRatio = newVideo.videoWidth / newVideo.videoHeight;
-  const player = pipSession.window.document.querySelector('#player');
-  const oldVideo = pipSession.window.document.querySelector('#video');
-  player.remove(oldVideo);
-  player.append(newVideo);
-  await pipSession.setAspectRatio(aspectRatio);
-});
-newVideo.load();
+pipWindow.close();
 ```
 
 ### Getting elements out of the PiP window when it closes
@@ -246,15 +165,14 @@ newVideo.load();
 When the PiP window is closed for any reason (either because the website
 initiated it or the user closed it), the website will often want to get the
 elements back out of the PiP window. The website can perform this in an event
-handler for the `unload` event on the `window` associated with the
-`DocumentPictureInPictureSession` object. This is shown in the
+handler for the `unload` event on the `Window` object. This is shown in the
 `onLeavePiP()` handler in [Example code](#example-code) section above and is
 copied below:
 
 ```js
 // Called when the PiP window has closed.
 function onLeavePiP() {
-  if (this !== pipSession) {
+  if (this !== pipWindow) {
     return;
   }
 
@@ -263,10 +181,10 @@ function onLeavePiP() {
   playerContainer.classList.remove('pip-mode');
 
   // Add the player back to the main window.
-  const player = pipSession.document.querySelector('#player');
+  const player = pipWindow.document.querySelector('#player');
   playerContainer.append(player);
 
-  pipSession = null;
+  pipWindow = null;
 }
 ```
 
