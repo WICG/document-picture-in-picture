@@ -59,6 +59,14 @@ in Picture-in-Picture, the website can easily combine multiple video streams
 into a single PiP window and provide custom controls like sending a message,
 muting another user, raising a hand, etc.
 
+#### Pomodoro timers
+
+The Pomodoro technique is a time management method that uses a kitchen timer to
+break work into intervals, typically 25 minutes in length, separated by short
+breaks. Pomodoro timer apps on desktop and mobile can use the PiP feature to
+display the current timer permanently on the screen as a floating timer for
+timed focus management while sat at a desk or while on the go.
+
 ## Example code
 
 ### HTML
