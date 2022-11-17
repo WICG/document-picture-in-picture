@@ -98,7 +98,7 @@ function enterPiP() {
     copyStyleSheets: true
   };
 
-  navigator.documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
+  documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
     pipWindow = pipWin;
 
     // Style remaining container to imply the player is in PiP.

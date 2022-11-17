@@ -73,7 +73,7 @@ a user.
 
 <pre class="idl">
 [Exposed=Window]
-partial interface Navigator {
+partial interface Window {
   [SameObject, SecureContext] readonly attribute DocumentPictureInPicture
     documentPictureInPicture;
 };
@@ -110,11 +110,11 @@ A {{DocumentPictureInPicture}} object allows websites to create and open a new
 always-on-top {{Window}} as well as listen for events related to opening and
 closing that {{Window}}.
 
-Each {{Navigator}} object has an associated <dfn for="Navigator">documentPictureInPicture API</dfn>,
-which is a new {{DocumentPictureInPicture}} instance created alongside the {{Navigator}}.
+Each {{Window}} object has an associated <dfn for="Window">documentPictureInPicture API</dfn>,
+which is a new {{DocumentPictureInPicture}} instance created alongside the {{Window}}.
 
 <div algorithm>
-The <dfn attribute for="Navigator">documentPictureInPicture</dfn> getter steps are:
+The <dfn attribute for="Window">documentPictureInPicture</dfn> getter steps are:
 
 1. Return <a>this</a>'s <a>documentPictureInPicture API</a>.
 
@@ -265,7 +265,7 @@ function enterPiP() {
     copyStyleSheets: true
   };
 
-  navigator.documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
+  documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
     pipWindow = pipWin;
 
     // Style remaining container to imply the player is in PiP.
