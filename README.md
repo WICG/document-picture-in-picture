@@ -89,26 +89,27 @@ timed focus management while sat at a desk or while on the go.
 // Handle to the picture-in-picture window.
 let pipWindow = null;
 
-function enterPiP() {
-  const player = document.querySelector('#player');
+async function enterPiP() {
+  const player = document.querySelector("#player");
 
   const pipOptions = {
     initialAspectRatio: player.clientWidth / player.clientHeight,
     lockAspectRatio: true,
-    copyStyleSheets: true
+    copyStyleSheets: true,
   };
 
-  documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
-    pipWindow = pipWin;
+  pipWindow = await documentPictureInPicture.requestWindow(pipOptions);
 
-    // Style remaining container to imply the player is in PiP.
-    playerContainer.classList.add('pip-mode');
+  // Style remaining container to imply the player is in PiP.
+  const playerContainer = document.querySelector("#player-container");
+  playerContainer.classList.add("pip-mode");
 
-    // Add player to the PiP window.
-    pipBody.append(player);
+  // Add player to the PiP window.
+  pipWindow.document.body.append(player);
 
-    // Listen for the PiP closing event to put the video back.
-    pipWindow.addEventListener('unload', onLeavePiP.bind(pipWindow), { once: true });
+  // Listen for the PiP closing event to put the video back.
+  pipWindow.addEventListener("unload", onLeavePiP.bind(pipWindow), {
+    once: true,
   });
 }
 
@@ -119,12 +120,12 @@ function onLeavePiP() {
   }
 
   // Remove PiP styling from the container.
-  const playerContainer = document.querySelector('#player-container');
-  playerContainer.classList.remove('pip-mode');
+  const playerContainer = document.querySelector("#player-container");
+  playerContainer.classList.remove("pip-mode");
 
   // Add the player back to the main window.
-  const player = pipWindow.document.querySelector('#player');
-  playerContainer.append(player);
+  const pipPlayer = pipWindow.document.querySelector("#player");
+  playerContainer.append(pipPlayer);
 
   pipWindow = null;
 }
@@ -135,8 +136,8 @@ function onLeavePiP() {
 ### Accessing elements on the PiP window
 
 ```js
-const video = pipWindow.document.querySelector('#video');
-video.loop = true;
+const pipVideo = pipWindow.document.querySelector("#video");
+pipVideo.loop = true;
 ```
 
 ### Listening to events on the PiP window
@@ -146,14 +147,13 @@ often want customize buttons and controls that need to respond to user input
 events such as clicks.
 
 ```js
-const pipDocument = pipWindow.document;
-const video = pipDocument.querySelector('#video');
-const muteButton = pipDocument.createElement('button');
-muteButton.textContent = 'Toggle mute';
-muteButton.addEventListener('click', () => {
-  video.muted = !video.muted;
+const pipVideo = pipWindow.document.querySelector("#video");
+const pipMuteButton = pipWindow.document.createElement("button");
+pipMuteButton.textContent = "Toggle mute";
+pipMuteButton.addEventListener("click", () => {
+  pipVideo.muted = !pipVideo.muted;
 });
-pipDocument.body.append(muteButton);
+pipWindow.document.body.append(pipMuteButton);
 ```
 
 ### Exiting PiP
@@ -185,12 +185,12 @@ function onLeavePiP() {
   }
 
   // Remove PiP styling from the container.
-  const playerContainer = document.querySelector('#player-container');
-  playerContainer.classList.remove('pip-mode');
+  const playerContainer = document.querySelector("#player-container");
+  playerContainer.classList.remove("pip-mode");
 
   // Add the player back to the main window.
-  const player = pipWindow.document.querySelector('#player');
-  playerContainer.append(player);
+  const pipPlayer = pipWindow.document.querySelector("#player");
+  playerContainer.append(pipPlayer);
 
   pipWindow = null;
 }
