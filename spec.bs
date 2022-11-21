@@ -13,7 +13,6 @@ Abstract: in an always-on-top window.
 
 <pre class="link-defaults">
 spec:dom; type:attribute; text:bubbles
-spec:html; type:dfn; for:/; text:browsing context
 spec:url; type:dfn; for:/; text:url
 </pre>
 
@@ -43,7 +42,7 @@ differences:
 The IDL fragments in this specification must be interpreted as required for
 conforming IDL fragments, as described in the Web IDL specification. [[!WEBIDL]]
 
-# Security and Privacy Considerations # {#security-privacy-considerations}
+# Security Considerations # {#security-considerations}
 
 ## Secure Context ## {#secure-context}
 
@@ -59,6 +58,8 @@ window helps alleviate some avenues of abuse.
 
 It is recommended that the user agent makes it clear to the user which origin is
 controlling the {{DocumentPictureInPicture}} window at all times.
+
+# Privacy Considerations # {#privacy-considerations}
 
 ## Fingerprinting ## {#fingerprinting}
 
@@ -139,7 +140,8 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 3. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
-4. Let |target browsing context| be a new <a>browsing context</a> navigated to
+4. Let |target browsing context| be a new
+    <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
 5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
