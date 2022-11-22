@@ -88,8 +88,8 @@ interface DocumentPictureInPicture : EventTarget {
 };
 
 dictionary DocumentPictureInPictureOptions {
-  long width = 0;
-  long height = 0;
+  [EnforceRange] unsigned long long width = 0;
+  [EnforceRange] unsigned long long height = 0;
   float initialAspectRatio = 0.0;
   boolean lockAspectRatio = false;
   boolean copyStyleSheets = false;
