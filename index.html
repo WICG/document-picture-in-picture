@@ -754,7 +754,7 @@ a user.</p>
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></dfn> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></dfn> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange①"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></dfn> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float"><c- b>float</c-></a> <dfn class="dfn-paneled idl-code" data-default="0.0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="float " id="dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></dfn> = 0.0;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <dfn class="dfn-paneled idl-code" data-default="0.0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="double " id="dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></dfn> = 0.0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-lockaspectratio"><code><c- g>lockAspectRatio</c-></code></dfn> = <c- b>false</c->;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></dfn> = <c- b>false</c->;
 };
@@ -1257,10 +1257,10 @@ and contributions to this document and to the discussions that have informed it.
     <li><a href="#ref-for-idl-boolean">5. API</a> <a href="#ref-for-idl-boolean①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-float">
-   <a href="https://webidl.spec.whatwg.org/#idl-float">https://webidl.spec.whatwg.org/#idl-float</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-idl-double">
+   <a href="https://webidl.spec.whatwg.org/#idl-double">https://webidl.spec.whatwg.org/#idl-double</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-float">5. API</a>
+    <li><a href="#ref-for-idl-double">5. API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-this">
@@ -1327,7 +1327,7 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="term-for-SameObject">SameObject</span>
      <li><span class="dfn-paneled" id="term-for-SecureContext">SecureContext</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-idl-float">float</span>
+     <li><span class="dfn-paneled" id="term-for-idl-double">double</span>
      <li><span class="dfn-paneled" id="term-for-this">this</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long">unsigned long long</span>
     </ul>
@@ -1371,7 +1371,7 @@ and contributions to this document and to the discussions that have informed it.
 <c- b>dictionary</c-> <a href="#dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></a> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></a> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></a> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-default="0.0" data-type="float " href="#dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></a> = 0.0;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double"><c- b>double</c-></a> <a data-default="0.0" data-type="double " href="#dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></a> = 0.0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-documentpictureinpictureoptions-lockaspectratio"><code><c- g>lockAspectRatio</c-></code></a> = <c- b>false</c->;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></a> = <c- b>false</c->;
 };
