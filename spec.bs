@@ -91,7 +91,6 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   double initialAspectRatio = 0.0;
-  boolean lockAspectRatio = false;
   boolean copyStyleSheets = false;
 };
 
@@ -164,26 +163,22 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     3. Set the window size for the |target browsing context| to a |width| and
         |height| such that |width| divided by |height| is approximately
         |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
-8. If |options|["{{DocumentPictureInPictureOptions/lockAspectRatio}}"] exists
-    and is <code>true</code>, then the window should be configured such that
-    when a user resizes it, the aspect ratio of the window should remain
-    constant.
-9. Configure the window containing |target browsing context| to float on top of
+8. Configure the window containing |target browsing context| to float on top of
     other windows.
-10. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+9. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
     |target browsing context|'s <a>associated Document</a>. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-11. <a>Queue a global task</a> on the
+10. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
     and its {{DocumentPictureInPictureEvent/window}}
     attribute initialized to |target browsing context|.
-12. Return |target browsing context|.
+11. Return |target browsing context|.
 
 </div>
 
@@ -260,10 +255,9 @@ let pipWindow = null;
 function enterPiP() {
   const player = document.querySelector('#player');
 
-  // Lock the aspect ratio so the window is always properly sized to the video.
+  // Set the aspect ratio so the window is properly sized to the video.
   const pipOptions = {
     initialAspectRatio: player.clientWidth / player.clientHeight,
-    lockAspectRatio: true,
     copyStyleSheets: true
   };
 

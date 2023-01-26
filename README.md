@@ -94,7 +94,6 @@ async function enterPiP() {
 
   const pipOptions = {
     initialAspectRatio: player.clientWidth / player.clientHeight,
-    lockAspectRatio: true,
     copyStyleSheets: true,
   };
 
