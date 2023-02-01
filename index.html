@@ -6,7 +6,7 @@
   <meta content="w3c/UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
+  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
   <link href="http://example.com/url-this-spec-will-live-at" rel="canonical">
 <style>/* style-autolinks */
 
@@ -597,7 +597,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2022-12-09">9 December 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-02-01">1 February 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -612,7 +612,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -755,8 +755,7 @@ a user.</p>
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></dfn> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange①"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></dfn> = 0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <dfn class="dfn-paneled idl-code" data-default="0.0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="double " id="dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></dfn> = 0.0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-lockaspectratio"><code><c- g>lockAspectRatio</c-></code></dfn> = <c- b>false</c->;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></dfn> = <c- b>false</c->;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></dfn> = <c- b>false</c->;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=<c- n>Window</c->]
@@ -838,11 +837,6 @@ or too small in order to fit a user-friendly window size.</p>
         <p>Set the window size for the <var>target browsing context</var> to a <var>width</var> and <var>height</var> such that <var>width</var> divided by <var>height</var> is approximately <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio④">initialAspectRatio</a></code>"].</p>
       </ol>
      <li data-md>
-      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-lockaspectratio" id="ref-for-dom-documentpictureinpictureoptions-lockaspectratio">lockAspectRatio</a></code>"] exists
-and is <code>true</code>, then the window should be configured such that
-when a user resizes it, the aspect ratio of the window should remain
-constant.</p>
-     <li data-md>
       <p>Configure the window containing <var>target browsing context</var> to float on top of
 other windows.</p>
      <li data-md>
@@ -903,10 +897,9 @@ if they were being parsed on the <code class="idl"><a data-link-type="idl" href=
 <c- a>function</c-> enterPiP<c- p>()</c-> <c- p>{</c->
   <c- a>const</c-> player <c- o>=</c-> document<c- p>.</c->querySelector<c- p>(</c-><c- t>'#player'</c-><c- p>);</c->
 
-  <c- c1>// Lock the aspect ratio so the window is always properly sized to the video.</c->
+  <c- c1>// Set the aspect ratio so the window is properly sized to the video.</c->
   <c- a>const</c-> pipOptions <c- o>=</c-> <c- p>{</c->
     initialAspectRatio<c- o>:</c-> player<c- p>.</c->clientWidth <c- o>/</c-> player<c- p>.</c->clientHeight<c- p>,</c->
-    lockAspectRatio<c- o>:</c-> <c- kc>true</c-><c- p>,</c->
     copyStyleSheets<c- o>:</c-> <c- kc>true</c->
   <c- p>};</c->
 
@@ -1050,7 +1043,6 @@ and contributions to this document and to the discussions that have informed it.
    <li><a href="#eventdef-documentpictureinpicture-enter">enter</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpictureoptions-height">height</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpictureoptions-initialaspectratio">initialAspectRatio</a><span>, in § 5</span>
-   <li><a href="#dom-documentpictureinpictureoptions-lockaspectratio">lockAspectRatio</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-onenter">onenter</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-requestwindow">requestWindow()</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-requestwindow">requestWindow(options)</a><span>, in § 5</span>
@@ -1254,7 +1246,7 @@ and contributions to this document and to the discussions that have informed it.
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
    <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-boolean">5. API</a> <a href="#ref-for-idl-boolean①">(2)</a>
+    <li><a href="#ref-for-idl-boolean">5. API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-double">
@@ -1372,7 +1364,6 @@ and contributions to this document and to the discussions that have informed it.
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></a> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></a> = 0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double"><c- b>double</c-></a> <a data-default="0.0" data-type="double " href="#dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></a> = 0.0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-documentpictureinpictureoptions-lockaspectratio"><code><c- g>lockAspectRatio</c-></code></a> = <c- b>false</c->;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></a> = <c- b>false</c->;
 };
 
@@ -1419,12 +1410,6 @@ and contributions to this document and to the discussions that have informed it.
    <b><a href="#dom-documentpictureinpictureoptions-initialaspectratio">#dom-documentpictureinpictureoptions-initialaspectratio</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio④">(5)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-lockaspectratio">
-   <b><a href="#dom-documentpictureinpictureoptions-lockaspectratio">#dom-documentpictureinpictureoptions-lockaspectratio</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-lockaspectratio">5. API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-copystylesheets">
