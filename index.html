@@ -597,7 +597,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-02-01">1 February 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-02-02">2 February 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -642,6 +642,7 @@ in an always-on-top window.</p>
      <ol class="toc">
       <li><a href="#secure-context"><span class="secno">3.1</span> <span class="content">Secure Context</span></a>
       <li><a href="#spoofing"><span class="secno">3.2</span> <span class="content">Spoofing</span></a>
+      <li><a href="#iframes"><span class="secno">3.3</span> <span class="content">IFrames</span></a>
      </ol>
     <li>
      <a href="#privacy-considerations"><span class="secno">4</span> <span class="content">Privacy Considerations</span></a>
@@ -728,6 +729,8 @@ UI. The website’s inability to directly set the location or size of the PiP
 window helps alleviate some avenues of abuse.</p>
    <p>It is recommended that the user agent makes it clear to the user which origin is
 controlling the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture①">DocumentPictureInPicture</a></code> window at all times.</p>
+   <h3 class="heading settled" data-level="3.3" id="iframes"><span class="secno">3.3. </span><span class="content">IFrames</span><a class="self-link" href="#iframes"></a></h3>
+   <p>This API is only available on a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>. However, the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture②">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code> itself may contain <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement">HTMLIFrameElement</a></code>s, even <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">cross-origin</a> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement①">HTMLIFrameElement</a></code>s.</p>
    <h2 class="heading settled" data-level="4" id="privacy-considerations"><span class="secno">4. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy-considerations"></a></h2>
    <h3 class="heading settled" data-level="4.1" id="fingerprinting"><span class="secno">4.1. </span><span class="content">Fingerprinting</span><a class="self-link" href="#fingerprinting"></a></h3>
    <p>When a PiP window is closed and then later re-opened, it can be useful for the
@@ -738,16 +741,16 @@ origins as this may provide malicious websites an avenue for fingerprinting
 a user.</p>
    <h2 class="heading settled" data-level="5" id="api"><span class="secno">5. </span><span class="content">API</span><a class="self-link" href="#api"></a></h2>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①"><c- g>Window</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext"><c- g>SecureContext</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture②"><c- n>DocumentPictureInPicture</c-></a>
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window②"><c- g>Window</c-></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext"><c- g>SecureContext</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture③"><c- n>DocumentPictureInPicture</c-></a>
     <a class="idl-code" data-link-type="attribute" data-readonly data-type="DocumentPictureInPicture" href="#dom-window-documentpictureinpicture" id="ref-for-dom-window-documentpictureinpicture"><c- g>documentPictureInPicture</c-></a>;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=<c- n>Window</c->, <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①"><c- g>SecureContext</c-></a>]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="documentpictureinpicture"><code><c- g>DocumentPictureInPicture</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#NewObject" id="ref-for-NewObject"><c- g>NewObject</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window②"><c- n>Window</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-documentpictureinpicture-requestwindow" id="ref-for-dom-documentpictureinpicture-requestwindow"><c- g>requestWindow</c-></a>(
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#NewObject" id="ref-for-NewObject"><c- g>NewObject</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window③"><c- n>Window</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-documentpictureinpicture-requestwindow" id="ref-for-dom-documentpictureinpicture-requestwindow"><c- g>requestWindow</c-></a>(
     <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-documentpictureinpictureoptions" id="ref-for-dictdef-documentpictureinpictureoptions"><c- n>DocumentPictureInPictureOptions</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPicture/requestWindow(options), DocumentPictureInPicture/requestWindow()" data-dfn-type="argument" data-export id="dom-documentpictureinpicture-requestwindow-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-documentpictureinpicture-requestwindow-options-options"></a></dfn> = {});
-  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window③"><c- n>Window</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="Window" href="#dom-documentpictureinpicture-window" id="ref-for-dom-documentpictureinpicture-window"><c- g>window</c-></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window④"><c- n>Window</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="Window" href="#dom-documentpictureinpicture-window" id="ref-for-dom-documentpictureinpicture-window"><c- g>window</c-></a>;
   <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPicture" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-documentpictureinpicture-onenter"><code><c- g>onenter</c-></code><a class="self-link" href="#dom-documentpictureinpicture-onenter"></a></dfn>;
 };
 
@@ -761,18 +764,18 @@ a user.</p>
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="documentpictureinpictureevent"><code><c- g>DocumentPictureInPictureEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
   <dfn class="idl-code" data-dfn-for="DocumentPictureInPictureEvent" data-dfn-type="constructor" data-export data-lt="DocumentPictureInPictureEvent(type, eventInitDict)|constructor(type, eventInitDict)" id="dom-documentpictureinpictureevent-documentpictureinpictureevent"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-documentpictureinpictureevent-documentpictureinpictureevent"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPictureEvent/DocumentPictureInPictureEvent(type, eventInitDict), DocumentPictureInPictureEvent/constructor(type, eventInitDict)" data-dfn-type="argument" data-export id="dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-type"></a></dfn>, <a data-link-type="idl-name" href="#dictdef-documentpictureinpictureeventinit" id="ref-for-dictdef-documentpictureinpictureeventinit"><c- n>DocumentPictureInPictureEventInit</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPictureEvent/DocumentPictureInPictureEvent(type, eventInitDict), DocumentPictureInPictureEvent/constructor(type, eventInitDict)" data-dfn-type="argument" data-export id="dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-eventinitdict"><code><c- g>eventInitDict</c-></code><a class="self-link" href="#dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-eventinitdict"></a></dfn>);
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject①"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window④"><c- n>Window</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="DocumentPictureInPictureEvent" data-dfn-type="attribute" data-export data-readonly data-type="Window" id="dom-documentpictureinpictureevent-window"><code><c- g>window</c-></code></dfn>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject①"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑤"><c- n>Window</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="DocumentPictureInPictureEvent" data-dfn-type="attribute" data-export data-readonly data-type="Window" id="dom-documentpictureinpictureevent-window"><code><c- g>window</c-></code></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-documentpictureinpictureeventinit"><code><c- g>DocumentPictureInPictureEventInit</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit" id="ref-for-dictdef-eventinit"><c- n>EventInit</c-></a> {
-  <c- b>required</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑤"><c- n>Window</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPictureEventInit" data-dfn-type="dict-member" data-export data-type="Window " id="dom-documentpictureinpictureeventinit-window"><code><c- g>window</c-></code><a class="self-link" href="#dom-documentpictureinpictureeventinit-window"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑥"><c- n>Window</c-></a> <dfn class="idl-code" data-dfn-for="DocumentPictureInPictureEventInit" data-dfn-type="dict-member" data-export data-type="Window " id="dom-documentpictureinpictureeventinit-window"><code><c- g>window</c-></code><a class="self-link" href="#dom-documentpictureinpictureeventinit-window"></a></dfn>;
 };
 </pre>
-   <p> A <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture③">DocumentPictureInPicture</a></code> object allows websites to create and open a new
-always-on-top <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑥">Window</a></code> as well as listen for events related to opening and
-closing that <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑦">Window</a></code>. </p>
-   <p>Each <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑧">Window</a></code> object has an associated <dfn class="dfn-paneled" data-dfn-for="Window" data-dfn-type="dfn" data-noexport id="window-documentpictureinpicture-api">documentPictureInPicture API</dfn>,
-which is a new <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture④">DocumentPictureInPicture</a></code> instance created alongside the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑨">Window</a></code>.</p>
+   <p> A <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture④">DocumentPictureInPicture</a></code> object allows websites to create and open a new
+always-on-top <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑦">Window</a></code> as well as listen for events related to opening and
+closing that <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑧">Window</a></code>. </p>
+   <p>Each <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window⑨">Window</a></code> object has an associated <dfn class="dfn-paneled" data-dfn-for="Window" data-dfn-type="dfn" data-noexport id="window-documentpictureinpicture-api">documentPictureInPicture API</dfn>,
+which is a new <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑤">DocumentPictureInPicture</a></code> instance created alongside the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⓪">Window</a></code>.</p>
    <div class="algorithm" data-algorithm="documentPictureInPicture" data-algorithm-for="Window">
      The <dfn class="dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="attribute" data-export id="dom-window-documentpictureinpicture"><code>documentPictureInPicture</code></dfn> getter steps are: 
     <ol>
@@ -784,7 +787,7 @@ which is a new <code class="idl"><a data-link-type="idl" href="#documentpicturei
      The <dfn class="dfn-paneled idl-code" data-dfn-for="DocumentPictureInPicture" data-dfn-type="attribute" data-export id="dom-documentpictureinpicture-window"><code>window</code></dfn> getter steps are: 
     <ol>
      <li data-md>
-      <p>Return the last <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⓪">Window</a></code> opened by <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> if it exists and is still
+      <p>Return the last <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①①">Window</a></code> opened by <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> if it exists and is still
 open. Otherwise, return <code>null</code>.</p>
     </ol>
    </div>
@@ -795,10 +798,15 @@ open. Otherwise, return <code>null</code>.</p>
       <p>If <a data-link-type="dfn" href="#document-picture-in-picture-support" id="ref-for-document-picture-in-picture-support">Document Picture-in-Picture support</a> is <code>false</code>, throw a
 "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notsupportederror" id="ref-for-notsupportederror">NotSupportedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code> and abort these steps.</p>
      <li data-md>
-      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> and abort these steps.</p>
+      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-top-level-browsing-context①">top-level browsing context</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> and abort these steps.</p>
+     <li data-md>
+      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a> is a
+DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①②">Window</a></code>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code> and abort these steps.</p>
+     <li data-md>
+      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global②">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror②">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code> and abort these steps.</p>
      <li data-md>
       <p>The user agent may choose to close any existing
-DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①①">Window</a></code>s or <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.</p>
+DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①③">Window</a></code>s or <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.</p>
      <li data-md>
       <p>Let <var>target browsing context</var> be a new <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
 the <code>about:blank</code> <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-concept-url">URL</a>.</p>
@@ -844,7 +852,7 @@ other windows.</p>
 is <code>true</code>, then the <a data-link-type="dfn" href="https://drafts.csswg.org/cssom-1/#css-style-sheet" id="ref-for-css-style-sheet">CSS style sheet</a>s applied the current <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-concept-document-window">associated Document</a> should be copied and applied to the <var>target browsing context</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-concept-document-window①">associated Document</a>. This is a one-time
 copy, and any further changes to the current <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-concept-document-window②">associated Document</a>’s <a data-link-type="dfn" href="https://drafts.csswg.org/cssom-1/#css-style-sheet" id="ref-for-css-style-sheet①">CSS style sheet</a>s will not be copied.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-queue-a-global-task">Queue a global task</a> on the <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#eventdef-documentpictureinpicture-enter" id="ref-for-eventdef-documentpictureinpicture-enter">enter</a></code> using <code class="idl"><a data-link-type="idl" href="#documentpictureinpictureevent" id="ref-for-documentpictureinpictureevent">DocumentPictureInPictureEvent</a></code> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a> with its <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#dom-event-bubbles" id="ref-for-dom-event-bubbles">bubbles</a></code> attribute initialized to <code>true</code> and its <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureevent-window" id="ref-for-dom-documentpictureinpictureevent-window">window</a></code> attribute initialized to <var>target browsing context</var>.</p>
+      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-queue-a-global-task">Queue a global task</a> on the <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global③">relevant global object</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#eventdef-documentpictureinpicture-enter" id="ref-for-eventdef-documentpictureinpicture-enter">enter</a></code> using <code class="idl"><a data-link-type="idl" href="#documentpictureinpictureevent" id="ref-for-documentpictureinpictureevent">DocumentPictureInPictureEvent</a></code> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a> with its <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#dom-event-bubbles" id="ref-for-dom-event-bubbles">bubbles</a></code> attribute initialized to <code>true</code> and its <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureevent-window" id="ref-for-dom-documentpictureinpictureevent-window">window</a></code> attribute initialized to <var>target browsing context</var>.</p>
      <li data-md>
       <p>Return <var>target browsing context</var>.</p>
     </ol>
@@ -855,7 +863,7 @@ the initial position is left to the discretion of the user agent. </p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="DocumentPictureInPicture" data-dfn-type="event" data-export id="eventdef-documentpictureinpicture-enter"><code>enter</code></dfn>
     <dd data-md>
-     <p>Fired on <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑤">DocumentPictureInPicture</a></code> when a PiP window is opened.</p>
+     <p>Fired on <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑥">DocumentPictureInPicture</a></code> when a PiP window is opened.</p>
    </dl>
    <h2 class="heading settled" data-level="6" id="concepts"><span class="secno">6. </span><span class="content">Concepts</span><a class="self-link" href="#concepts"></a></h2>
    <h3 class="heading settled" data-level="6.1" id="pip-support"><span class="secno">6.1. </span><span class="content">Document Picture-in-Picture Support</span><a class="self-link" href="#pip-support"></a></h3>
@@ -864,7 +872,7 @@ a user preference that disables it or a platform limitation. It is <code>true</c
    <h3 class="heading settled" data-level="6.2" id="one-pip-window"><span class="secno">6.2. </span><span class="content">One PiP Window</span><a class="self-link" href="#one-pip-window"></a></h3>
    <p>Whether only one window is allowed in Picture-in-Picture mode is left to the
 implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while a <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑥">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①②">Window</a></code> or <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a> is already open will be left as an implementation detail: the current window
+Picture-in-Picture request while a <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑦">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①④">Window</a></code> or <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a> is already open will be left as an implementation detail: the current window
 could be closed, the Picture-in-Picture request could be rejected, or multiple
 Picture-in-Picture windows could be created. Regardless, the user agent must
 fire the appropriate events in order to notify the websites of the
@@ -873,9 +881,9 @@ Picture-in-Picture status changes.</p>
    <p>A primary use case of DocumentPictureInPicture is to put existing elements (e.g.
 an <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement" id="ref-for-htmlvideoelement①">HTMLVideoElement</a></code>) into an always-on-top window so the user can continue
 to see them while multitasking. However, sometimes these elements have
-attributes that use a <a data-link-type="dfn" href="https://url.spec.whatwg.org/#relative-url-string" id="ref-for-relative-url-string">relative-URL string</a> (e.g. <a class="idl-code" data-link-type="attribute" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src" id="ref-for-dom-media-src">src</a>). Since the <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document①">Document</a></code> in a <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑦">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①③">Window</a></code> is always navigated to the <code>about:blank</code> <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-concept-url①">URL</a>, these <a data-link-type="dfn" href="https://url.spec.whatwg.org/#relative-url-string" id="ref-for-relative-url-string①">relative-URL string</a>s would
+attributes that use a <a data-link-type="dfn" href="https://url.spec.whatwg.org/#relative-url-string" id="ref-for-relative-url-string">relative-URL string</a> (e.g. <a class="idl-code" data-link-type="attribute" href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src" id="ref-for-dom-media-src">src</a>). Since the <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document①">Document</a></code> in a <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑧">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑤">Window</a></code> is always navigated to the <code>about:blank</code> <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-concept-url①">URL</a>, these <a data-link-type="dfn" href="https://url.spec.whatwg.org/#relative-url-string" id="ref-for-relative-url-string①">relative-URL string</a>s would
 break. To prevent this, the user agent must parse <a data-link-type="dfn" href="https://url.spec.whatwg.org/#relative-url-string" id="ref-for-relative-url-string②">relative-URL string</a>s as
-if they were being parsed on the <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document②">Document</a></code> that opened the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑧">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①④">Window</a></code>.</p>
+if they were being parsed on the <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#document" id="ref-for-document②">Document</a></code> that opened the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑨">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑥">Window</a></code>.</p>
    <h2 class="heading settled" data-level="7" id="examples"><span class="secno">7. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
    <p><em>This section is non-normative</em></p>
    <h3 class="heading settled" data-level="7.1" id="example-video-player"><span class="secno">7.1. </span><span class="content">Extracting a video player into PiP</span><a class="self-link" href="#example-video-player"></a></h3>
@@ -951,8 +959,8 @@ muteButton<c- p>.</c->addEventListener<c- p>(</c-><c- t>'click'</c-><c- p>,</c->
 pipDocument<c- p>.</c->body<c- p>.</c->append<c- p>(</c->muteButton<c- p>);</c->
 </pre>
    <h3 class="heading settled" data-level="7.4" id="example-exiting-pip"><span class="secno">7.4. </span><span class="content">Exiting PiP</span><a class="self-link" href="#example-exiting-pip"></a></h3>
-   <p>The website may want to close the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture⑨">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑤">Window</a></code> without the user explicitly clicking on the window’s close button. They can do
-this by using the <a class="idl-code" data-link-type="method" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close" id="ref-for-dom-window-close">close()</a> method on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑥">Window</a></code> object:</p>
+   <p>The website may want to close the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture①⓪">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑦">Window</a></code> without the user explicitly clicking on the window’s close button. They can do
+this by using the <a class="idl-code" data-link-type="method" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close" id="ref-for-dom-window-close">close()</a> method on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑧">Window</a></code> object:</p>
 <pre class="lang-javascript highlight"><c- c1>// This will close the PiP window and trigger our existing onLeavePiP()</c->
 <c- c1>// listener.</c->
 pipWindow<c- p>.</c->close<c- p>();</c->
@@ -961,7 +969,7 @@ pipWindow<c- p>.</c->close<c- p>();</c->
    <p>When the PiP window is closed for any reason (either because the website
 initiated it or the user closed it), the website will often want to get the
 elements back out of the PiP window. The website can perform this in an event
-handler for the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/indices.html#event-unload" id="ref-for-event-unload">unload</a></code> event on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑦">Window</a></code> object. This is shown in the <code>onLeavePiP()</code> handler in <a href="#example-video-player">video player example</a> above and is copied
+handler for the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/indices.html#event-unload" id="ref-for-event-unload">unload</a></code> event on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①⑨">Window</a></code> object. This is shown in the <code>onLeavePiP()</code> handler in <a href="#example-video-player">video player example</a> above and is copied
 below:</p>
 <pre class="lang-javascript highlight"><c- c1>// Called when the PiP window has closed.</c->
 <c- a>function</c-> onLeavePiP<c- p>()</c-> <c- p>{</c->
@@ -1104,6 +1112,12 @@ and contributions to this document and to the discussions that have informed it.
     <li><a href="#ref-for-eventhandler">5. API</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-htmliframeelement">
+   <a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-htmliframeelement">3.3. IFrames</a> <a href="#ref-for-htmliframeelement①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
    <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
    <ul>
@@ -1115,11 +1129,12 @@ and contributions to this document and to the discussions that have informed it.
    <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-window">1. Introduction</a>
-    <li><a href="#ref-for-window①">5. API</a> <a href="#ref-for-window②">(2)</a> <a href="#ref-for-window③">(3)</a> <a href="#ref-for-window④">(4)</a> <a href="#ref-for-window⑤">(5)</a> <a href="#ref-for-window⑥">(6)</a> <a href="#ref-for-window⑦">(7)</a> <a href="#ref-for-window⑧">(8)</a> <a href="#ref-for-window⑨">(9)</a> <a href="#ref-for-window①⓪">(10)</a> <a href="#ref-for-window①①">(11)</a>
-    <li><a href="#ref-for-window①②">6.2. One PiP Window</a>
-    <li><a href="#ref-for-window①③">6.3. Relative URLs</a> <a href="#ref-for-window①④">(2)</a>
-    <li><a href="#ref-for-window①⑤">7.4. Exiting PiP</a> <a href="#ref-for-window①⑥">(2)</a>
-    <li><a href="#ref-for-window①⑦">7.5. Getting elements out of the PiP window when it closes</a>
+    <li><a href="#ref-for-window①">3.3. IFrames</a>
+    <li><a href="#ref-for-window②">5. API</a> <a href="#ref-for-window③">(2)</a> <a href="#ref-for-window④">(3)</a> <a href="#ref-for-window⑤">(4)</a> <a href="#ref-for-window⑥">(5)</a> <a href="#ref-for-window⑦">(6)</a> <a href="#ref-for-window⑧">(7)</a> <a href="#ref-for-window⑨">(8)</a> <a href="#ref-for-window①⓪">(9)</a> <a href="#ref-for-window①①">(10)</a> <a href="#ref-for-window①②">(11)</a> <a href="#ref-for-window①③">(12)</a>
+    <li><a href="#ref-for-window①④">6.2. One PiP Window</a>
+    <li><a href="#ref-for-window①⑤">6.3. Relative URLs</a> <a href="#ref-for-window①⑥">(2)</a>
+    <li><a href="#ref-for-window①⑦">7.4. Exiting PiP</a> <a href="#ref-for-window①⑧">(2)</a>
+    <li><a href="#ref-for-window①⑨">7.5. Getting elements out of the PiP window when it closes</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-document-window">
@@ -1149,13 +1164,20 @@ and contributions to this document and to the discussions that have informed it.
   <aside class="dfn-panel" data-for="term-for-concept-relevant-global">
    <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-concept-relevant-global">5. API</a> <a href="#ref-for-concept-relevant-global①">(2)</a>
+    <li><a href="#ref-for-concept-relevant-global">5. API</a> <a href="#ref-for-concept-relevant-global①">(2)</a> <a href="#ref-for-concept-relevant-global②">(3)</a> <a href="#ref-for-concept-relevant-global③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-media-src">
    <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src">https://html.spec.whatwg.org/multipage/media.html#dom-media-src</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-media-src">6.3. Relative URLs</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-top-level-browsing-context">
+   <a href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context">https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-top-level-browsing-context">3.3. IFrames</a>
+    <li><a href="#ref-for-top-level-browsing-context①">5. API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-transient-activation">
@@ -1186,7 +1208,7 @@ and contributions to this document and to the discussions that have informed it.
   <aside class="dfn-panel" data-for="term-for-idl-DOMException">
    <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMException">5. API</a> <a href="#ref-for-idl-DOMException①">(2)</a>
+    <li><a href="#ref-for-idl-DOMException">5. API</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
@@ -1216,7 +1238,7 @@ and contributions to this document and to the discussions that have informed it.
   <aside class="dfn-panel" data-for="term-for-notallowederror">
    <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-notallowederror">5. API</a>
+    <li><a href="#ref-for-notallowederror">5. API</a> <a href="#ref-for-notallowederror①">(2)</a> <a href="#ref-for-notallowederror②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-notsupportederror">
@@ -1258,7 +1280,7 @@ and contributions to this document and to the discussions that have informed it.
   <aside class="dfn-panel" data-for="term-for-this">
    <a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-this">5. API</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a>
+    <li><a href="#ref-for-this">5. API</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
@@ -1288,6 +1310,7 @@ and contributions to this document and to the discussions that have informed it.
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-eventhandler">EventHandler</span>
+     <li><span class="dfn-paneled" id="term-for-htmliframeelement">HTMLIFrameElement</span>
      <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
      <li><span class="dfn-paneled" id="term-for-window">Window</span>
      <li><span class="dfn-paneled" id="term-for-concept-document-window">associated document</span>
@@ -1296,6 +1319,7 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="term-for-queue-a-global-task">queue a global task</span>
      <li><span class="dfn-paneled" id="term-for-concept-relevant-global">relevant global object</span>
      <li><span class="dfn-paneled" id="term-for-dom-media-src">src</span>
+     <li><span class="dfn-paneled" id="term-for-top-level-browsing-context">top-level browsing context</span>
      <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
      <li><span class="dfn-paneled" id="term-for-event-unload">unload</span>
     </ul>
@@ -1382,10 +1406,11 @@ and contributions to this document and to the discussions that have informed it.
    <b><a href="#documentpictureinpicture">#documentpictureinpicture</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-documentpictureinpicture">3.2. Spoofing</a> <a href="#ref-for-documentpictureinpicture①">(2)</a>
-    <li><a href="#ref-for-documentpictureinpicture②">5. API</a> <a href="#ref-for-documentpictureinpicture③">(2)</a> <a href="#ref-for-documentpictureinpicture④">(3)</a> <a href="#ref-for-documentpictureinpicture⑤">(4)</a>
-    <li><a href="#ref-for-documentpictureinpicture⑥">6.2. One PiP Window</a>
-    <li><a href="#ref-for-documentpictureinpicture⑦">6.3. Relative URLs</a> <a href="#ref-for-documentpictureinpicture⑧">(2)</a>
-    <li><a href="#ref-for-documentpictureinpicture⑨">7.4. Exiting PiP</a>
+    <li><a href="#ref-for-documentpictureinpicture②">3.3. IFrames</a>
+    <li><a href="#ref-for-documentpictureinpicture③">5. API</a> <a href="#ref-for-documentpictureinpicture④">(2)</a> <a href="#ref-for-documentpictureinpicture⑤">(3)</a> <a href="#ref-for-documentpictureinpicture⑥">(4)</a>
+    <li><a href="#ref-for-documentpictureinpicture⑦">6.2. One PiP Window</a>
+    <li><a href="#ref-for-documentpictureinpicture⑧">6.3. Relative URLs</a> <a href="#ref-for-documentpictureinpicture⑨">(2)</a>
+    <li><a href="#ref-for-documentpictureinpicture①⓪">7.4. Exiting PiP</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-documentpictureinpictureoptions">
