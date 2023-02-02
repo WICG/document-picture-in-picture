@@ -149,23 +149,24 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 4. If the <a>relevant global object</a> of <a>this</a> does not have
     <a>transient activation</a>, throw a "{{NotAllowedError}}" {{DOMException}}
     and abort these steps.
-5. The user agent may choose to close any existing
+5. <a>Consume user activation</a>
+6. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
-6. Let |target browsing context| be a new
+7. Let |target browsing context| be a new
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
-7. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+8. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window width for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/width}}"].
-8. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+9. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window height for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/height}}"].
-9. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
+10. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
     and is greater than zero:
     1. If |options|["{{DocumentPictureInPictureOptions/width}}"] and
         |options|["{{DocumentPictureInPictureOptions/height}}"] have been specified and don't
@@ -176,22 +177,22 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     3. Set the window size for the |target browsing context| to a |width| and
         |height| such that |width| divided by |height| is approximately
         |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
-10. Configure the window containing |target browsing context| to float on top of
+11. Configure the window containing |target browsing context| to float on top of
     other windows.
-11. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+12. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
     |target browsing context|'s <a>associated Document</a>. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-12. <a>Queue a global task</a> on the
+13. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
     and its {{DocumentPictureInPictureEvent/window}}
     attribute initialized to |target browsing context|.
-13. Return |target browsing context|.
+14. Return |target browsing context|.
 
 </div>
 
