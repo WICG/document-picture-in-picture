@@ -59,6 +59,13 @@ window helps alleviate some avenues of abuse.
 It is recommended that the user agent makes it clear to the user which origin is
 controlling the {{DocumentPictureInPicture}} window at all times.
 
+## IFrames ## {#iframes}
+
+This API is only available on a <a>top-level browsing context</a>. However, the
+{{DocumentPictureInPicture}} {{Window}} itself may contain {{HTMLIFrameElement}}s, even
+<a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">cross-origin</a>
+{{HTMLIFrameElement}}s.
+
 # Privacy Considerations # {#privacy-considerations}
 
 ## Fingerprinting ## {#fingerprinting}
@@ -133,26 +140,32 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 
 1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
     "{{NotSupportedError}}" {{DOMException}} and abort these steps.
-2. If the <a>relevant global object</a> of <a>this</a> does not have
+2. If the <a>relevant global object</a> of <a>this</a> is not a
+    <a>top-level browsing context</a>, throw a "{{NotAllowedError}}" {{DOMException}}
+    and abort these steps.
+3. If the <a>relevant global object</a> of <a>this</a> is a
+    DocumentPictureInPicture {{Window}}, throw a "{{NotAllowedError}}"
+    {{DOMException}} and abort these steps.
+4. If the <a>relevant global object</a> of <a>this</a> does not have
     <a>transient activation</a>, throw a "{{NotAllowedError}}" {{DOMException}}
     and abort these steps.
-3. The user agent may choose to close any existing
+5. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
-4. Let |target browsing context| be a new
+6. Let |target browsing context| be a new
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
     the <code>about:blank</code> <a>URL</a>.
-5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+7. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window width for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/width}}"].
-6. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+8. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window height for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/height}}"].
-7. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
+9. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
     and is greater than zero:
     1. If |options|["{{DocumentPictureInPictureOptions/width}}"] and
         |options|["{{DocumentPictureInPictureOptions/height}}"] have been specified and don't
@@ -163,22 +176,22 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     3. Set the window size for the |target browsing context| to a |width| and
         |height| such that |width| divided by |height| is approximately
         |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
-8. Configure the window containing |target browsing context| to float on top of
+10. Configure the window containing |target browsing context| to float on top of
     other windows.
-9. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+11. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
     |target browsing context|'s <a>associated Document</a>. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-10. <a>Queue a global task</a> on the
+12. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
     and its {{DocumentPictureInPictureEvent/window}}
     attribute initialized to |target browsing context|.
-11. Return |target browsing context|.
+13. Return |target browsing context|.
 
 </div>
 
