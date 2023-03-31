@@ -1,11 +1,11 @@
 <pre class='metadata'>
 Title: Document Picture-in-Picture Specification
-Repository: w3c/document-pip
+Repository: WICG/document-picture-in-picture
 Shortname: document-pip-spec
 Level: 1
 Status: w3c/UD
 Group: mediawg
-URL: http://example.com/url-this-spec-will-live-at
+URL: https://wicg.github.io/document-picture-in-picture/
 Editor: Tommy Steimel,  Google Inc.,  steimel@google.com
 Abstract: This specification enables web developers to populate an HTMLDocument
 Abstract: in an always-on-top window.
