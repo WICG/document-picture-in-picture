@@ -53,11 +53,13 @@ The API is limited to [[SECURE-CONTEXTS]].
 It is recommended that the user agent provides enough UI on the
 {{DocumentPictureInPicture}} window to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
-UI. The website's inability to directly set the location or size of the PiP
-window helps alleviate some avenues of abuse.
+UI. The website's inability to directly set the location of the PiP window helps
+alleviate some avenues of abuse.
 
 It is recommended that the user agent makes it clear to the user which origin is
-controlling the {{DocumentPictureInPicture}} window at all times.
+controlling the {{DocumentPictureInPicture}} window at all times. For example,
+the user agent may have the origin of the website displayed on the PiP window at
+all times to ensure that the user is aware of where the content is coming from.
 
 ## IFrames ## {#iframes}
 
