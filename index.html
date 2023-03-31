@@ -6,10 +6,9 @@
   <meta content="w3c/UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
+  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
   <link href="http://example.com/url-this-spec-will-live-at" rel="canonical">
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -69,7 +68,8 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -178,9 +178,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -207,9 +207,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -217,10 +217,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
+    width: 20em;
+    min-width: min-content;
     max-width: 300px;
+    height: auto;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -228,6 +228,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -250,7 +251,6 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -260,7 +260,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -268,7 +267,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -516,6 +516,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --selflink-text: black;
@@ -530,6 +531,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         --dfnpanel-text: var(--text);
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
@@ -597,7 +599,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-02-02">2 February 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-03-31">31 March 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -805,6 +807,12 @@ DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https:/
      <li data-md>
       <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global②">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror②">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code> and abort these steps.</p>
      <li data-md>
+      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width">width</a></code>"] exists and is greater than zero, but <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height">height</a></code>"] does not exist or is zero, throw a
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror">RangeError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException④">DOMException</a></code> and abort these steps.</p>
+     <li data-md>
+      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height①">height</a></code>"] exists and is greater than zero, but <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width①">width</a></code>"] does not exist or is zero, throw a
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror①">RangeError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑤">DOMException</a></code> and abort these steps.</p>
+     <li data-md>
       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-consume-user-activation">Consume user activation</a></p>
      <li data-md>
       <p>The user agent may choose to close any existing
@@ -813,31 +821,31 @@ DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https:/
       <p>Let <var>target browsing context</var> be a new <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
 the <code>about:blank</code> <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-concept-url">URL</a>.</p>
      <li data-md>
-      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width">width</a></code>"] exists and is
+      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width②">width</a></code>"] exists and is
 greater than zero:</p>
       <ol>
        <li data-md>
-        <p>Optionally, clamp or ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width①">width</a></code>"] if it is too large or too
+        <p>Optionally, clamp or ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width③">width</a></code>"] if it is too large or too
 small in order to fit a user-friendly window size.</p>
        <li data-md>
-        <p>Set the window width for the <var>target browsing context</var> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width②">width</a></code>"].</p>
+        <p>Set the window width for the <var>target browsing context</var> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width④">width</a></code>"].</p>
       </ol>
      <li data-md>
-      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height">height</a></code>"] exists and is
+      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height②">height</a></code>"] exists and is
 greater than zero:</p>
       <ol>
        <li data-md>
-        <p>Optionally, clamp or ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height①">height</a></code>"] if it is too large or too
+        <p>Optionally, clamp or ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height③">height</a></code>"] if it is too large or too
 small in order to fit a user-friendly window size.</p>
        <li data-md>
-        <p>Set the window height for the <var>target browsing context</var> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height②">height</a></code>"].</p>
+        <p>Set the window height for the <var>target browsing context</var> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height④">height</a></code>"].</p>
       </ol>
      <li data-md>
       <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio">initialAspectRatio</a></code>"] exists
 and is greater than zero:</p>
       <ol>
        <li data-md>
-        <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width③">width</a></code>"] and <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height③">height</a></code>"] have been specified and don’t
+        <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width⑤">width</a></code>"] and <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height⑤">height</a></code>"] have been specified and don’t
 match <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio①">initialAspectRatio</a></code>"],
 the user agent may ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio②">initialAspectRatio</a></code>"].</p>
        <li data-md>
@@ -1065,70 +1073,70 @@ and contributions to this document and to the discussions that have informed it.
      <li><a href="#dom-documentpictureinpictureeventinit-window">dict-member for DocumentPictureInPictureEventInit</a><span>, in § 5</span>
     </ul>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-css-style-sheet">
-   <a href="https://drafts.csswg.org/cssom-1/#css-style-sheet">https://drafts.csswg.org/cssom-1/#css-style-sheet</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a1930ee40a80aed15ca5a80885e15260" class="dfn-panel" data-for="a1930ee40a80aed15ca5a80885e15260" id="infopanel-for-a1930ee40a80aed15ca5a80885e15260">
+   <span id="infopaneltitle-for-a1930ee40a80aed15ca5a80885e15260" style="display:none">Info about the 'css style sheet' external reference.</span><a href="https://drafts.csswg.org/cssom-1/#css-style-sheet">https://drafts.csswg.org/cssom-1/#css-style-sheet</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-css-style-sheet">5. API</a> <a href="#ref-for-css-style-sheet①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-document">
-   <a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" class="dfn-panel" data-for="07886e33695d0e7b473ef18f656ad7ac" id="infopanel-for-07886e33695d0e7b473ef18f656ad7ac">
+   <span id="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" style="display:none">Info about the 'Document' external reference.</span><a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-document">1. Introduction</a>
     <li><a href="#ref-for-document①">6.3. Relative URLs</a> <a href="#ref-for-document②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-event">
-   <a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" class="dfn-panel" data-for="316772b0029bcc028521d2db08fd3717" id="infopanel-for-316772b0029bcc028521d2db08fd3717">
+   <span id="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" style="display:none">Info about the 'Event' external reference.</span><a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-event">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-eventinit">
-   <a href="https://dom.spec.whatwg.org/#dictdef-eventinit">https://dom.spec.whatwg.org/#dictdef-eventinit</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a41247dbf908b8c39ef1dea1be6618d3" class="dfn-panel" data-for="a41247dbf908b8c39ef1dea1be6618d3" id="infopanel-for-a41247dbf908b8c39ef1dea1be6618d3">
+   <span id="infopaneltitle-for-a41247dbf908b8c39ef1dea1be6618d3" style="display:none">Info about the 'EventInit' external reference.</span><a href="https://dom.spec.whatwg.org/#dictdef-eventinit">https://dom.spec.whatwg.org/#dictdef-eventinit</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-eventinit">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-eventtarget">
-   <a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" class="dfn-panel" data-for="a6aa66e0075314e8eefa4e662cb40fbb" id="infopanel-for-a6aa66e0075314e8eefa4e662cb40fbb">
+   <span id="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" style="display:none">Info about the 'EventTarget' external reference.</span><a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-eventtarget">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-event-bubbles">
-   <a href="https://dom.spec.whatwg.org/#dom-event-bubbles">https://dom.spec.whatwg.org/#dom-event-bubbles</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-da580abf5ce04ba74a073e32a09c604a" class="dfn-panel" data-for="da580abf5ce04ba74a073e32a09c604a" id="infopanel-for-da580abf5ce04ba74a073e32a09c604a">
+   <span id="infopaneltitle-for-da580abf5ce04ba74a073e32a09c604a" style="display:none">Info about the 'bubbles' external reference.</span><a href="https://dom.spec.whatwg.org/#dom-event-bubbles">https://dom.spec.whatwg.org/#dom-event-bubbles</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-event-bubbles">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-event-fire">
-   <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" class="dfn-panel" data-for="15045c15505e025cd6b6d0f134b7c986" id="infopanel-for-15045c15505e025cd6b6d0f134b7c986">
+   <span id="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" style="display:none">Info about the 'fire an event' external reference.</span><a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-event-fire">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-eventhandler">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" class="dfn-panel" data-for="716703f1068cc638b4235f83154eff6c" id="infopanel-for-716703f1068cc638b4235f83154eff6c">
+   <span id="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" style="display:none">Info about the 'EventHandler' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-eventhandler">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-htmliframeelement">
-   <a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" class="dfn-panel" data-for="75ff12c16ae1a8f6cbf2920128280261" id="infopanel-for-75ff12c16ae1a8f6cbf2920128280261">
+   <span id="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" style="display:none">Info about the 'HTMLIFrameElement' external reference.</span><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-htmliframeelement">3.3. IFrames</a> <a href="#ref-for-htmliframeelement①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-htmlvideoelement">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a958269402aae8e8d7d28d3cb6aacc8d" class="dfn-panel" data-for="a958269402aae8e8d7d28d3cb6aacc8d" id="infopanel-for-a958269402aae8e8d7d28d3cb6aacc8d">
+   <span id="infopaneltitle-for-a958269402aae8e8d7d28d3cb6aacc8d" style="display:none">Info about the 'HTMLVideoElement' external reference.</span><a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-htmlvideoelement">1. Introduction</a>
     <li><a href="#ref-for-htmlvideoelement①">6.3. Relative URLs</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d1f0a86fd49be388d8b0159e241a1172" class="dfn-panel" data-for="d1f0a86fd49be388d8b0159e241a1172" id="infopanel-for-d1f0a86fd49be388d8b0159e241a1172">
+   <span id="infopaneltitle-for-d1f0a86fd49be388d8b0159e241a1172" style="display:none">Info about the 'Window' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-window">1. Introduction</a>
     <li><a href="#ref-for-window①">3.3. IFrames</a>
@@ -1139,160 +1147,166 @@ and contributions to this document and to the discussions that have informed it.
     <li><a href="#ref-for-window①⑨">7.5. Getting elements out of the PiP window when it closes</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-document-window">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-04e6c32034490f45e4757ead7871de18" class="dfn-panel" data-for="04e6c32034490f45e4757ead7871de18" id="infopanel-for-04e6c32034490f45e4757ead7871de18">
+   <span id="infopaneltitle-for-04e6c32034490f45e4757ead7871de18" style="display:none">Info about the 'associated document' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-document-window">5. API</a> <a href="#ref-for-concept-document-window①">(2)</a> <a href="#ref-for-concept-document-window②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-window-close">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a4d3628ad9f9c131ea147f3be8b6dd7d" class="dfn-panel" data-for="a4d3628ad9f9c131ea147f3be8b6dd7d" id="infopanel-for-a4d3628ad9f9c131ea147f3be8b6dd7d">
+   <span id="infopaneltitle-for-a4d3628ad9f9c131ea147f3be8b6dd7d" style="display:none">Info about the 'close()' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-window-close">7.4. Exiting PiP</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-consume-user-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" class="dfn-panel" data-for="293dcd27f7228c1698581dc6518812f9" id="infopanel-for-293dcd27f7228c1698581dc6518812f9">
+   <span id="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" style="display:none">Info about the 'consume user activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-consume-user-activation">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-open">
-   <a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-3b26601cc89b91ada4c771e32284e4c9" class="dfn-panel" data-for="3b26601cc89b91ada4c771e32284e4c9" id="infopanel-for-3b26601cc89b91ada4c771e32284e4c9">
+   <span id="infopaneltitle-for-3b26601cc89b91ada4c771e32284e4c9" style="display:none">Info about the 'open(url, target, features)' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-open">1. Introduction</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-queue-a-global-task">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a8756513b792b8f203588906035a13bb" class="dfn-panel" data-for="a8756513b792b8f203588906035a13bb" id="infopanel-for-a8756513b792b8f203588906035a13bb">
+   <span id="infopaneltitle-for-a8756513b792b8f203588906035a13bb" style="display:none">Info about the 'queue a global task' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-queue-a-global-task">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-relevant-global">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" class="dfn-panel" data-for="2233058c8f0998915af8393ee2abbc1d" id="infopanel-for-2233058c8f0998915af8393ee2abbc1d">
+   <span id="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" style="display:none">Info about the 'relevant global object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-relevant-global">5. API</a> <a href="#ref-for-concept-relevant-global①">(2)</a> <a href="#ref-for-concept-relevant-global②">(3)</a> <a href="#ref-for-concept-relevant-global③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-media-src">
-   <a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src">https://html.spec.whatwg.org/multipage/media.html#dom-media-src</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-759752b89ba70ea00ec28685f858a6c8" class="dfn-panel" data-for="759752b89ba70ea00ec28685f858a6c8" id="infopanel-for-759752b89ba70ea00ec28685f858a6c8">
+   <span id="infopaneltitle-for-759752b89ba70ea00ec28685f858a6c8" style="display:none">Info about the 'src' external reference.</span><a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src">https://html.spec.whatwg.org/multipage/media.html#dom-media-src</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-media-src">6.3. Relative URLs</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-top-level-browsing-context">
-   <a href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context">https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-c104b697744f6f246969dcc26b898f11" class="dfn-panel" data-for="c104b697744f6f246969dcc26b898f11" id="infopanel-for-c104b697744f6f246969dcc26b898f11">
+   <span id="infopaneltitle-for-c104b697744f6f246969dcc26b898f11" style="display:none">Info about the 'top-level browsing context' external reference.</span><a href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context">https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-top-level-browsing-context">3.3. IFrames</a>
     <li><a href="#ref-for-top-level-browsing-context①">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-transient-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" class="dfn-panel" data-for="5b762d09d78e8674458b84982b3cb3c9" id="infopanel-for-5b762d09d78e8674458b84982b3cb3c9">
+   <span id="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" style="display:none">Info about the 'transient activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transient-activation">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-event-unload">
-   <a href="https://html.spec.whatwg.org/multipage/indices.html#event-unload">https://html.spec.whatwg.org/multipage/indices.html#event-unload</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-8230815e4d16f7e82a8729568a24d058" class="dfn-panel" data-for="8230815e4d16f7e82a8729568a24d058" id="infopanel-for-8230815e4d16f7e82a8729568a24d058">
+   <span id="infopaneltitle-for-8230815e4d16f7e82a8729568a24d058" style="display:none">Info about the 'unload' external reference.</span><a href="https://html.spec.whatwg.org/multipage/indices.html#event-unload">https://html.spec.whatwg.org/multipage/indices.html#event-unload</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-event-unload">7.5. Getting elements out of the PiP window when it closes</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-relative-url-string">
-   <a href="https://url.spec.whatwg.org/#relative-url-string">https://url.spec.whatwg.org/#relative-url-string</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-162b6f5e1feb8dbd20793d8f7efe081b" class="dfn-panel" data-for="162b6f5e1feb8dbd20793d8f7efe081b" id="infopanel-for-162b6f5e1feb8dbd20793d8f7efe081b">
+   <span id="infopaneltitle-for-162b6f5e1feb8dbd20793d8f7efe081b" style="display:none">Info about the 'relative-url string' external reference.</span><a href="https://url.spec.whatwg.org/#relative-url-string">https://url.spec.whatwg.org/#relative-url-string</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-relative-url-string">6.3. Relative URLs</a> <a href="#ref-for-relative-url-string①">(2)</a> <a href="#ref-for-relative-url-string②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url">
-   <a href="https://url.spec.whatwg.org/#concept-url">https://url.spec.whatwg.org/#concept-url</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" class="dfn-panel" data-for="fc05c76e016d3aec6a25a91c066500c8" id="infopanel-for-fc05c76e016d3aec6a25a91c066500c8">
+   <span id="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" style="display:none">Info about the 'url' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url">https://url.spec.whatwg.org/#concept-url</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url">5. API</a>
     <li><a href="#ref-for-concept-url①">6.3. Relative URLs</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMException">
-   <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" class="dfn-panel" data-for="0ab204fb9cc9a746edaff83c0db0740a" id="infopanel-for-0ab204fb9cc9a746edaff83c0db0740a">
+   <span id="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" style="display:none">Info about the 'DOMException' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMException">5. API</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a>
+    <li><a href="#ref-for-idl-DOMException">5. API</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a> <a href="#ref-for-idl-DOMException④">(5)</a> <a href="#ref-for-idl-DOMException⑤">(6)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
-   <a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" class="dfn-panel" data-for="d0f238a61de9310f1738a214749fab18" id="infopanel-for-d0f238a61de9310f1738a214749fab18">
+   <span id="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMString">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-EnforceRange">
-   <a href="https://webidl.spec.whatwg.org/#EnforceRange">https://webidl.spec.whatwg.org/#EnforceRange</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e667e629f6d6cd7af11a164eb4bb237c" class="dfn-panel" data-for="e667e629f6d6cd7af11a164eb4bb237c" id="infopanel-for-e667e629f6d6cd7af11a164eb4bb237c">
+   <span id="infopaneltitle-for-e667e629f6d6cd7af11a164eb4bb237c" style="display:none">Info about the 'EnforceRange' external reference.</span><a href="https://webidl.spec.whatwg.org/#EnforceRange">https://webidl.spec.whatwg.org/#EnforceRange</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-EnforceRange">5. API</a> <a href="#ref-for-EnforceRange①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-Exposed">
-   <a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" class="dfn-panel" data-for="dde049eb112f043fc45407ec0d4cb457" id="infopanel-for-dde049eb112f043fc45407ec0d4cb457">
+   <span id="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" style="display:none">Info about the 'Exposed' external reference.</span><a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-Exposed">5. API</a> <a href="#ref-for-Exposed①">(2)</a> <a href="#ref-for-Exposed②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-NewObject">
-   <a href="https://webidl.spec.whatwg.org/#NewObject">https://webidl.spec.whatwg.org/#NewObject</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5bbf3aaea2bf2faaae7ffd02c20237e0" class="dfn-panel" data-for="5bbf3aaea2bf2faaae7ffd02c20237e0" id="infopanel-for-5bbf3aaea2bf2faaae7ffd02c20237e0">
+   <span id="infopaneltitle-for-5bbf3aaea2bf2faaae7ffd02c20237e0" style="display:none">Info about the 'NewObject' external reference.</span><a href="https://webidl.spec.whatwg.org/#NewObject">https://webidl.spec.whatwg.org/#NewObject</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-NewObject">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-notallowederror">
-   <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" class="dfn-panel" data-for="aa43258e2b51dc6ebe6268a36e6fd733" id="infopanel-for-aa43258e2b51dc6ebe6268a36e6fd733">
+   <span id="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" style="display:none">Info about the 'NotAllowedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-notallowederror">5. API</a> <a href="#ref-for-notallowederror①">(2)</a> <a href="#ref-for-notallowederror②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-notsupportederror">
-   <a href="https://webidl.spec.whatwg.org/#notsupportederror">https://webidl.spec.whatwg.org/#notsupportederror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-c0194e44e6b2e643055f42ba786d0a3a" class="dfn-panel" data-for="c0194e44e6b2e643055f42ba786d0a3a" id="infopanel-for-c0194e44e6b2e643055f42ba786d0a3a">
+   <span id="infopaneltitle-for-c0194e44e6b2e643055f42ba786d0a3a" style="display:none">Info about the 'NotSupportedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notsupportederror">https://webidl.spec.whatwg.org/#notsupportederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-notsupportederror">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-promise">
-   <a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" class="dfn-panel" data-for="93669c631ec1ef8e696b4c083bdbe12c" id="infopanel-for-93669c631ec1ef8e696b4c083bdbe12c">
+   <span id="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" style="display:none">Info about the 'Promise' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-promise">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-SameObject">
-   <a href="https://webidl.spec.whatwg.org/#SameObject">https://webidl.spec.whatwg.org/#SameObject</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" class="dfn-panel" data-for="04b3ab4ac1c03b8ef3df67e1fed2c870" id="infopanel-for-04b3ab4ac1c03b8ef3df67e1fed2c870">
+   <span id="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" style="display:none">Info about the 'RangeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-exceptiondef-rangeerror">5. API</a> <a href="#ref-for-exceptiondef-rangeerror①">(2)</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" class="dfn-panel" data-for="f572762cd4679aeacd36722d99d2b741" id="infopanel-for-f572762cd4679aeacd36722d99d2b741">
+   <span id="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" style="display:none">Info about the 'SameObject' external reference.</span><a href="https://webidl.spec.whatwg.org/#SameObject">https://webidl.spec.whatwg.org/#SameObject</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-SameObject">5. API</a> <a href="#ref-for-SameObject①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-SecureContext">
-   <a href="https://webidl.spec.whatwg.org/#SecureContext">https://webidl.spec.whatwg.org/#SecureContext</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-cdf224ec60dc3b08449a2fbdf3a90406" class="dfn-panel" data-for="cdf224ec60dc3b08449a2fbdf3a90406" id="infopanel-for-cdf224ec60dc3b08449a2fbdf3a90406">
+   <span id="infopaneltitle-for-cdf224ec60dc3b08449a2fbdf3a90406" style="display:none">Info about the 'SecureContext' external reference.</span><a href="https://webidl.spec.whatwg.org/#SecureContext">https://webidl.spec.whatwg.org/#SecureContext</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-SecureContext">5. API</a> <a href="#ref-for-SecureContext①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-boolean">
-   <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" class="dfn-panel" data-for="f8062b07e25ed0281f5cbfb9a54070b4" id="infopanel-for-f8062b07e25ed0281f5cbfb9a54070b4">
+   <span id="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" style="display:none">Info about the 'boolean' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-double">
-   <a href="https://webidl.spec.whatwg.org/#idl-double">https://webidl.spec.whatwg.org/#idl-double</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d3fd0dc5b12c87e613395fec1824ac77" class="dfn-panel" data-for="d3fd0dc5b12c87e613395fec1824ac77" id="infopanel-for-d3fd0dc5b12c87e613395fec1824ac77">
+   <span id="infopaneltitle-for-d3fd0dc5b12c87e613395fec1824ac77" style="display:none">Info about the 'double' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-double">https://webidl.spec.whatwg.org/#idl-double</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-double">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-this">
-   <a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" class="dfn-panel" data-for="be0933df03cd63338f98de217c4158c7" id="infopanel-for-be0933df03cd63338f98de217c4158c7">
+   <span id="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" style="display:none">Info about the 'this' external reference.</span><a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-this">5. API</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-db891cb1cc28e2bf626982240ec36b2a" class="dfn-panel" data-for="db891cb1cc28e2bf626982240ec36b2a" id="infopanel-for-db891cb1cc28e2bf626982240ec36b2a">
+   <span id="infopaneltitle-for-db891cb1cc28e2bf626982240ec36b2a" style="display:none">Info about the 'unsigned long long' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long-long">5. API</a> <a href="#ref-for-idl-unsigned-long-long①">(2)</a>
    </ul>
@@ -1302,59 +1316,60 @@ and contributions to this document and to the discussions that have informed it.
    <li>
     <a data-link-type="biblio">[CSSOM-1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-css-style-sheet">css style sheet</span>
+     <li><span class="dfn-paneled" id="a1930ee40a80aed15ca5a80885e15260">css style sheet</span>
     </ul>
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-document">Document</span>
-     <li><span class="dfn-paneled" id="term-for-event">Event</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-eventinit">EventInit</span>
-     <li><span class="dfn-paneled" id="term-for-eventtarget">EventTarget</span>
-     <li><span class="dfn-paneled" id="term-for-dom-event-bubbles">bubbles</span>
-     <li><span class="dfn-paneled" id="term-for-concept-event-fire">fire an event</span>
+     <li><span class="dfn-paneled" id="07886e33695d0e7b473ef18f656ad7ac">Document</span>
+     <li><span class="dfn-paneled" id="316772b0029bcc028521d2db08fd3717">Event</span>
+     <li><span class="dfn-paneled" id="a41247dbf908b8c39ef1dea1be6618d3">EventInit</span>
+     <li><span class="dfn-paneled" id="a6aa66e0075314e8eefa4e662cb40fbb">EventTarget</span>
+     <li><span class="dfn-paneled" id="da580abf5ce04ba74a073e32a09c604a">bubbles</span>
+     <li><span class="dfn-paneled" id="15045c15505e025cd6b6d0f134b7c986">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-eventhandler">EventHandler</span>
-     <li><span class="dfn-paneled" id="term-for-htmliframeelement">HTMLIFrameElement</span>
-     <li><span class="dfn-paneled" id="term-for-htmlvideoelement">HTMLVideoElement</span>
-     <li><span class="dfn-paneled" id="term-for-window">Window</span>
-     <li><span class="dfn-paneled" id="term-for-concept-document-window">associated document</span>
-     <li><span class="dfn-paneled" id="term-for-dom-window-close">close()</span>
-     <li><span class="dfn-paneled" id="term-for-consume-user-activation">consume user activation</span>
-     <li><span class="dfn-paneled" id="term-for-dom-open">open(url, target, features)</span>
-     <li><span class="dfn-paneled" id="term-for-queue-a-global-task">queue a global task</span>
-     <li><span class="dfn-paneled" id="term-for-concept-relevant-global">relevant global object</span>
-     <li><span class="dfn-paneled" id="term-for-dom-media-src">src</span>
-     <li><span class="dfn-paneled" id="term-for-top-level-browsing-context">top-level browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
-     <li><span class="dfn-paneled" id="term-for-event-unload">unload</span>
+     <li><span class="dfn-paneled" id="716703f1068cc638b4235f83154eff6c">EventHandler</span>
+     <li><span class="dfn-paneled" id="75ff12c16ae1a8f6cbf2920128280261">HTMLIFrameElement</span>
+     <li><span class="dfn-paneled" id="a958269402aae8e8d7d28d3cb6aacc8d">HTMLVideoElement</span>
+     <li><span class="dfn-paneled" id="d1f0a86fd49be388d8b0159e241a1172">Window</span>
+     <li><span class="dfn-paneled" id="04e6c32034490f45e4757ead7871de18">associated document</span>
+     <li><span class="dfn-paneled" id="a4d3628ad9f9c131ea147f3be8b6dd7d">close()</span>
+     <li><span class="dfn-paneled" id="293dcd27f7228c1698581dc6518812f9">consume user activation</span>
+     <li><span class="dfn-paneled" id="3b26601cc89b91ada4c771e32284e4c9">open(url, target, features)</span>
+     <li><span class="dfn-paneled" id="a8756513b792b8f203588906035a13bb">queue a global task</span>
+     <li><span class="dfn-paneled" id="2233058c8f0998915af8393ee2abbc1d">relevant global object</span>
+     <li><span class="dfn-paneled" id="759752b89ba70ea00ec28685f858a6c8">src</span>
+     <li><span class="dfn-paneled" id="c104b697744f6f246969dcc26b898f11">top-level browsing context</span>
+     <li><span class="dfn-paneled" id="5b762d09d78e8674458b84982b3cb3c9">transient activation</span>
+     <li><span class="dfn-paneled" id="8230815e4d16f7e82a8729568a24d058">unload</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-relative-url-string">relative-url string</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url">url</span>
+     <li><span class="dfn-paneled" id="162b6f5e1feb8dbd20793d8f7efe081b">relative-url string</span>
+     <li><span class="dfn-paneled" id="fc05c76e016d3aec6a25a91c066500c8">url</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-EnforceRange">EnforceRange</span>
-     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-NewObject">NewObject</span>
-     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
-     <li><span class="dfn-paneled" id="term-for-notsupportederror">NotSupportedError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
-     <li><span class="dfn-paneled" id="term-for-SameObject">SameObject</span>
-     <li><span class="dfn-paneled" id="term-for-SecureContext">SecureContext</span>
-     <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-idl-double">double</span>
-     <li><span class="dfn-paneled" id="term-for-this">this</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long">unsigned long long</span>
+     <li><span class="dfn-paneled" id="0ab204fb9cc9a746edaff83c0db0740a">DOMException</span>
+     <li><span class="dfn-paneled" id="d0f238a61de9310f1738a214749fab18">DOMString</span>
+     <li><span class="dfn-paneled" id="e667e629f6d6cd7af11a164eb4bb237c">EnforceRange</span>
+     <li><span class="dfn-paneled" id="dde049eb112f043fc45407ec0d4cb457">Exposed</span>
+     <li><span class="dfn-paneled" id="5bbf3aaea2bf2faaae7ffd02c20237e0">NewObject</span>
+     <li><span class="dfn-paneled" id="aa43258e2b51dc6ebe6268a36e6fd733">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="c0194e44e6b2e643055f42ba786d0a3a">NotSupportedError</span>
+     <li><span class="dfn-paneled" id="93669c631ec1ef8e696b4c083bdbe12c">Promise</span>
+     <li><span class="dfn-paneled" id="04b3ab4ac1c03b8ef3df67e1fed2c870">RangeError</span>
+     <li><span class="dfn-paneled" id="f572762cd4679aeacd36722d99d2b741">SameObject</span>
+     <li><span class="dfn-paneled" id="cdf224ec60dc3b08449a2fbdf3a90406">SecureContext</span>
+     <li><span class="dfn-paneled" id="f8062b07e25ed0281f5cbfb9a54070b4">boolean</span>
+     <li><span class="dfn-paneled" id="d3fd0dc5b12c87e613395fec1824ac77">double</span>
+     <li><span class="dfn-paneled" id="be0933df03cd63338f98de217c4158c7">this</span>
+     <li><span class="dfn-paneled" id="db891cb1cc28e2bf626982240ec36b2a">unsigned long long</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1411,8 +1426,8 @@ and contributions to this document and to the discussions that have informed it.
 };
 
 </pre>
-  <aside class="dfn-panel" data-for="documentpictureinpicture">
-   <b><a href="#documentpictureinpicture">#documentpictureinpicture</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-documentpictureinpicture" class="dfn-panel" data-for="documentpictureinpicture" id="infopanel-for-documentpictureinpicture">
+   <span id="infopaneltitle-for-documentpictureinpicture" style="display:none">Info about the 'DocumentPictureInPicture' definition.</span><b><a href="#documentpictureinpicture">#documentpictureinpicture</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-documentpictureinpicture">3.2. Spoofing</a> <a href="#ref-for-documentpictureinpicture①">(2)</a>
     <li><a href="#ref-for-documentpictureinpicture②">3.3. IFrames</a>
@@ -1422,145 +1437,199 @@ and contributions to this document and to the discussions that have informed it.
     <li><a href="#ref-for-documentpictureinpicture①⓪">7.4. Exiting PiP</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-documentpictureinpictureoptions">
-   <b><a href="#dictdef-documentpictureinpictureoptions">#dictdef-documentpictureinpictureoptions</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-documentpictureinpictureoptions" class="dfn-panel" data-for="dictdef-documentpictureinpictureoptions" id="infopanel-for-dictdef-documentpictureinpictureoptions">
+   <span id="infopaneltitle-for-dictdef-documentpictureinpictureoptions" style="display:none">Info about the 'DocumentPictureInPictureOptions' definition.</span><b><a href="#dictdef-documentpictureinpictureoptions">#dictdef-documentpictureinpictureoptions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-documentpictureinpictureoptions">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-width">
-   <b><a href="#dom-documentpictureinpictureoptions-width">#dom-documentpictureinpictureoptions-width</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-width" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-width" id="infopanel-for-dom-documentpictureinpictureoptions-width">
+   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-width" style="display:none">Info about the 'width' definition.</span><b><a href="#dom-documentpictureinpictureoptions-width">#dom-documentpictureinpictureoptions-width</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-width">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width③">(4)</a>
+    <li><a href="#ref-for-dom-documentpictureinpictureoptions-width">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width④">(5)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width⑤">(6)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-height">
-   <b><a href="#dom-documentpictureinpictureoptions-height">#dom-documentpictureinpictureoptions-height</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-height" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-height" id="infopanel-for-dom-documentpictureinpictureoptions-height">
+   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-height" style="display:none">Info about the 'height' definition.</span><b><a href="#dom-documentpictureinpictureoptions-height">#dom-documentpictureinpictureoptions-height</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-height">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height③">(4)</a>
+    <li><a href="#ref-for-dom-documentpictureinpictureoptions-height">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height④">(5)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height⑤">(6)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-initialaspectratio">
-   <b><a href="#dom-documentpictureinpictureoptions-initialaspectratio">#dom-documentpictureinpictureoptions-initialaspectratio</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-initialaspectratio" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-initialaspectratio" id="infopanel-for-dom-documentpictureinpictureoptions-initialaspectratio">
+   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-initialaspectratio" style="display:none">Info about the 'initialAspectRatio' definition.</span><b><a href="#dom-documentpictureinpictureoptions-initialaspectratio">#dom-documentpictureinpictureoptions-initialaspectratio</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio④">(5)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureoptions-copystylesheets">
-   <b><a href="#dom-documentpictureinpictureoptions-copystylesheets">#dom-documentpictureinpictureoptions-copystylesheets</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-copystylesheets" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-copystylesheets" id="infopanel-for-dom-documentpictureinpictureoptions-copystylesheets">
+   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-copystylesheets" style="display:none">Info about the 'copyStyleSheets' definition.</span><b><a href="#dom-documentpictureinpictureoptions-copystylesheets">#dom-documentpictureinpictureoptions-copystylesheets</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpictureoptions-copystylesheets">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="documentpictureinpictureevent">
-   <b><a href="#documentpictureinpictureevent">#documentpictureinpictureevent</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-documentpictureinpictureevent" class="dfn-panel" data-for="documentpictureinpictureevent" id="infopanel-for-documentpictureinpictureevent">
+   <span id="infopaneltitle-for-documentpictureinpictureevent" style="display:none">Info about the 'DocumentPictureInPictureEvent' definition.</span><b><a href="#documentpictureinpictureevent">#documentpictureinpictureevent</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-documentpictureinpictureevent">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpictureevent-window">
-   <b><a href="#dom-documentpictureinpictureevent-window">#dom-documentpictureinpictureevent-window</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureevent-window" class="dfn-panel" data-for="dom-documentpictureinpictureevent-window" id="infopanel-for-dom-documentpictureinpictureevent-window">
+   <span id="infopaneltitle-for-dom-documentpictureinpictureevent-window" style="display:none">Info about the 'window' definition.</span><b><a href="#dom-documentpictureinpictureevent-window">#dom-documentpictureinpictureevent-window</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpictureevent-window">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-documentpictureinpictureeventinit">
-   <b><a href="#dictdef-documentpictureinpictureeventinit">#dictdef-documentpictureinpictureeventinit</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-documentpictureinpictureeventinit" class="dfn-panel" data-for="dictdef-documentpictureinpictureeventinit" id="infopanel-for-dictdef-documentpictureinpictureeventinit">
+   <span id="infopaneltitle-for-dictdef-documentpictureinpictureeventinit" style="display:none">Info about the 'DocumentPictureInPictureEventInit' definition.</span><b><a href="#dictdef-documentpictureinpictureeventinit">#dictdef-documentpictureinpictureeventinit</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-documentpictureinpictureeventinit">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="window-documentpictureinpicture-api">
-   <b><a href="#window-documentpictureinpicture-api">#window-documentpictureinpicture-api</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-window-documentpictureinpicture-api" class="dfn-panel" data-for="window-documentpictureinpicture-api" id="infopanel-for-window-documentpictureinpicture-api">
+   <span id="infopaneltitle-for-window-documentpictureinpicture-api" style="display:none">Info about the 'documentPictureInPicture API' definition.</span><b><a href="#window-documentpictureinpicture-api">#window-documentpictureinpicture-api</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-window-documentpictureinpicture-api">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-window-documentpictureinpicture">
-   <b><a href="#dom-window-documentpictureinpicture">#dom-window-documentpictureinpicture</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-window-documentpictureinpicture" class="dfn-panel" data-for="dom-window-documentpictureinpicture" id="infopanel-for-dom-window-documentpictureinpicture">
+   <span id="infopaneltitle-for-dom-window-documentpictureinpicture" style="display:none">Info about the 'documentPictureInPicture' definition.</span><b><a href="#dom-window-documentpictureinpicture">#dom-window-documentpictureinpicture</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-window-documentpictureinpicture">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpicture-window">
-   <b><a href="#dom-documentpictureinpicture-window">#dom-documentpictureinpicture-window</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpicture-window" class="dfn-panel" data-for="dom-documentpictureinpicture-window" id="infopanel-for-dom-documentpictureinpicture-window">
+   <span id="infopaneltitle-for-dom-documentpictureinpicture-window" style="display:none">Info about the 'window' definition.</span><b><a href="#dom-documentpictureinpicture-window">#dom-documentpictureinpicture-window</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpicture-window">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-documentpictureinpicture-requestwindow">
-   <b><a href="#dom-documentpictureinpicture-requestwindow">#dom-documentpictureinpicture-requestwindow</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpicture-requestwindow" class="dfn-panel" data-for="dom-documentpictureinpicture-requestwindow" id="infopanel-for-dom-documentpictureinpicture-requestwindow">
+   <span id="infopaneltitle-for-dom-documentpictureinpicture-requestwindow" style="display:none">Info about the 'requestWindow(options)' definition.</span><b><a href="#dom-documentpictureinpicture-requestwindow">#dom-documentpictureinpicture-requestwindow</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-documentpictureinpicture-requestwindow">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="eventdef-documentpictureinpicture-enter">
-   <b><a href="#eventdef-documentpictureinpicture-enter">#eventdef-documentpictureinpicture-enter</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-eventdef-documentpictureinpicture-enter" class="dfn-panel" data-for="eventdef-documentpictureinpicture-enter" id="infopanel-for-eventdef-documentpictureinpicture-enter">
+   <span id="infopaneltitle-for-eventdef-documentpictureinpicture-enter" style="display:none">Info about the 'enter' definition.</span><b><a href="#eventdef-documentpictureinpicture-enter">#eventdef-documentpictureinpicture-enter</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-eventdef-documentpictureinpicture-enter">5. API</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="document-picture-in-picture-support">
-   <b><a href="#document-picture-in-picture-support">#document-picture-in-picture-support</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-document-picture-in-picture-support" class="dfn-panel" data-for="document-picture-in-picture-support" id="infopanel-for-document-picture-in-picture-support">
+   <span id="infopaneltitle-for-document-picture-in-picture-support" style="display:none">Info about the 'Document Picture-in-Picture Support' definition.</span><b><a href="#document-picture-in-picture-support">#document-picture-in-picture-support</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-document-picture-in-picture-support">5. API</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
-
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+"use strict";
+{
+    function queryAll(sel) {
+        return [].slice.call(document.querySelectorAll(sel));
     }
-    if(target != "dfn-panel") {
+
+    // Add popup behavior to all dfns to show the corresponding dfn-panel.
+    var dfns = document.querySelectorAll('.dfn-paneled');
+    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+
+    function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-            }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-        }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
     }
 
-});
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn) {
+        // Find dfn panel
+        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
+        if (dfnPanel) {
+            const panelWrapper = document.createElement('span');
+            panelWrapper.appendChild(dfnPanel);
+            panelWrapper.style.position = "relative";
+            panelWrapper.style.height = "0px";
+            dfn.insertAdjacentElement("afterend", panelWrapper);
+            dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-expanded', 'false')
+            dfn.tabIndex = 0;
+            dfn.classList.add('has-dfn-panel');
+            dfn.addEventListener('click', (event) => {
+                showDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+            });
+            dfn.addEventListener('keypress', (event) => {
+                const kc = event.keyCode;
+                // 32->Space, 13->Enter
+                if(kc == 32 || kc == 13) {
+                    toggleDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+
+            dfnPanel.addEventListener('click', (event) => {
+                pinDfnPanel(dfnPanel);
+                event.stopPropagation();
+            });
+
+            dfnPanel.addEventListener('keydown', (event) => {
+                if(event.keyCode == 27) { // Escape key
+                    hideDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            })
+
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+        }
+    }
+}
 </script>
 <script>/* script-var-click-highlighting */
 
