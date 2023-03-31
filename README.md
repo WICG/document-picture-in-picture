@@ -16,11 +16,17 @@ This new window will be much like a blank same-origin window opened via the
 existing `window.open()` API, with some differences:
 
 - The PiP window will float on top of other windows.
-- The PiP window will never outlive the opening window.
+- The PiP window will never outlive the opening window. This means any
+  navigations that change the opener to a new document (even same-origin
+  navigations) will cause the PiP window to close, similar to the existing
+  `HTMLVideoElement.requestPictureInPicture()` API.
 - The website cannot set the position of the PiP window.
 - The PiP window cannot be navigated (any `window.history` or `window.location`
     calls that change to a new document will close the PiP window).
 - The PiP window cannot open more windows.
+- The website can have only one PiP window open at a time, and the user agent
+  may also restrict how many PiP windows can be open globally, similar to
+  `HTMLVideoElement.requestPictureInPicture()` API.
 
 ### Goals
 
