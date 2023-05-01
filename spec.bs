@@ -34,7 +34,7 @@ differences:
 - The PiP window will never outlive the opening window.
 - The website cannot set the position of the PiP window.
 - The PiP window cannot be navigated (any `window.history` or `window.location`
-	calls that change to a new document will close the PiP window).
+    calls that change to a new document will close the PiP window).
 - The PiP window cannot open more windows.
 
 # Dependencies # {#dependencies}
