@@ -99,7 +99,8 @@ async function enterPiP() {
   const player = document.querySelector("#player");
 
   const pipOptions = {
-    initialAspectRatio: player.clientWidth / player.clientHeight,
+    width: player.clientWidth,
+    height: player.clientHeight,
     copyStyleSheets: true,
   };
 
