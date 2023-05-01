@@ -753,11 +753,10 @@ agent may display the origin of the website in a titlebar on the window.</p>
    <h2 class="heading settled" data-level="4" id="privacy-considerations"><span class="secno">4. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy-considerations"></a></h2>
    <h3 class="heading settled" data-level="4.1" id="fingerprinting"><span class="secno">4.1. </span><span class="content">Fingerprinting</span><a class="self-link" href="#fingerprinting"></a></h3>
    <p>When a PiP window is closed and then later re-opened, it can be useful for the
-user agent to re-use size and location of the previous PiP window (modulo
-aspect-ratio constraints) to provide a smoother user experience. However, it is
-recommended that the user agent does not re-use size/location across different
-origins as this may provide malicious websites an avenue for fingerprinting
-a user.</p>
+user agent to re-use size and location of the previous PiP window to provide a
+smoother user experience. However, it is recommended that the user agent does
+not re-use size/location across different origins as this may provide malicious
+websites an avenue for fingerprinting a user.</p>
    <h2 class="heading settled" data-level="5" id="api"><span class="secno">5. </span><span class="content">API</span><a class="self-link" href="#api"></a></h2>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window②"><c- g>Window</c-></a> {
@@ -776,7 +775,6 @@ a user.</p>
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></dfn> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></dfn> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange①"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></dfn> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <dfn class="dfn-paneled idl-code" data-default="0.0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="double " id="dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></dfn> = 0.0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></dfn> = <c- b>false</c->;
 };
 
@@ -858,20 +856,6 @@ small in order to fit a user-friendly window size.</p>
         <p>Set the window height for the <var>target browsing context</var> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height④">height</a></code>"].</p>
       </ol>
      <li data-md>
-      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio">initialAspectRatio</a></code>"] exists
-and is greater than zero:</p>
-      <ol>
-       <li data-md>
-        <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-width" id="ref-for-dom-documentpictureinpictureoptions-width⑤">width</a></code>"] and <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-height" id="ref-for-dom-documentpictureinpictureoptions-height⑤">height</a></code>"] have been specified and don’t
-match <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio①">initialAspectRatio</a></code>"],
-the user agent may ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio②">initialAspectRatio</a></code>"].</p>
-       <li data-md>
-        <p>Optionally, clamp or ignore <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio③">initialAspectRatio</a></code>"] if it is too large
-or too small in order to fit a user-friendly window size.</p>
-       <li data-md>
-        <p>Set the window size for the <var>target browsing context</var> to a <var>width</var> and <var>height</var> such that <var>width</var> divided by <var>height</var> is approximately <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-initialaspectratio" id="ref-for-dom-documentpictureinpictureoptions-initialaspectratio④">initialAspectRatio</a></code>"].</p>
-      </ol>
-     <li data-md>
       <p>Configure the window containing <var>target browsing context</var> to float on top of
 other windows.</p>
      <li data-md>
@@ -884,8 +868,8 @@ copy, and any further changes to the current <a data-link-type="dfn" href="https
       <p>Return <var>target browsing context</var>.</p>
     </ol>
    </div>
-   <p class="note" role="note"> While the aspect ratio or size of the window can be configured by the website,
-the initial position is left to the discretion of the user agent. </p>
+   <p class="note" role="note"> While the size of the window can be configured by the website, the initial
+position is left to the discretion of the user agent. </p>
    <p></p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="DocumentPictureInPicture" data-dfn-type="event" data-export id="eventdef-documentpictureinpicture-enter"><code>enter</code></dfn>
@@ -932,9 +916,10 @@ if they were being parsed on the <code class="idl"><a data-link-type="idl" href=
 <c- a>function</c-> enterPiP<c- p>()</c-> <c- p>{</c->
   <c- a>const</c-> player <c- o>=</c-> document<c- p>.</c->querySelector<c- p>(</c-><c- t>'#player'</c-><c- p>);</c->
 
-  <c- c1>// Set the aspect ratio so the window is properly sized to the video.</c->
+  <c- c1>// Set the width/height so the window is properly sized to the video.</c->
   <c- a>const</c-> pipOptions <c- o>=</c-> <c- p>{</c->
-    initialAspectRatio<c- o>:</c-> player<c- p>.</c->clientWidth <c- o>/</c-> player<c- p>.</c->clientHeight<c- p>,</c->
+    width<c- o>:</c-> player<c- p>.</c->clientWidth<c- p>,</c->
+    height<c- o>:</c-> player<c- p>.</c->clientHeight<c- p>,</c->
     copyStyleSheets<c- o>:</c-> <c- kc>true</c->
   <c- p>};</c->
 
@@ -1063,7 +1048,6 @@ and contributions to this document and to the discussions that have informed it.
    <li><a href="#document-picture-in-picture-support">Document Picture-in-Picture Support</a><span>, in § 6.1</span>
    <li><a href="#eventdef-documentpictureinpicture-enter">enter</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpictureoptions-height">height</a><span>, in § 5</span>
-   <li><a href="#dom-documentpictureinpictureoptions-initialaspectratio">initialAspectRatio</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-onenter">onenter</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-requestwindow">requestWindow()</a><span>, in § 5</span>
    <li><a href="#dom-documentpictureinpicture-requestwindow">requestWindow(options)</a><span>, in § 5</span>
@@ -1138,7 +1122,6 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="a5c91173">SameObject</span>
      <li><span class="dfn-paneled" id="b75bb3bd">SecureContext</span>
      <li><span class="dfn-paneled" id="5372cca8">boolean</span>
-     <li><span class="dfn-paneled" id="8c800cdf">double</span>
      <li><span class="dfn-paneled" id="4013a022">this</span>
      <li><span class="dfn-paneled" id="f14b47b8">unsigned long long</span>
     </ul>
@@ -1184,7 +1167,6 @@ and contributions to this document and to the discussions that have informed it.
 <c- b>dictionary</c-> <a href="#dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></a> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></a> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long " href="#dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></a> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double"><c- b>double</c-></a> <a data-default="0.0" data-type="double " href="#dom-documentpictureinpictureoptions-initialaspectratio"><code><c- g>initialAspectRatio</c-></code></a> = 0.0;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-documentpictureinpictureoptions-copystylesheets"><code><c- g>copyStyleSheets</c-></code></a> = <c- b>false</c->;
 };
 
@@ -1391,14 +1373,12 @@ window.dfnpanelData['ec878a66'] = {"dfnID": "ec878a66", "url": "https://webidl.s
 window.dfnpanelData['a5c91173'] = {"dfnID": "a5c91173", "url": "https://webidl.spec.whatwg.org/#SameObject", "dfnText": "SameObject", "refSections": [{"refs": [{"id": "ref-for-SameObject"}, {"id": "ref-for-SameObject\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['b75bb3bd'] = {"dfnID": "b75bb3bd", "url": "https://webidl.spec.whatwg.org/#SecureContext", "dfnText": "SecureContext", "refSections": [{"refs": [{"id": "ref-for-SecureContext"}, {"id": "ref-for-SecureContext\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['5372cca8'] = {"dfnID": "5372cca8", "url": "https://webidl.spec.whatwg.org/#idl-boolean", "dfnText": "boolean", "refSections": [{"refs": [{"id": "ref-for-idl-boolean"}], "title": "5. API"}], "external": true};
-window.dfnpanelData['8c800cdf'] = {"dfnID": "8c800cdf", "url": "https://webidl.spec.whatwg.org/#idl-double", "dfnText": "double", "refSections": [{"refs": [{"id": "ref-for-idl-double"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}, {"id": "ref-for-idl-unsigned-long-long\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['documentpictureinpicture'] = {"dfnID": "documentpictureinpicture", "url": "#documentpictureinpicture", "dfnText": "DocumentPictureInPicture", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpicture"}], "title": "3.2. Spoofing"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2460"}], "title": "3.2.2. Origin Visibility"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2461"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2462"}, {"id": "ref-for-documentpictureinpicture\u2463"}, {"id": "ref-for-documentpictureinpicture\u2464"}, {"id": "ref-for-documentpictureinpicture\u2465"}], "title": "5. API"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2466"}], "title": "6.2. One PiP Window"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2467"}, {"id": "ref-for-documentpictureinpicture\u2468"}], "title": "6.3. Relative URLs"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2460\u24ea"}], "title": "7.4. Exiting PiP"}], "external": false};
 window.dfnpanelData['dictdef-documentpictureinpictureoptions'] = {"dfnID": "dictdef-documentpictureinpictureoptions", "url": "#dictdef-documentpictureinpictureoptions", "dfnText": "DocumentPictureInPictureOptions", "refSections": [{"refs": [{"id": "ref-for-dictdef-documentpictureinpictureoptions"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['dom-documentpictureinpictureoptions-width'] = {"dfnID": "dom-documentpictureinpictureoptions-width", "url": "#dom-documentpictureinpictureoptions-width", "dfnText": "width", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-width"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2463"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2464"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['dom-documentpictureinpictureoptions-height'] = {"dfnID": "dom-documentpictureinpictureoptions-height", "url": "#dom-documentpictureinpictureoptions-height", "dfnText": "height", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-height"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2463"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2464"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['dom-documentpictureinpictureoptions-initialaspectratio'] = {"dfnID": "dom-documentpictureinpictureoptions-initialaspectratio", "url": "#dom-documentpictureinpictureoptions-initialaspectratio", "dfnText": "initialAspectRatio", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2463"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-width'] = {"dfnID": "dom-documentpictureinpictureoptions-width", "url": "#dom-documentpictureinpictureoptions-width", "dfnText": "width", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-width"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2463"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-height'] = {"dfnID": "dom-documentpictureinpictureoptions-height", "url": "#dom-documentpictureinpictureoptions-height", "dfnText": "height", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-height"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2463"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['dom-documentpictureinpictureoptions-copystylesheets'] = {"dfnID": "dom-documentpictureinpictureoptions-copystylesheets", "url": "#dom-documentpictureinpictureoptions-copystylesheets", "dfnText": "copyStyleSheets", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-copystylesheets"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['documentpictureinpictureevent'] = {"dfnID": "documentpictureinpictureevent", "url": "#documentpictureinpictureevent", "dfnText": "DocumentPictureInPictureEvent", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpictureevent"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['dom-documentpictureinpictureevent-window'] = {"dfnID": "dom-documentpictureinpictureevent-window", "url": "#dom-documentpictureinpictureevent-window", "dfnText": "window", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureevent-window"}], "title": "5. API"}], "external": false};
