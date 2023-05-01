@@ -82,11 +82,10 @@ This API is only available on a <a>top-level browsing context</a>. However, the
 ## Fingerprinting ## {#fingerprinting}
 
 When a PiP window is closed and then later re-opened, it can be useful for the
-user agent to re-use size and location of the previous PiP window (modulo
-aspect-ratio constraints) to provide a smoother user experience. However, it is
-recommended that the user agent does not re-use size/location across different
-origins as this may provide malicious websites an avenue for fingerprinting
-a user.
+user agent to re-use size and location of the previous PiP window to provide a
+smoother user experience. However, it is recommended that the user agent does
+not re-use size/location across different origins as this may provide malicious
+websites an avenue for fingerprinting a user.
 
 # API # {#api}
 
@@ -108,7 +107,6 @@ interface DocumentPictureInPicture : EventTarget {
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
-  double initialAspectRatio = 0.0;
   boolean copyStyleSheets = false;
 };
 
@@ -183,39 +181,28 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
     2. Set the window height for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/height}}"].
-12. If |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] exists
-    and is greater than zero:
-    1. If |options|["{{DocumentPictureInPictureOptions/width}}"] and
-        |options|["{{DocumentPictureInPictureOptions/height}}"] have been specified and don't
-        match |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"],
-        the user agent may ignore |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
-    2. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"] if it is too large
-        or too small in order to fit a user-friendly window size.
-    3. Set the window size for the |target browsing context| to a |width| and
-        |height| such that |width| divided by |height| is approximately
-        |options|["{{DocumentPictureInPictureOptions/initialAspectRatio}}"].
-13. Configure the window containing |target browsing context| to float on top of
+12. Configure the window containing |target browsing context| to float on top of
     other windows.
-14. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+13. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
     |target browsing context|'s <a>associated Document</a>. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-15. <a>Queue a global task</a> on the
+14. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>true</code>
     and its {{DocumentPictureInPictureEvent/window}}
     attribute initialized to |target browsing context|.
-16. Return |target browsing context|.
+15. Return |target browsing context|.
 
 </div>
 
 <p class="note">
-While the aspect ratio or size of the window can be configured by the website,
-the initial position is left to the discretion of the user agent.
+While the size of the window can be configured by the website, the initial
+position is left to the discretion of the user agent.
 </p>
 
 </p>
@@ -286,9 +273,10 @@ let pipWindow = null;
 function enterPiP() {
   const player = document.querySelector('#player');
 
-  // Set the aspect ratio so the window is properly sized to the video.
+  // Set the width/height so the window is properly sized to the video.
   const pipOptions = {
-    initialAspectRatio: player.clientWidth / player.clientHeight,
+    width: player.clientWidth,
+    height: player.clientHeight,
     copyStyleSheets: true
   };
 
