@@ -6,7 +6,7 @@
   <meta content="w3c/UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
+  <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://wicg.github.io/document-picture-in-picture/" rel="canonical">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -218,8 +218,7 @@ figcaption:not(.no-marker)::before {
     position: absolute;
     z-index: 35;
     width: 20em;
-    min-width: min-content;
-    max-width: 300px;
+    width: 300px;
     height: auto;
     max-height: 500px;
     overflow: auto;
@@ -236,8 +235,15 @@ figcaption:not(.no-marker)::before {
 .dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0; }
-.dfn-panel li { list-style: inside; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
@@ -248,7 +254,7 @@ figcaption:not(.no-marker)::before {
     max-height: 30vh;
 }
 
-.dfn-paneled { cursor: pointer; }
+.dfn-paneled[role="button"] { cursor: pointer; }
 </style>
 <style>/* style-issues */
 a[href].issue-return {
@@ -393,16 +399,15 @@ c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
 <style>/* style-var-click-highlighting */
-
-    var { cursor: pointer; }
-    var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
-    var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
-    var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
-    var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
-    var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
-    var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
-    var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
-    </style>
+var { cursor: pointer; }
+var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
+var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
+var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
+var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
+var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
+var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
+var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
+</style>
 <style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
@@ -599,7 +604,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-03-31">31 March 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-05-01">1 May 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -643,7 +648,12 @@ in an always-on-top window.</p>
      <a href="#security-considerations"><span class="secno">3</span> <span class="content">Security Considerations</span></a>
      <ol class="toc">
       <li><a href="#secure-context"><span class="secno">3.1</span> <span class="content">Secure Context</span></a>
-      <li><a href="#spoofing"><span class="secno">3.2</span> <span class="content">Spoofing</span></a>
+      <li>
+       <a href="#spoofing"><span class="secno">3.2</span> <span class="content">Spoofing</span></a>
+       <ol class="toc">
+        <li><a href="#positioning"><span class="secno">3.2.1</span> <span class="content">Positioning</span></a>
+        <li><a href="#origin-visibility"><span class="secno">3.2.2</span> <span class="content">Origin Visibility</span></a>
+       </ol>
       <li><a href="#iframes"><span class="secno">3.3</span> <span class="content">IFrames</span></a>
      </ol>
     <li>
@@ -678,7 +688,6 @@ in an always-on-top window.</p>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
       <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
-      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
      </ol>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -725,14 +734,20 @@ conforming IDL fragments, as described in the Web IDL specification. <a data-lin
    <h3 class="heading settled" data-level="3.1" id="secure-context"><span class="secno">3.1. </span><span class="content">Secure Context</span><a class="self-link" href="#secure-context"></a></h3>
    <p>The API is limited to <a data-link-type="biblio" href="#biblio-secure-contexts" title="Secure Contexts">[SECURE-CONTEXTS]</a>.</p>
    <h3 class="heading settled" data-level="3.2" id="spoofing"><span class="secno">3.2. </span><span class="content">Spoofing</span><a class="self-link" href="#spoofing"></a></h3>
-   <p>It is recommended that the user agent provides enough UI on the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture">DocumentPictureInPicture</a></code> window to prevent malicious websites from abusing
+   <p>It is required that the user agent provides enough UI on the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture">DocumentPictureInPicture</a></code> window to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
-UI. The website’s inability to directly set the location of the PiP window helps
-alleviate some avenues of abuse.</p>
-   <p>It is recommended that the user agent makes it clear to the user which origin is
-controlling the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture①">DocumentPictureInPicture</a></code> window at all times. For example,
-the user agent may have the origin of the website displayed on the PiP window at
-all times to ensure that the user is aware of where the content is coming from.</p>
+UI.</p>
+   <h4 class="heading settled" data-level="3.2.1" id="positioning"><span class="secno">3.2.1. </span><span class="content">Positioning</span><a class="self-link" href="#positioning"></a></h4>
+   <p>The user agent must prevent the website from setting the position of the window
+in order to prevent the website from purposefully positioning the window in a
+location that may trick a user into thinking it is part of another page’s UI. In
+particular, this means the <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-moveto" id="ref-for-dom-window-moveto">moveTo()</a></code> and <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-moveby" id="ref-for-dom-window-moveby">moveBy()</a></code> APIs must
+be disabled for document picture-in-picture windows.</p>
+   <h4 class="heading settled" data-level="3.2.2" id="origin-visibility"><span class="secno">3.2.2. </span><span class="content">Origin Visibility</span><a class="self-link" href="#origin-visibility"></a></h4>
+   <p>It is required that the user agent makes it clear to the user which origin is
+controlling the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture①">DocumentPictureInPicture</a></code> window at all times to ensure that
+the user is aware of where the content is coming from. For example, the user
+agent may display the origin of the website in a titlebar on the window.</p>
    <h3 class="heading settled" data-level="3.3" id="iframes"><span class="secno">3.3. </span><span class="content">IFrames</span><a class="self-link" href="#iframes"></a></h3>
    <p>This API is only available on a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>. However, the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture②">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code> itself may contain <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement">HTMLIFrameElement</a></code>s, even <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">cross-origin</a> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement①">HTMLIFrameElement</a></code>s.</p>
    <h2 class="heading settled" data-level="4" id="privacy-considerations"><span class="secno">4. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy-considerations"></a></h2>
@@ -1031,20 +1046,6 @@ and contributions to this document and to the discussions that have informed it.
     with <code>class="note"</code>,
     like this: </p>
    <p class="note" role="note">Note, this is an informative note.</p>
-   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
-   <p>Requirements phrased in the imperative as part of algorithms
-    (such as "strip any leading space characters"
-    or "return false and abort these steps")
-    are to be interpreted with the meaning of the key word
-    ("must", "should", "may", etc)
-    used in introducing the algorithm. </p>
-   <p>Conformance requirements phrased as algorithms or specific steps
-    can be implemented in any manner,
-    so long as the end result is equivalent.
-    In particular, the algorithms defined in this specification
-    are intended to be easy to understand
-    and are not intended to be performant.
-    Implementers are encouraged to optimize. </p>
   </div>
 <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
@@ -1075,303 +1076,71 @@ and contributions to this document and to the discussions that have informed it.
      <li><a href="#dom-documentpictureinpictureeventinit-window">dict-member for DocumentPictureInPictureEventInit</a><span>, in § 5</span>
     </ul>
   </ul>
-  <aside aria-labelledby="infopaneltitle-for-a1930ee40a80aed15ca5a80885e15260" class="dfn-panel" data-for="a1930ee40a80aed15ca5a80885e15260" id="infopanel-for-a1930ee40a80aed15ca5a80885e15260">
-   <span id="infopaneltitle-for-a1930ee40a80aed15ca5a80885e15260" style="display:none">Info about the 'css style sheet' external reference.</span><a href="https://drafts.csswg.org/cssom-1/#css-style-sheet">https://drafts.csswg.org/cssom-1/#css-style-sheet</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-css-style-sheet">5. API</a> <a href="#ref-for-css-style-sheet①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" class="dfn-panel" data-for="07886e33695d0e7b473ef18f656ad7ac" id="infopanel-for-07886e33695d0e7b473ef18f656ad7ac">
-   <span id="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" style="display:none">Info about the 'Document' external reference.</span><a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-document">1. Introduction</a>
-    <li><a href="#ref-for-document①">6.3. Relative URLs</a> <a href="#ref-for-document②">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" class="dfn-panel" data-for="316772b0029bcc028521d2db08fd3717" id="infopanel-for-316772b0029bcc028521d2db08fd3717">
-   <span id="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" style="display:none">Info about the 'Event' external reference.</span><a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a41247dbf908b8c39ef1dea1be6618d3" class="dfn-panel" data-for="a41247dbf908b8c39ef1dea1be6618d3" id="infopanel-for-a41247dbf908b8c39ef1dea1be6618d3">
-   <span id="infopaneltitle-for-a41247dbf908b8c39ef1dea1be6618d3" style="display:none">Info about the 'EventInit' external reference.</span><a href="https://dom.spec.whatwg.org/#dictdef-eventinit">https://dom.spec.whatwg.org/#dictdef-eventinit</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-eventinit">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" class="dfn-panel" data-for="a6aa66e0075314e8eefa4e662cb40fbb" id="infopanel-for-a6aa66e0075314e8eefa4e662cb40fbb">
-   <span id="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" style="display:none">Info about the 'EventTarget' external reference.</span><a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventtarget">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-da580abf5ce04ba74a073e32a09c604a" class="dfn-panel" data-for="da580abf5ce04ba74a073e32a09c604a" id="infopanel-for-da580abf5ce04ba74a073e32a09c604a">
-   <span id="infopaneltitle-for-da580abf5ce04ba74a073e32a09c604a" style="display:none">Info about the 'bubbles' external reference.</span><a href="https://dom.spec.whatwg.org/#dom-event-bubbles">https://dom.spec.whatwg.org/#dom-event-bubbles</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-event-bubbles">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" class="dfn-panel" data-for="15045c15505e025cd6b6d0f134b7c986" id="infopanel-for-15045c15505e025cd6b6d0f134b7c986">
-   <span id="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" style="display:none">Info about the 'fire an event' external reference.</span><a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-event-fire">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" class="dfn-panel" data-for="716703f1068cc638b4235f83154eff6c" id="infopanel-for-716703f1068cc638b4235f83154eff6c">
-   <span id="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" style="display:none">Info about the 'EventHandler' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventhandler">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" class="dfn-panel" data-for="75ff12c16ae1a8f6cbf2920128280261" id="infopanel-for-75ff12c16ae1a8f6cbf2920128280261">
-   <span id="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" style="display:none">Info about the 'HTMLIFrameElement' external reference.</span><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmliframeelement">3.3. IFrames</a> <a href="#ref-for-htmliframeelement①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a958269402aae8e8d7d28d3cb6aacc8d" class="dfn-panel" data-for="a958269402aae8e8d7d28d3cb6aacc8d" id="infopanel-for-a958269402aae8e8d7d28d3cb6aacc8d">
-   <span id="infopaneltitle-for-a958269402aae8e8d7d28d3cb6aacc8d" style="display:none">Info about the 'HTMLVideoElement' external reference.</span><a href="https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement">https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmlvideoelement">1. Introduction</a>
-    <li><a href="#ref-for-htmlvideoelement①">6.3. Relative URLs</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d1f0a86fd49be388d8b0159e241a1172" class="dfn-panel" data-for="d1f0a86fd49be388d8b0159e241a1172" id="infopanel-for-d1f0a86fd49be388d8b0159e241a1172">
-   <span id="infopaneltitle-for-d1f0a86fd49be388d8b0159e241a1172" style="display:none">Info about the 'Window' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#window</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-window">1. Introduction</a>
-    <li><a href="#ref-for-window①">3.3. IFrames</a>
-    <li><a href="#ref-for-window②">5. API</a> <a href="#ref-for-window③">(2)</a> <a href="#ref-for-window④">(3)</a> <a href="#ref-for-window⑤">(4)</a> <a href="#ref-for-window⑥">(5)</a> <a href="#ref-for-window⑦">(6)</a> <a href="#ref-for-window⑧">(7)</a> <a href="#ref-for-window⑨">(8)</a> <a href="#ref-for-window①⓪">(9)</a> <a href="#ref-for-window①①">(10)</a> <a href="#ref-for-window①②">(11)</a> <a href="#ref-for-window①③">(12)</a>
-    <li><a href="#ref-for-window①④">6.2. One PiP Window</a>
-    <li><a href="#ref-for-window①⑤">6.3. Relative URLs</a> <a href="#ref-for-window①⑥">(2)</a>
-    <li><a href="#ref-for-window①⑦">7.4. Exiting PiP</a> <a href="#ref-for-window①⑧">(2)</a>
-    <li><a href="#ref-for-window①⑨">7.5. Getting elements out of the PiP window when it closes</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-04e6c32034490f45e4757ead7871de18" class="dfn-panel" data-for="04e6c32034490f45e4757ead7871de18" id="infopanel-for-04e6c32034490f45e4757ead7871de18">
-   <span id="infopaneltitle-for-04e6c32034490f45e4757ead7871de18" style="display:none">Info about the 'associated document' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window">https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-document-window">5. API</a> <a href="#ref-for-concept-document-window①">(2)</a> <a href="#ref-for-concept-document-window②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a4d3628ad9f9c131ea147f3be8b6dd7d" class="dfn-panel" data-for="a4d3628ad9f9c131ea147f3be8b6dd7d" id="infopanel-for-a4d3628ad9f9c131ea147f3be8b6dd7d">
-   <span id="infopaneltitle-for-a4d3628ad9f9c131ea147f3be8b6dd7d" style="display:none">Info about the 'close()' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-window-close">7.4. Exiting PiP</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" class="dfn-panel" data-for="293dcd27f7228c1698581dc6518812f9" id="infopanel-for-293dcd27f7228c1698581dc6518812f9">
-   <span id="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" style="display:none">Info about the 'consume user activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-consume-user-activation">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-3b26601cc89b91ada4c771e32284e4c9" class="dfn-panel" data-for="3b26601cc89b91ada4c771e32284e4c9" id="infopanel-for-3b26601cc89b91ada4c771e32284e4c9">
-   <span id="infopaneltitle-for-3b26601cc89b91ada4c771e32284e4c9" style="display:none">Info about the 'open(url, target, features)' external reference.</span><a href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open">https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-open">1. Introduction</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a8756513b792b8f203588906035a13bb" class="dfn-panel" data-for="a8756513b792b8f203588906035a13bb" id="infopanel-for-a8756513b792b8f203588906035a13bb">
-   <span id="infopaneltitle-for-a8756513b792b8f203588906035a13bb" style="display:none">Info about the 'queue a global task' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-queue-a-global-task">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" class="dfn-panel" data-for="2233058c8f0998915af8393ee2abbc1d" id="infopanel-for-2233058c8f0998915af8393ee2abbc1d">
-   <span id="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" style="display:none">Info about the 'relevant global object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-relevant-global">5. API</a> <a href="#ref-for-concept-relevant-global①">(2)</a> <a href="#ref-for-concept-relevant-global②">(3)</a> <a href="#ref-for-concept-relevant-global③">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-759752b89ba70ea00ec28685f858a6c8" class="dfn-panel" data-for="759752b89ba70ea00ec28685f858a6c8" id="infopanel-for-759752b89ba70ea00ec28685f858a6c8">
-   <span id="infopaneltitle-for-759752b89ba70ea00ec28685f858a6c8" style="display:none">Info about the 'src' external reference.</span><a href="https://html.spec.whatwg.org/multipage/media.html#dom-media-src">https://html.spec.whatwg.org/multipage/media.html#dom-media-src</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-media-src">6.3. Relative URLs</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-c104b697744f6f246969dcc26b898f11" class="dfn-panel" data-for="c104b697744f6f246969dcc26b898f11" id="infopanel-for-c104b697744f6f246969dcc26b898f11">
-   <span id="infopaneltitle-for-c104b697744f6f246969dcc26b898f11" style="display:none">Info about the 'top-level browsing context' external reference.</span><a href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context">https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-top-level-browsing-context">3.3. IFrames</a>
-    <li><a href="#ref-for-top-level-browsing-context①">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" class="dfn-panel" data-for="5b762d09d78e8674458b84982b3cb3c9" id="infopanel-for-5b762d09d78e8674458b84982b3cb3c9">
-   <span id="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" style="display:none">Info about the 'transient activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-transient-activation">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-8230815e4d16f7e82a8729568a24d058" class="dfn-panel" data-for="8230815e4d16f7e82a8729568a24d058" id="infopanel-for-8230815e4d16f7e82a8729568a24d058">
-   <span id="infopaneltitle-for-8230815e4d16f7e82a8729568a24d058" style="display:none">Info about the 'unload' external reference.</span><a href="https://html.spec.whatwg.org/multipage/indices.html#event-unload">https://html.spec.whatwg.org/multipage/indices.html#event-unload</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event-unload">7.5. Getting elements out of the PiP window when it closes</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-162b6f5e1feb8dbd20793d8f7efe081b" class="dfn-panel" data-for="162b6f5e1feb8dbd20793d8f7efe081b" id="infopanel-for-162b6f5e1feb8dbd20793d8f7efe081b">
-   <span id="infopaneltitle-for-162b6f5e1feb8dbd20793d8f7efe081b" style="display:none">Info about the 'relative-url string' external reference.</span><a href="https://url.spec.whatwg.org/#relative-url-string">https://url.spec.whatwg.org/#relative-url-string</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-relative-url-string">6.3. Relative URLs</a> <a href="#ref-for-relative-url-string①">(2)</a> <a href="#ref-for-relative-url-string②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" class="dfn-panel" data-for="fc05c76e016d3aec6a25a91c066500c8" id="infopanel-for-fc05c76e016d3aec6a25a91c066500c8">
-   <span id="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" style="display:none">Info about the 'url' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url">https://url.spec.whatwg.org/#concept-url</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-url">5. API</a>
-    <li><a href="#ref-for-concept-url①">6.3. Relative URLs</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" class="dfn-panel" data-for="0ab204fb9cc9a746edaff83c0db0740a" id="infopanel-for-0ab204fb9cc9a746edaff83c0db0740a">
-   <span id="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" style="display:none">Info about the 'DOMException' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMException">5. API</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a> <a href="#ref-for-idl-DOMException④">(5)</a> <a href="#ref-for-idl-DOMException⑤">(6)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" class="dfn-panel" data-for="d0f238a61de9310f1738a214749fab18" id="infopanel-for-d0f238a61de9310f1738a214749fab18">
-   <span id="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMString">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-e667e629f6d6cd7af11a164eb4bb237c" class="dfn-panel" data-for="e667e629f6d6cd7af11a164eb4bb237c" id="infopanel-for-e667e629f6d6cd7af11a164eb4bb237c">
-   <span id="infopaneltitle-for-e667e629f6d6cd7af11a164eb4bb237c" style="display:none">Info about the 'EnforceRange' external reference.</span><a href="https://webidl.spec.whatwg.org/#EnforceRange">https://webidl.spec.whatwg.org/#EnforceRange</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-EnforceRange">5. API</a> <a href="#ref-for-EnforceRange①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" class="dfn-panel" data-for="dde049eb112f043fc45407ec0d4cb457" id="infopanel-for-dde049eb112f043fc45407ec0d4cb457">
-   <span id="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" style="display:none">Info about the 'Exposed' external reference.</span><a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-Exposed">5. API</a> <a href="#ref-for-Exposed①">(2)</a> <a href="#ref-for-Exposed②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5bbf3aaea2bf2faaae7ffd02c20237e0" class="dfn-panel" data-for="5bbf3aaea2bf2faaae7ffd02c20237e0" id="infopanel-for-5bbf3aaea2bf2faaae7ffd02c20237e0">
-   <span id="infopaneltitle-for-5bbf3aaea2bf2faaae7ffd02c20237e0" style="display:none">Info about the 'NewObject' external reference.</span><a href="https://webidl.spec.whatwg.org/#NewObject">https://webidl.spec.whatwg.org/#NewObject</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-NewObject">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" class="dfn-panel" data-for="aa43258e2b51dc6ebe6268a36e6fd733" id="infopanel-for-aa43258e2b51dc6ebe6268a36e6fd733">
-   <span id="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" style="display:none">Info about the 'NotAllowedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notallowederror">5. API</a> <a href="#ref-for-notallowederror①">(2)</a> <a href="#ref-for-notallowederror②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-c0194e44e6b2e643055f42ba786d0a3a" class="dfn-panel" data-for="c0194e44e6b2e643055f42ba786d0a3a" id="infopanel-for-c0194e44e6b2e643055f42ba786d0a3a">
-   <span id="infopaneltitle-for-c0194e44e6b2e643055f42ba786d0a3a" style="display:none">Info about the 'NotSupportedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notsupportederror">https://webidl.spec.whatwg.org/#notsupportederror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notsupportederror">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" class="dfn-panel" data-for="93669c631ec1ef8e696b4c083bdbe12c" id="infopanel-for-93669c631ec1ef8e696b4c083bdbe12c">
-   <span id="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" style="display:none">Info about the 'Promise' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-promise">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" class="dfn-panel" data-for="04b3ab4ac1c03b8ef3df67e1fed2c870" id="infopanel-for-04b3ab4ac1c03b8ef3df67e1fed2c870">
-   <span id="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" style="display:none">Info about the 'RangeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-exceptiondef-rangeerror">5. API</a> <a href="#ref-for-exceptiondef-rangeerror①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" class="dfn-panel" data-for="f572762cd4679aeacd36722d99d2b741" id="infopanel-for-f572762cd4679aeacd36722d99d2b741">
-   <span id="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" style="display:none">Info about the 'SameObject' external reference.</span><a href="https://webidl.spec.whatwg.org/#SameObject">https://webidl.spec.whatwg.org/#SameObject</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-SameObject">5. API</a> <a href="#ref-for-SameObject①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cdf224ec60dc3b08449a2fbdf3a90406" class="dfn-panel" data-for="cdf224ec60dc3b08449a2fbdf3a90406" id="infopanel-for-cdf224ec60dc3b08449a2fbdf3a90406">
-   <span id="infopaneltitle-for-cdf224ec60dc3b08449a2fbdf3a90406" style="display:none">Info about the 'SecureContext' external reference.</span><a href="https://webidl.spec.whatwg.org/#SecureContext">https://webidl.spec.whatwg.org/#SecureContext</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-SecureContext">5. API</a> <a href="#ref-for-SecureContext①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" class="dfn-panel" data-for="f8062b07e25ed0281f5cbfb9a54070b4" id="infopanel-for-f8062b07e25ed0281f5cbfb9a54070b4">
-   <span id="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" style="display:none">Info about the 'boolean' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-boolean">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d3fd0dc5b12c87e613395fec1824ac77" class="dfn-panel" data-for="d3fd0dc5b12c87e613395fec1824ac77" id="infopanel-for-d3fd0dc5b12c87e613395fec1824ac77">
-   <span id="infopaneltitle-for-d3fd0dc5b12c87e613395fec1824ac77" style="display:none">Info about the 'double' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-double">https://webidl.spec.whatwg.org/#idl-double</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-double">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" class="dfn-panel" data-for="be0933df03cd63338f98de217c4158c7" id="infopanel-for-be0933df03cd63338f98de217c4158c7">
-   <span id="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" style="display:none">Info about the 'this' external reference.</span><a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-this">5. API</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-db891cb1cc28e2bf626982240ec36b2a" class="dfn-panel" data-for="db891cb1cc28e2bf626982240ec36b2a" id="infopanel-for-db891cb1cc28e2bf626982240ec36b2a">
-   <span id="infopaneltitle-for-db891cb1cc28e2bf626982240ec36b2a" style="display:none">Info about the 'unsigned long long' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-long-long">5. API</a> <a href="#ref-for-idl-unsigned-long-long①">(2)</a>
-   </ul>
-  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[CSSOM-1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="a1930ee40a80aed15ca5a80885e15260">css style sheet</span>
+     <li><span class="dfn-paneled" id="9ca506a8">css style sheet</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[CSSOM-VIEW-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="157f6644">moveBy(x, y)</span>
+     <li><span class="dfn-paneled" id="27215c6e">moveTo(x, y)</span>
     </ul>
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="07886e33695d0e7b473ef18f656ad7ac">Document</span>
-     <li><span class="dfn-paneled" id="316772b0029bcc028521d2db08fd3717">Event</span>
-     <li><span class="dfn-paneled" id="a41247dbf908b8c39ef1dea1be6618d3">EventInit</span>
-     <li><span class="dfn-paneled" id="a6aa66e0075314e8eefa4e662cb40fbb">EventTarget</span>
-     <li><span class="dfn-paneled" id="da580abf5ce04ba74a073e32a09c604a">bubbles</span>
-     <li><span class="dfn-paneled" id="15045c15505e025cd6b6d0f134b7c986">fire an event</span>
+     <li><span class="dfn-paneled" id="85394472">Document</span>
+     <li><span class="dfn-paneled" id="129bdae8">Event</span>
+     <li><span class="dfn-paneled" id="44a7708c">EventInit</span>
+     <li><span class="dfn-paneled" id="2bc0cdf4">EventTarget</span>
+     <li><span class="dfn-paneled" id="0c0ceb78">bubbles</span>
+     <li><span class="dfn-paneled" id="5fd23811">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="716703f1068cc638b4235f83154eff6c">EventHandler</span>
-     <li><span class="dfn-paneled" id="75ff12c16ae1a8f6cbf2920128280261">HTMLIFrameElement</span>
-     <li><span class="dfn-paneled" id="a958269402aae8e8d7d28d3cb6aacc8d">HTMLVideoElement</span>
-     <li><span class="dfn-paneled" id="d1f0a86fd49be388d8b0159e241a1172">Window</span>
-     <li><span class="dfn-paneled" id="04e6c32034490f45e4757ead7871de18">associated document</span>
-     <li><span class="dfn-paneled" id="a4d3628ad9f9c131ea147f3be8b6dd7d">close()</span>
-     <li><span class="dfn-paneled" id="293dcd27f7228c1698581dc6518812f9">consume user activation</span>
-     <li><span class="dfn-paneled" id="3b26601cc89b91ada4c771e32284e4c9">open(url, target, features)</span>
-     <li><span class="dfn-paneled" id="a8756513b792b8f203588906035a13bb">queue a global task</span>
-     <li><span class="dfn-paneled" id="2233058c8f0998915af8393ee2abbc1d">relevant global object</span>
-     <li><span class="dfn-paneled" id="759752b89ba70ea00ec28685f858a6c8">src</span>
-     <li><span class="dfn-paneled" id="c104b697744f6f246969dcc26b898f11">top-level browsing context</span>
-     <li><span class="dfn-paneled" id="5b762d09d78e8674458b84982b3cb3c9">transient activation</span>
-     <li><span class="dfn-paneled" id="8230815e4d16f7e82a8729568a24d058">unload</span>
+     <li><span class="dfn-paneled" id="f0951476">EventHandler</span>
+     <li><span class="dfn-paneled" id="10e25f42">HTMLIFrameElement</span>
+     <li><span class="dfn-paneled" id="f57f330b">HTMLVideoElement</span>
+     <li><span class="dfn-paneled" id="5d7209e9">Window</span>
+     <li><span class="dfn-paneled" id="3349d69f">associated document</span>
+     <li><span class="dfn-paneled" id="0e1e41a8">close()</span>
+     <li><span class="dfn-paneled" id="aca22383">consume user activation</span>
+     <li><span class="dfn-paneled" id="f449d4f8">open(url, target, features)</span>
+     <li><span class="dfn-paneled" id="48438eb3">queue a global task</span>
+     <li><span class="dfn-paneled" id="e99bd18e">relevant global object</span>
+     <li><span class="dfn-paneled" id="eb573143">src</span>
+     <li><span class="dfn-paneled" id="ae2a6342">top-level browsing context</span>
+     <li><span class="dfn-paneled" id="47fe679e">transient activation</span>
+     <li><span class="dfn-paneled" id="8bd6a569">unload</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="162b6f5e1feb8dbd20793d8f7efe081b">relative-url string</span>
-     <li><span class="dfn-paneled" id="fc05c76e016d3aec6a25a91c066500c8">url</span>
+     <li><span class="dfn-paneled" id="3419d271">relative-url string</span>
+     <li><span class="dfn-paneled" id="dcffbccd">url</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="0ab204fb9cc9a746edaff83c0db0740a">DOMException</span>
-     <li><span class="dfn-paneled" id="d0f238a61de9310f1738a214749fab18">DOMString</span>
-     <li><span class="dfn-paneled" id="e667e629f6d6cd7af11a164eb4bb237c">EnforceRange</span>
-     <li><span class="dfn-paneled" id="dde049eb112f043fc45407ec0d4cb457">Exposed</span>
-     <li><span class="dfn-paneled" id="5bbf3aaea2bf2faaae7ffd02c20237e0">NewObject</span>
-     <li><span class="dfn-paneled" id="aa43258e2b51dc6ebe6268a36e6fd733">NotAllowedError</span>
-     <li><span class="dfn-paneled" id="c0194e44e6b2e643055f42ba786d0a3a">NotSupportedError</span>
-     <li><span class="dfn-paneled" id="93669c631ec1ef8e696b4c083bdbe12c">Promise</span>
-     <li><span class="dfn-paneled" id="04b3ab4ac1c03b8ef3df67e1fed2c870">RangeError</span>
-     <li><span class="dfn-paneled" id="f572762cd4679aeacd36722d99d2b741">SameObject</span>
-     <li><span class="dfn-paneled" id="cdf224ec60dc3b08449a2fbdf3a90406">SecureContext</span>
-     <li><span class="dfn-paneled" id="f8062b07e25ed0281f5cbfb9a54070b4">boolean</span>
-     <li><span class="dfn-paneled" id="d3fd0dc5b12c87e613395fec1824ac77">double</span>
-     <li><span class="dfn-paneled" id="be0933df03cd63338f98de217c4158c7">this</span>
-     <li><span class="dfn-paneled" id="db891cb1cc28e2bf626982240ec36b2a">unsigned long long</span>
+     <li><span class="dfn-paneled" id="dca2de17">DOMException</span>
+     <li><span class="dfn-paneled" id="8855a9aa">DOMString</span>
+     <li><span class="dfn-paneled" id="c01cbda0">EnforceRange</span>
+     <li><span class="dfn-paneled" id="889e932f">Exposed</span>
+     <li><span class="dfn-paneled" id="c807e273">NewObject</span>
+     <li><span class="dfn-paneled" id="ba556545">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="3182eb71">NotSupportedError</span>
+     <li><span class="dfn-paneled" id="bdbd19d1">Promise</span>
+     <li><span class="dfn-paneled" id="ec878a66">RangeError</span>
+     <li><span class="dfn-paneled" id="a5c91173">SameObject</span>
+     <li><span class="dfn-paneled" id="b75bb3bd">SecureContext</span>
+     <li><span class="dfn-paneled" id="5372cca8">boolean</span>
+     <li><span class="dfn-paneled" id="8c800cdf">double</span>
+     <li><span class="dfn-paneled" id="4013a022">this</span>
+     <li><span class="dfn-paneled" id="f14b47b8">unsigned long long</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1379,6 +1148,8 @@ and contributions to this document and to the discussions that have informed it.
   <dl>
    <dt id="biblio-cssom-1">[CSSOM-1]
    <dd>Daniel Glazman; Emilio Cobos Álvarez. <a href="https://drafts.csswg.org/cssom/"><cite>CSS Object Model (CSSOM)</cite></a>. URL: <a href="https://drafts.csswg.org/cssom/">https://drafts.csswg.org/cssom/</a>
+   <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
+   <dd>Simon Pieters. <a href="https://drafts.csswg.org/cssom-view/"><cite>CSSOM View Module</cite></a>. URL: <a href="https://drafts.csswg.org/cssom-view/">https://drafts.csswg.org/cssom-view/</a>
    <dt id="biblio-dom">[DOM]
    <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-html">[HTML]
@@ -1428,116 +1199,68 @@ and contributions to this document and to the discussions that have informed it.
 };
 
 </pre>
-  <aside aria-labelledby="infopaneltitle-for-documentpictureinpicture" class="dfn-panel" data-for="documentpictureinpicture" id="infopanel-for-documentpictureinpicture">
-   <span id="infopaneltitle-for-documentpictureinpicture" style="display:none">Info about the 'DocumentPictureInPicture' definition.</span><b><a href="#documentpictureinpicture">#documentpictureinpicture</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-documentpictureinpicture">3.2. Spoofing</a> <a href="#ref-for-documentpictureinpicture①">(2)</a>
-    <li><a href="#ref-for-documentpictureinpicture②">3.3. IFrames</a>
-    <li><a href="#ref-for-documentpictureinpicture③">5. API</a> <a href="#ref-for-documentpictureinpicture④">(2)</a> <a href="#ref-for-documentpictureinpicture⑤">(3)</a> <a href="#ref-for-documentpictureinpicture⑥">(4)</a>
-    <li><a href="#ref-for-documentpictureinpicture⑦">6.2. One PiP Window</a>
-    <li><a href="#ref-for-documentpictureinpicture⑧">6.3. Relative URLs</a> <a href="#ref-for-documentpictureinpicture⑨">(2)</a>
-    <li><a href="#ref-for-documentpictureinpicture①⓪">7.4. Exiting PiP</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-documentpictureinpictureoptions" class="dfn-panel" data-for="dictdef-documentpictureinpictureoptions" id="infopanel-for-dictdef-documentpictureinpictureoptions">
-   <span id="infopaneltitle-for-dictdef-documentpictureinpictureoptions" style="display:none">Info about the 'DocumentPictureInPictureOptions' definition.</span><b><a href="#dictdef-documentpictureinpictureoptions">#dictdef-documentpictureinpictureoptions</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-documentpictureinpictureoptions">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-width" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-width" id="infopanel-for-dom-documentpictureinpictureoptions-width">
-   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-width" style="display:none">Info about the 'width' definition.</span><b><a href="#dom-documentpictureinpictureoptions-width">#dom-documentpictureinpictureoptions-width</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-width">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width④">(5)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-width⑤">(6)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-height" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-height" id="infopanel-for-dom-documentpictureinpictureoptions-height">
-   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-height" style="display:none">Info about the 'height' definition.</span><b><a href="#dom-documentpictureinpictureoptions-height">#dom-documentpictureinpictureoptions-height</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-height">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height④">(5)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-height⑤">(6)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-initialaspectratio" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-initialaspectratio" id="infopanel-for-dom-documentpictureinpictureoptions-initialaspectratio">
-   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-initialaspectratio" style="display:none">Info about the 'initialAspectRatio' definition.</span><b><a href="#dom-documentpictureinpictureoptions-initialaspectratio">#dom-documentpictureinpictureoptions-initialaspectratio</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio">5. API</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio①">(2)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio②">(3)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio③">(4)</a> <a href="#ref-for-dom-documentpictureinpictureoptions-initialaspectratio④">(5)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureoptions-copystylesheets" class="dfn-panel" data-for="dom-documentpictureinpictureoptions-copystylesheets" id="infopanel-for-dom-documentpictureinpictureoptions-copystylesheets">
-   <span id="infopaneltitle-for-dom-documentpictureinpictureoptions-copystylesheets" style="display:none">Info about the 'copyStyleSheets' definition.</span><b><a href="#dom-documentpictureinpictureoptions-copystylesheets">#dom-documentpictureinpictureoptions-copystylesheets</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureoptions-copystylesheets">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-documentpictureinpictureevent" class="dfn-panel" data-for="documentpictureinpictureevent" id="infopanel-for-documentpictureinpictureevent">
-   <span id="infopaneltitle-for-documentpictureinpictureevent" style="display:none">Info about the 'DocumentPictureInPictureEvent' definition.</span><b><a href="#documentpictureinpictureevent">#documentpictureinpictureevent</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-documentpictureinpictureevent">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpictureevent-window" class="dfn-panel" data-for="dom-documentpictureinpictureevent-window" id="infopanel-for-dom-documentpictureinpictureevent-window">
-   <span id="infopaneltitle-for-dom-documentpictureinpictureevent-window" style="display:none">Info about the 'window' definition.</span><b><a href="#dom-documentpictureinpictureevent-window">#dom-documentpictureinpictureevent-window</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpictureevent-window">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-documentpictureinpictureeventinit" class="dfn-panel" data-for="dictdef-documentpictureinpictureeventinit" id="infopanel-for-dictdef-documentpictureinpictureeventinit">
-   <span id="infopaneltitle-for-dictdef-documentpictureinpictureeventinit" style="display:none">Info about the 'DocumentPictureInPictureEventInit' definition.</span><b><a href="#dictdef-documentpictureinpictureeventinit">#dictdef-documentpictureinpictureeventinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-documentpictureinpictureeventinit">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-window-documentpictureinpicture-api" class="dfn-panel" data-for="window-documentpictureinpicture-api" id="infopanel-for-window-documentpictureinpicture-api">
-   <span id="infopaneltitle-for-window-documentpictureinpicture-api" style="display:none">Info about the 'documentPictureInPicture API' definition.</span><b><a href="#window-documentpictureinpicture-api">#window-documentpictureinpicture-api</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-window-documentpictureinpicture-api">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-window-documentpictureinpicture" class="dfn-panel" data-for="dom-window-documentpictureinpicture" id="infopanel-for-dom-window-documentpictureinpicture">
-   <span id="infopaneltitle-for-dom-window-documentpictureinpicture" style="display:none">Info about the 'documentPictureInPicture' definition.</span><b><a href="#dom-window-documentpictureinpicture">#dom-window-documentpictureinpicture</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-window-documentpictureinpicture">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpicture-window" class="dfn-panel" data-for="dom-documentpictureinpicture-window" id="infopanel-for-dom-documentpictureinpicture-window">
-   <span id="infopaneltitle-for-dom-documentpictureinpicture-window" style="display:none">Info about the 'window' definition.</span><b><a href="#dom-documentpictureinpicture-window">#dom-documentpictureinpicture-window</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpicture-window">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-documentpictureinpicture-requestwindow" class="dfn-panel" data-for="dom-documentpictureinpicture-requestwindow" id="infopanel-for-dom-documentpictureinpicture-requestwindow">
-   <span id="infopaneltitle-for-dom-documentpictureinpicture-requestwindow" style="display:none">Info about the 'requestWindow(options)' definition.</span><b><a href="#dom-documentpictureinpicture-requestwindow">#dom-documentpictureinpicture-requestwindow</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-documentpictureinpicture-requestwindow">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-eventdef-documentpictureinpicture-enter" class="dfn-panel" data-for="eventdef-documentpictureinpicture-enter" id="infopanel-for-eventdef-documentpictureinpicture-enter">
-   <span id="infopaneltitle-for-eventdef-documentpictureinpicture-enter" style="display:none">Info about the 'enter' definition.</span><b><a href="#eventdef-documentpictureinpicture-enter">#eventdef-documentpictureinpicture-enter</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventdef-documentpictureinpicture-enter">5. API</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-document-picture-in-picture-support" class="dfn-panel" data-for="document-picture-in-picture-support" id="infopanel-for-document-picture-in-picture-support">
-   <span id="infopaneltitle-for-document-picture-in-picture-support" style="display:none">Info about the 'Document Picture-in-Picture Support' definition.</span><b><a href="#document-picture-in-picture-support">#document-picture-in-picture-support</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-document-picture-in-picture-support">5. API</a>
-   </ul>
-  </aside>
 <script>/* script-dfn-panel */
 "use strict";
 {
-    function queryAll(sel) {
-        return [].slice.call(document.querySelectorAll(sel));
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 
-    // Add popup behavior to all dfns to show the corresponding dfn-panel.
-    var dfns = document.querySelectorAll('.dfn-paneled');
-    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
 
-    document.body.addEventListener("click", (e) => {
-        // If not handled already, just hide all dfn panels.
-        hideAllDfnPanels();
-    });
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
 
     function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
@@ -1587,52 +1310,300 @@ and contributions to this document and to the discussions that have informed it.
         }
     }
 
-    function insertDfnPopupAction(dfn) {
+    function insertDfnPopupAction(dfn, dfnPanel) {
         // Find dfn panel
-        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
-        if (dfnPanel) {
-            const panelWrapper = document.createElement('span');
-            panelWrapper.appendChild(dfnPanel);
-            panelWrapper.style.position = "relative";
-            panelWrapper.style.height = "0px";
-            dfn.insertAdjacentElement("afterend", panelWrapper);
-            dfn.setAttribute('role', 'button');
-            dfn.setAttribute('aria-expanded', 'false')
-            dfn.tabIndex = 0;
-            dfn.classList.add('has-dfn-panel');
-            dfn.addEventListener('click', (event) => {
-                showDfnPanel(dfnPanel, dfn);
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
-            dfn.addEventListener('keypress', (event) => {
-                const kc = event.keyCode;
-                // 32->Space, 13->Enter
-                if(kc == 32 || kc == 13) {
-                    toggleDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            });
+                event.preventDefault();
+            }
+        });
 
-            dfnPanel.addEventListener('click', (event) => {
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
                 pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
-
-            dfnPanel.addEventListener('keydown', (event) => {
-                if(event.keyCode == 27) { // Escape key
-                    hideDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            })
-
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
-        }
+                event.preventDefault();
+            }
+        })
     }
 }
 </script>
+<script>/* script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['9ca506a8'] = {"dfnID": "9ca506a8", "url": "https://drafts.csswg.org/cssom-1/#css-style-sheet", "dfnText": "css style sheet", "refSections": [{"refs": [{"id": "ref-for-css-style-sheet"}, {"id": "ref-for-css-style-sheet\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['157f6644'] = {"dfnID": "157f6644", "url": "https://drafts.csswg.org/cssom-view-1/#dom-window-moveby", "dfnText": "moveBy(x, y)", "refSections": [{"refs": [{"id": "ref-for-dom-window-moveby"}], "title": "3.2.1. Positioning"}], "external": true};
+window.dfnpanelData['27215c6e'] = {"dfnID": "27215c6e", "url": "https://drafts.csswg.org/cssom-view-1/#dom-window-moveto", "dfnText": "moveTo(x, y)", "refSections": [{"refs": [{"id": "ref-for-dom-window-moveto"}], "title": "3.2.1. Positioning"}], "external": true};
+window.dfnpanelData['85394472'] = {"dfnID": "85394472", "url": "https://dom.spec.whatwg.org/#document", "dfnText": "Document", "refSections": [{"refs": [{"id": "ref-for-document"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-document\u2460"}, {"id": "ref-for-document\u2461"}], "title": "6.3. Relative URLs"}], "external": true};
+window.dfnpanelData['129bdae8'] = {"dfnID": "129bdae8", "url": "https://dom.spec.whatwg.org/#event", "dfnText": "Event", "refSections": [{"refs": [{"id": "ref-for-event"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['44a7708c'] = {"dfnID": "44a7708c", "url": "https://dom.spec.whatwg.org/#dictdef-eventinit", "dfnText": "EventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-eventinit"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['2bc0cdf4'] = {"dfnID": "2bc0cdf4", "url": "https://dom.spec.whatwg.org/#eventtarget", "dfnText": "EventTarget", "refSections": [{"refs": [{"id": "ref-for-eventtarget"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['0c0ceb78'] = {"dfnID": "0c0ceb78", "url": "https://dom.spec.whatwg.org/#dom-event-bubbles", "dfnText": "bubbles", "refSections": [{"refs": [{"id": "ref-for-dom-event-bubbles"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['5fd23811'] = {"dfnID": "5fd23811", "url": "https://dom.spec.whatwg.org/#concept-event-fire", "dfnText": "fire an event", "refSections": [{"refs": [{"id": "ref-for-concept-event-fire"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['f0951476'] = {"dfnID": "f0951476", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler", "dfnText": "EventHandler", "refSections": [{"refs": [{"id": "ref-for-eventhandler"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['10e25f42'] = {"dfnID": "10e25f42", "url": "https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement", "dfnText": "HTMLIFrameElement", "refSections": [{"refs": [{"id": "ref-for-htmliframeelement"}, {"id": "ref-for-htmliframeelement\u2460"}], "title": "3.3. IFrames"}], "external": true};
+window.dfnpanelData['f57f330b'] = {"dfnID": "f57f330b", "url": "https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement", "dfnText": "HTMLVideoElement", "refSections": [{"refs": [{"id": "ref-for-htmlvideoelement"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-htmlvideoelement\u2460"}], "title": "6.3. Relative URLs"}], "external": true};
+window.dfnpanelData['5d7209e9'] = {"dfnID": "5d7209e9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window", "dfnText": "Window", "refSections": [{"refs": [{"id": "ref-for-window"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-window\u2460"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-window\u2461"}, {"id": "ref-for-window\u2462"}, {"id": "ref-for-window\u2463"}, {"id": "ref-for-window\u2464"}, {"id": "ref-for-window\u2465"}, {"id": "ref-for-window\u2466"}, {"id": "ref-for-window\u2467"}, {"id": "ref-for-window\u2468"}, {"id": "ref-for-window\u2460\u24ea"}, {"id": "ref-for-window\u2460\u2460"}, {"id": "ref-for-window\u2460\u2461"}, {"id": "ref-for-window\u2460\u2462"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window\u2460\u2463"}], "title": "6.2. One PiP Window"}, {"refs": [{"id": "ref-for-window\u2460\u2464"}, {"id": "ref-for-window\u2460\u2465"}], "title": "6.3. Relative URLs"}, {"refs": [{"id": "ref-for-window\u2460\u2466"}, {"id": "ref-for-window\u2460\u2467"}], "title": "7.4. Exiting PiP"}, {"refs": [{"id": "ref-for-window\u2460\u2468"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
+window.dfnpanelData['3349d69f'] = {"dfnID": "3349d69f", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window", "dfnText": "associated document", "refSections": [{"refs": [{"id": "ref-for-concept-document-window"}, {"id": "ref-for-concept-document-window\u2460"}, {"id": "ref-for-concept-document-window\u2461"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['0e1e41a8'] = {"dfnID": "0e1e41a8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close", "dfnText": "close()", "refSections": [{"refs": [{"id": "ref-for-dom-window-close"}], "title": "7.4. Exiting PiP"}], "external": true};
+window.dfnpanelData['aca22383'] = {"dfnID": "aca22383", "url": "https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation", "dfnText": "consume user activation", "refSections": [{"refs": [{"id": "ref-for-consume-user-activation"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['f449d4f8'] = {"dfnID": "f449d4f8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open", "dfnText": "open(url, target, features)", "refSections": [{"refs": [{"id": "ref-for-dom-open"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['48438eb3'] = {"dfnID": "48438eb3", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task", "dfnText": "queue a global task", "refSections": [{"refs": [{"id": "ref-for-queue-a-global-task"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['e99bd18e'] = {"dfnID": "e99bd18e", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global", "dfnText": "relevant global object", "refSections": [{"refs": [{"id": "ref-for-concept-relevant-global"}, {"id": "ref-for-concept-relevant-global\u2460"}, {"id": "ref-for-concept-relevant-global\u2461"}, {"id": "ref-for-concept-relevant-global\u2462"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['eb573143'] = {"dfnID": "eb573143", "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-src", "dfnText": "src", "refSections": [{"refs": [{"id": "ref-for-dom-media-src"}], "title": "6.3. Relative URLs"}], "external": true};
+window.dfnpanelData['ae2a6342'] = {"dfnID": "ae2a6342", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context", "dfnText": "top-level browsing context", "refSections": [{"refs": [{"id": "ref-for-top-level-browsing-context"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-top-level-browsing-context\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['47fe679e'] = {"dfnID": "47fe679e", "url": "https://html.spec.whatwg.org/multipage/interaction.html#transient-activation", "dfnText": "transient activation", "refSections": [{"refs": [{"id": "ref-for-transient-activation"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['8bd6a569'] = {"dfnID": "8bd6a569", "url": "https://html.spec.whatwg.org/multipage/indices.html#event-unload", "dfnText": "unload", "refSections": [{"refs": [{"id": "ref-for-event-unload"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
+window.dfnpanelData['3419d271'] = {"dfnID": "3419d271", "url": "https://url.spec.whatwg.org/#relative-url-string", "dfnText": "relative-url string", "refSections": [{"refs": [{"id": "ref-for-relative-url-string"}, {"id": "ref-for-relative-url-string\u2460"}, {"id": "ref-for-relative-url-string\u2461"}], "title": "6.3. Relative URLs"}], "external": true};
+window.dfnpanelData['dcffbccd'] = {"dfnID": "dcffbccd", "url": "https://url.spec.whatwg.org/#concept-url", "dfnText": "url", "refSections": [{"refs": [{"id": "ref-for-concept-url"}], "title": "5. API"}, {"refs": [{"id": "ref-for-concept-url\u2460"}], "title": "6.3. Relative URLs"}], "external": true};
+window.dfnpanelData['dca2de17'] = {"dfnID": "dca2de17", "url": "https://webidl.spec.whatwg.org/#idl-DOMException", "dfnText": "DOMException", "refSections": [{"refs": [{"id": "ref-for-idl-DOMException"}, {"id": "ref-for-idl-DOMException\u2460"}, {"id": "ref-for-idl-DOMException\u2461"}, {"id": "ref-for-idl-DOMException\u2462"}, {"id": "ref-for-idl-DOMException\u2463"}, {"id": "ref-for-idl-DOMException\u2464"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['c01cbda0'] = {"dfnID": "c01cbda0", "url": "https://webidl.spec.whatwg.org/#EnforceRange", "dfnText": "EnforceRange", "refSections": [{"refs": [{"id": "ref-for-EnforceRange"}, {"id": "ref-for-EnforceRange\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['889e932f'] = {"dfnID": "889e932f", "url": "https://webidl.spec.whatwg.org/#Exposed", "dfnText": "Exposed", "refSections": [{"refs": [{"id": "ref-for-Exposed"}, {"id": "ref-for-Exposed\u2460"}, {"id": "ref-for-Exposed\u2461"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['c807e273'] = {"dfnID": "c807e273", "url": "https://webidl.spec.whatwg.org/#NewObject", "dfnText": "NewObject", "refSections": [{"refs": [{"id": "ref-for-NewObject"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['ba556545'] = {"dfnID": "ba556545", "url": "https://webidl.spec.whatwg.org/#notallowederror", "dfnText": "NotAllowedError", "refSections": [{"refs": [{"id": "ref-for-notallowederror"}, {"id": "ref-for-notallowederror\u2460"}, {"id": "ref-for-notallowederror\u2461"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['3182eb71'] = {"dfnID": "3182eb71", "url": "https://webidl.spec.whatwg.org/#notsupportederror", "dfnText": "NotSupportedError", "refSections": [{"refs": [{"id": "ref-for-notsupportederror"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['bdbd19d1'] = {"dfnID": "bdbd19d1", "url": "https://webidl.spec.whatwg.org/#idl-promise", "dfnText": "Promise", "refSections": [{"refs": [{"id": "ref-for-idl-promise"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['ec878a66'] = {"dfnID": "ec878a66", "url": "https://webidl.spec.whatwg.org/#exceptiondef-rangeerror", "dfnText": "RangeError", "refSections": [{"refs": [{"id": "ref-for-exceptiondef-rangeerror"}, {"id": "ref-for-exceptiondef-rangeerror\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['a5c91173'] = {"dfnID": "a5c91173", "url": "https://webidl.spec.whatwg.org/#SameObject", "dfnText": "SameObject", "refSections": [{"refs": [{"id": "ref-for-SameObject"}, {"id": "ref-for-SameObject\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['b75bb3bd'] = {"dfnID": "b75bb3bd", "url": "https://webidl.spec.whatwg.org/#SecureContext", "dfnText": "SecureContext", "refSections": [{"refs": [{"id": "ref-for-SecureContext"}, {"id": "ref-for-SecureContext\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['5372cca8'] = {"dfnID": "5372cca8", "url": "https://webidl.spec.whatwg.org/#idl-boolean", "dfnText": "boolean", "refSections": [{"refs": [{"id": "ref-for-idl-boolean"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['8c800cdf'] = {"dfnID": "8c800cdf", "url": "https://webidl.spec.whatwg.org/#idl-double", "dfnText": "double", "refSections": [{"refs": [{"id": "ref-for-idl-double"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}, {"id": "ref-for-idl-unsigned-long-long\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['documentpictureinpicture'] = {"dfnID": "documentpictureinpicture", "url": "#documentpictureinpicture", "dfnText": "DocumentPictureInPicture", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpicture"}], "title": "3.2. Spoofing"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2460"}], "title": "3.2.2. Origin Visibility"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2461"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2462"}, {"id": "ref-for-documentpictureinpicture\u2463"}, {"id": "ref-for-documentpictureinpicture\u2464"}, {"id": "ref-for-documentpictureinpicture\u2465"}], "title": "5. API"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2466"}], "title": "6.2. One PiP Window"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2467"}, {"id": "ref-for-documentpictureinpicture\u2468"}], "title": "6.3. Relative URLs"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2460\u24ea"}], "title": "7.4. Exiting PiP"}], "external": false};
+window.dfnpanelData['dictdef-documentpictureinpictureoptions'] = {"dfnID": "dictdef-documentpictureinpictureoptions", "url": "#dictdef-documentpictureinpictureoptions", "dfnText": "DocumentPictureInPictureOptions", "refSections": [{"refs": [{"id": "ref-for-dictdef-documentpictureinpictureoptions"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-width'] = {"dfnID": "dom-documentpictureinpictureoptions-width", "url": "#dom-documentpictureinpictureoptions-width", "dfnText": "width", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-width"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2463"}, {"id": "ref-for-dom-documentpictureinpictureoptions-width\u2464"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-height'] = {"dfnID": "dom-documentpictureinpictureoptions-height", "url": "#dom-documentpictureinpictureoptions-height", "dfnText": "height", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-height"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2463"}, {"id": "ref-for-dom-documentpictureinpictureoptions-height\u2464"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-initialaspectratio'] = {"dfnID": "dom-documentpictureinpictureoptions-initialaspectratio", "url": "#dom-documentpictureinpictureoptions-initialaspectratio", "dfnText": "initialAspectRatio", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2460"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2461"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2462"}, {"id": "ref-for-dom-documentpictureinpictureoptions-initialaspectratio\u2463"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureoptions-copystylesheets'] = {"dfnID": "dom-documentpictureinpictureoptions-copystylesheets", "url": "#dom-documentpictureinpictureoptions-copystylesheets", "dfnText": "copyStyleSheets", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureoptions-copystylesheets"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['documentpictureinpictureevent'] = {"dfnID": "documentpictureinpictureevent", "url": "#documentpictureinpictureevent", "dfnText": "DocumentPictureInPictureEvent", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpictureevent"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpictureevent-window'] = {"dfnID": "dom-documentpictureinpictureevent-window", "url": "#dom-documentpictureinpictureevent-window", "dfnText": "window", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureevent-window"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dictdef-documentpictureinpictureeventinit'] = {"dfnID": "dictdef-documentpictureinpictureeventinit", "url": "#dictdef-documentpictureinpictureeventinit", "dfnText": "DocumentPictureInPictureEventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-documentpictureinpictureeventinit"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['window-documentpictureinpicture-api'] = {"dfnID": "window-documentpictureinpicture-api", "url": "#window-documentpictureinpicture-api", "dfnText": "documentPictureInPicture API", "refSections": [{"refs": [{"id": "ref-for-window-documentpictureinpicture-api"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-window-documentpictureinpicture'] = {"dfnID": "dom-window-documentpictureinpicture", "url": "#dom-window-documentpictureinpicture", "dfnText": "documentPictureInPicture", "refSections": [{"refs": [{"id": "ref-for-dom-window-documentpictureinpicture"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpicture-window'] = {"dfnID": "dom-documentpictureinpicture-window", "url": "#dom-documentpictureinpicture-window", "dfnText": "window", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpicture-window"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpicture-requestwindow'] = {"dfnID": "dom-documentpictureinpicture-requestwindow", "url": "#dom-documentpictureinpicture-requestwindow", "dfnText": "requestWindow(options)", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['eventdef-documentpictureinpicture-enter'] = {"dfnID": "eventdef-documentpictureinpicture-enter", "url": "#eventdef-documentpictureinpicture-enter", "dfnText": "enter", "refSections": [{"refs": [{"id": "ref-for-eventdef-documentpictureinpicture-enter"}], "title": "5. API"}], "external": false};
+window.dfnpanelData['document-picture-in-picture-support'] = {"dfnID": "document-picture-in-picture-support", "url": "#document-picture-in-picture-support", "dfnText": "Document Picture-in-Picture Support", "refSections": [{"refs": [{"id": "ref-for-document-picture-in-picture-support"}], "title": "5. API"}], "external": false};</script>
+<script>/* script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}</script>
 <script>/* script-var-click-highlighting */
 
     "use strict";
@@ -1717,4 +1688,4 @@ and contributions to this document and to the discussions that have informed it.
             return "selected" + index;
         }
     }
-    </script>
+</script>
