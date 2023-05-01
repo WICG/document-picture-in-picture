@@ -50,16 +50,25 @@ The API is limited to [[SECURE-CONTEXTS]].
 
 ## Spoofing ## {#spoofing}
 
-It is recommended that the user agent provides enough UI on the
+It is required that the user agent provides enough UI on the
 {{DocumentPictureInPicture}} window to prevent malicious websites from abusing
 the ability to float on top of other windows to spoof other websites or system
-UI. The website's inability to directly set the location of the PiP window helps
-alleviate some avenues of abuse.
+UI.
 
-It is recommended that the user agent makes it clear to the user which origin is
-controlling the {{DocumentPictureInPicture}} window at all times. For example,
-the user agent may have the origin of the website displayed on the PiP window at
-all times to ensure that the user is aware of where the content is coming from.
+### Positioning ### {#positioning}
+
+The user agent must prevent the website from setting the position of the window
+in order to prevent the website from purposefully positioning the window in a
+location that may trick a user into thinking it is part of another page's UI. In
+particular, this means the {{Window/moveTo()}} and {{Window/moveBy()}} APIs must
+be disabled for document picture-in-picture windows.
+
+### Origin Visibility ### {#origin-visibility}
+
+It is required that the user agent makes it clear to the user which origin is
+controlling the {{DocumentPictureInPicture}} window at all times to ensure that
+the user is aware of where the content is coming from. For example, the user
+agent may display the origin of the website in a titlebar on the window.
 
 ## IFrames ## {#iframes}
 
