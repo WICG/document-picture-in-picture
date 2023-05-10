@@ -150,22 +150,22 @@ The <dfn attribute for="DocumentPictureInPicture">window</dfn> getter steps are:
 The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> method steps are:
 
 1. If <a>Document Picture-in-Picture support</a> is <code>false</code>, throw a
-    "{{NotSupportedError}}" {{DOMException}} and abort these steps.
+    "{{NotSupportedError}}" {{DOMException}}.
 2. If <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a> is not a
-    <a>top-level traversable</a>, throw a "{{NotAllowedError}}" {{DOMException}}
-    and abort these steps.
+    <a>top-level traversable</a>, throw a "{{NotAllowedError}}"
+    {{DOMException}}.
 3. If the <a>relevant global object</a> of <a>this</a> is a
     DocumentPictureInPicture {{Window}}, throw a "{{NotAllowedError}}"
-    {{DOMException}} and abort these steps.
+    {{DOMException}}.
 4. If the <a>relevant global object</a> of <a>this</a> does not have
-    <a>transient activation</a>, throw a "{{NotAllowedError}}" {{DOMException}}
-    and abort these steps.
+    <a>transient activation</a>, throw a "{{NotAllowedError}}"
+    {{DOMException}}.
 5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is greater than zero, but
     |options|["{{DocumentPictureInPictureOptions/height}}"] does not exist or is zero, throw a
-    "{{RangeError}}" {{DOMException}} and abort these steps.
+    "{{RangeError}}" {{DOMException}}.
 6. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is greater than zero, but
     |options|["{{DocumentPictureInPictureOptions/width}}"] does not exist or is zero, throw a
-    "{{RangeError}}" {{DOMException}} and abort these steps.
+    "{{RangeError}}" {{DOMException}}.
 7. <a>Consume user activation</a>
 8. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
