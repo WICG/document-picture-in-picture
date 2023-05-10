@@ -215,9 +215,9 @@ position is left to the discretion of the user agent.
 
 ## Document Picture-in-Picture Support ## {#pip-support}
 
-<dfn>Document Picture-in-Picture Support</dfn> is <code>false</code> if there's
-a user preference that disables it or a platform limitation. It is
-<code>true</code> otherwise.
+Each user agent has a <dfn>Document Picture-in-Picture Support</dfn> boolean,
+whose value is <a>implementation-defined</a> (and might vary according to user
+preferences).
 
 ## One PiP Window ## {#one-pip-window}
 
