@@ -162,10 +162,10 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     {{DOMException}}.
 5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is greater than zero, but
     |options|["{{DocumentPictureInPictureOptions/height}}"] does not exist or is zero, throw a
-    "{{RangeError}}" {{DOMException}}.
+    {{RangeError}}.
 6. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is greater than zero, but
     |options|["{{DocumentPictureInPictureOptions/width}}"] does not exist or is zero, throw a
-    "{{RangeError}}" {{DOMException}}.
+    {{RangeError}}.
 7. <a>Consume user activation</a>
 8. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
