@@ -1,11 +1,9 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Document Picture-in-Picture Specification</title>
-  <meta content="w3c/UD" name="w3c-status">
-  <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
-  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://wicg.github.io/document-picture-in-picture/" rel="canonical">
 <style>/* style-autolinks */
@@ -604,22 +602,20 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-05-01">1 May 2023</time></p>
-   <details open>
-    <summary>More details about this document</summary>
-    <div data-fill-with="spec-metadata">
-     <dl>
-      <dt>This version:
-      <dd><a class="u-url" href="https://wicg.github.io/document-picture-in-picture/">https://wicg.github.io/document-picture-in-picture/</a>
-      <dt>Issue Tracking:
-      <dd><a href="https://github.com/WICG/document-picture-in-picture/issues/">GitHub</a>
-      <dt class="editor">Editor:
-      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:steimel@google.com">Tommy Steimel</a> (<span class="p-org org">Google Inc.</span>)
-     </dl>
-    </div>
-   </details>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-05-10">10 May 2023</time></p>
+   <div data-fill-with="spec-metadata">
+    <dl>
+     <dt>This version:
+     <dd><a class="u-url" href="https://wicg.github.io/document-picture-in-picture/">https://wicg.github.io/document-picture-in-picture/</a>
+     <dt>Issue Tracking:
+     <dd><a href="https://github.com/WICG/document-picture-in-picture/issues/">GitHub</a>
+     <dt class="editor">Editor:
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:steimel@google.com">Tommy Steimel</a> (<span class="p-org org">Google Inc.</span>)
+    </dl>
+   </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 the Contributors to the Document Picture-in-Picture Specification Specification, published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -628,14 +624,15 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
 
 in an always-on-top window.</p>
   </div>
-  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="at-risk"></div>
+  <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
-   <p> <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em> </p>
-   <p> Feedback and comments on this specification are welcome. <a href="https://github.com/WICG/document-picture-in-picture/issues">GitHub Issues</a> are preferred for discussion on this specification. Alternatively, you can send comments to the Media Working Group’s mailing-list, <a href="mailto:public-media-wg@w3.org">public-media-wg@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-media-wg/">archives</a>).
-  This draft highlights some of the pending issues that are still to be discussed in the working group.
-  No decision has been taken on the outcome of these issues including whether they are valid. </p>
-   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/Consortium/Patent-Policy/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/media/ipr" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/2021/Process-20211102/" id="w3c_process_revision">2 November 2021 W3C Process Document</a>. </p>
+   <p> This specification was published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a>.
+  It is not a W3C Standard nor is it on the W3C Standards Track.
+
+  Please note that under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a> there is a limited opt-out and other conditions apply.
+
+  Learn more about <a href="http://www.w3.org/community/">W3C Community and Business Groups</a>. </p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -749,7 +746,7 @@ controlling the <code class="idl"><a data-link-type="idl" href="#documentpicture
 the user is aware of where the content is coming from. For example, the user
 agent may display the origin of the website in a titlebar on the window.</p>
    <h3 class="heading settled" data-level="3.3" id="iframes"><span class="secno">3.3. </span><span class="content">IFrames</span><a class="self-link" href="#iframes"></a></h3>
-   <p>This API is only available on a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>. However, the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture②">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code> itself may contain <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement">HTMLIFrameElement</a></code>s, even <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">cross-origin</a> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement①">HTMLIFrameElement</a></code>s.</p>
+   <p>This API is only available on a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top">top-level traversable</a>. However, the <code class="idl"><a data-link-type="idl" href="#documentpictureinpicture" id="ref-for-documentpictureinpicture②">DocumentPictureInPicture</a></code> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code> itself may contain <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement">HTMLIFrameElement</a></code>s, even <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">cross-origin</a> <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement①">HTMLIFrameElement</a></code>s.</p>
    <h2 class="heading settled" data-level="4" id="privacy-considerations"><span class="secno">4. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy-considerations"></a></h2>
    <h3 class="heading settled" data-level="4.1" id="fingerprinting"><span class="secno">4.1. </span><span class="content">Fingerprinting</span><a class="self-link" href="#fingerprinting"></a></h3>
    <p>When a PiP window is closed and then later re-opened, it can be useful for the
@@ -815,7 +812,7 @@ open. Otherwise, return <code>null</code>.</p>
       <p>If <a data-link-type="dfn" href="#document-picture-in-picture-support" id="ref-for-document-picture-in-picture-support">Document Picture-in-Picture support</a> is <code>false</code>, throw a
 "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notsupportederror" id="ref-for-notsupportederror">NotSupportedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code> and abort these steps.</p>
      <li data-md>
-      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-top-level-browsing-context①">top-level browsing context</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> and abort these steps.</p>
+      <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable">navigable</a> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top①">top-level traversable</a>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> and abort these steps.</p>
      <li data-md>
       <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a> is a
 DocumentPictureInPicture <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①②">Window</a></code>, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code> and abort these steps.</p>
@@ -878,8 +875,9 @@ position is left to the discretion of the user agent. </p>
    </dl>
    <h2 class="heading settled" data-level="6" id="concepts"><span class="secno">6. </span><span class="content">Concepts</span><a class="self-link" href="#concepts"></a></h2>
    <h3 class="heading settled" data-level="6.1" id="pip-support"><span class="secno">6.1. </span><span class="content">Document Picture-in-Picture Support</span><a class="self-link" href="#pip-support"></a></h3>
-   <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="document-picture-in-picture-support">Document Picture-in-Picture Support</dfn> is <code>false</code> if there’s
-a user preference that disables it or a platform limitation. It is <code>true</code> otherwise.</p>
+   <p>Each user agent has a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="document-picture-in-picture-support">Document Picture-in-Picture Support</dfn> boolean,
+whose value is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined">implementation-defined</a> (and might vary according to user
+preferences).</p>
    <h3 class="heading settled" data-level="6.2" id="one-pip-window"><span class="secno">6.2. </span><span class="content">One PiP Window</span><a class="self-link" href="#one-pip-window"></a></h3>
    <p>Whether only one window is allowed in Picture-in-Picture mode is left to the
 implementation and the platform. As such, what happens when there is a
@@ -1093,13 +1091,19 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="3349d69f">associated document</span>
      <li><span class="dfn-paneled" id="0e1e41a8">close()</span>
      <li><span class="dfn-paneled" id="aca22383">consume user activation</span>
+     <li><span class="dfn-paneled" id="228be966">navigable</span>
      <li><span class="dfn-paneled" id="f449d4f8">open(url, target, features)</span>
      <li><span class="dfn-paneled" id="48438eb3">queue a global task</span>
      <li><span class="dfn-paneled" id="e99bd18e">relevant global object</span>
      <li><span class="dfn-paneled" id="eb573143">src</span>
-     <li><span class="dfn-paneled" id="ae2a6342">top-level browsing context</span>
+     <li><span class="dfn-paneled" id="30717154">top-level traversable</span>
      <li><span class="dfn-paneled" id="47fe679e">transient activation</span>
      <li><span class="dfn-paneled" id="8bd6a569">unload</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[INFRA]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="860300d4">implementation-defined</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
@@ -1137,6 +1141,8 @@ and contributions to this document and to the discussions that have informed it.
    <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-infra">[INFRA]
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-url">[URL]
@@ -1352,13 +1358,15 @@ window.dfnpanelData['5d7209e9'] = {"dfnID": "5d7209e9", "url": "https://html.spe
 window.dfnpanelData['3349d69f'] = {"dfnID": "3349d69f", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window", "dfnText": "associated document", "refSections": [{"refs": [{"id": "ref-for-concept-document-window"}, {"id": "ref-for-concept-document-window\u2460"}, {"id": "ref-for-concept-document-window\u2461"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['0e1e41a8'] = {"dfnID": "0e1e41a8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close", "dfnText": "close()", "refSections": [{"refs": [{"id": "ref-for-dom-window-close"}], "title": "7.4. Exiting PiP"}], "external": true};
 window.dfnpanelData['aca22383'] = {"dfnID": "aca22383", "url": "https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation", "dfnText": "consume user activation", "refSections": [{"refs": [{"id": "ref-for-consume-user-activation"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['228be966'] = {"dfnID": "228be966", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable", "dfnText": "navigable", "refSections": [{"refs": [{"id": "ref-for-window-navigable"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['f449d4f8'] = {"dfnID": "f449d4f8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open", "dfnText": "open(url, target, features)", "refSections": [{"refs": [{"id": "ref-for-dom-open"}], "title": "1. Introduction"}], "external": true};
 window.dfnpanelData['48438eb3'] = {"dfnID": "48438eb3", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task", "dfnText": "queue a global task", "refSections": [{"refs": [{"id": "ref-for-queue-a-global-task"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['e99bd18e'] = {"dfnID": "e99bd18e", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global", "dfnText": "relevant global object", "refSections": [{"refs": [{"id": "ref-for-concept-relevant-global"}, {"id": "ref-for-concept-relevant-global\u2460"}, {"id": "ref-for-concept-relevant-global\u2461"}, {"id": "ref-for-concept-relevant-global\u2462"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['eb573143'] = {"dfnID": "eb573143", "url": "https://html.spec.whatwg.org/multipage/media.html#dom-media-src", "dfnText": "src", "refSections": [{"refs": [{"id": "ref-for-dom-media-src"}], "title": "6.3. Relative URLs"}], "external": true};
-window.dfnpanelData['ae2a6342'] = {"dfnID": "ae2a6342", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context", "dfnText": "top-level browsing context", "refSections": [{"refs": [{"id": "ref-for-top-level-browsing-context"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-top-level-browsing-context\u2460"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['30717154'] = {"dfnID": "30717154", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top", "dfnText": "top-level traversable", "refSections": [{"refs": [{"id": "ref-for-nav-top"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-nav-top\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['47fe679e'] = {"dfnID": "47fe679e", "url": "https://html.spec.whatwg.org/multipage/interaction.html#transient-activation", "dfnText": "transient activation", "refSections": [{"refs": [{"id": "ref-for-transient-activation"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['8bd6a569'] = {"dfnID": "8bd6a569", "url": "https://html.spec.whatwg.org/multipage/indices.html#event-unload", "dfnText": "unload", "refSections": [{"refs": [{"id": "ref-for-event-unload"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
+window.dfnpanelData['860300d4'] = {"dfnID": "860300d4", "url": "https://infra.spec.whatwg.org/#implementation-defined", "dfnText": "implementation-defined", "refSections": [{"refs": [{"id": "ref-for-implementation-defined"}], "title": "6.1. Document Picture-in-Picture Support"}], "external": true};
 window.dfnpanelData['3419d271'] = {"dfnID": "3419d271", "url": "https://url.spec.whatwg.org/#relative-url-string", "dfnText": "relative-url string", "refSections": [{"refs": [{"id": "ref-for-relative-url-string"}, {"id": "ref-for-relative-url-string\u2460"}, {"id": "ref-for-relative-url-string\u2461"}], "title": "6.3. Relative URLs"}], "external": true};
 window.dfnpanelData['dcffbccd'] = {"dfnID": "dcffbccd", "url": "https://url.spec.whatwg.org/#concept-url", "dfnText": "url", "refSections": [{"refs": [{"id": "ref-for-concept-url"}], "title": "5. API"}, {"refs": [{"id": "ref-for-concept-url\u2460"}], "title": "6.3. Relative URLs"}], "external": true};
 window.dfnpanelData['dca2de17'] = {"dfnID": "dca2de17", "url": "https://webidl.spec.whatwg.org/#idl-DOMException", "dfnText": "DOMException", "refSections": [{"refs": [{"id": "ref-for-idl-DOMException"}, {"id": "ref-for-idl-DOMException\u2460"}, {"id": "ref-for-idl-DOMException\u2461"}, {"id": "ref-for-idl-DOMException\u2462"}, {"id": "ref-for-idl-DOMException\u2463"}, {"id": "ref-for-idl-DOMException\u2464"}], "title": "5. API"}], "external": true};
