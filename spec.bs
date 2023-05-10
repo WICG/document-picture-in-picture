@@ -3,8 +3,8 @@ Title: Document Picture-in-Picture Specification
 Repository: WICG/document-picture-in-picture
 Shortname: document-pip-spec
 Level: 1
-Status: w3c/UD
-Group: mediawg
+Status: CG-DRAFT
+Group: WICG
 URL: https://wicg.github.io/document-picture-in-picture/
 Editor: Tommy Steimel,  Google Inc.,  steimel@google.com
 Abstract: This specification enables web developers to populate an HTMLDocument
