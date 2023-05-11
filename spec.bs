@@ -154,10 +154,9 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 2. If <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a> is not a
     <a>top-level traversable</a>, throw a "{{NotAllowedError}}"
     {{DOMException}}.
-3. If the <a>relevant global object</a> of <a>this</a> is a
-    DocumentPictureInPicture {{Window}}, throw a "{{NotAllowedError}}"
-    {{DOMException}}.
-4. If the <a>relevant global object</a> of <a>this</a> does not have
+3. If <a>this</a>'s <a>relevant global object</a> is a DocumentPictureInPicture
+    {{Window}}, throw a "{{NotAllowedError}}" {{DOMException}}.
+4. If <a>this</a>'s <a>relevant global object</a> does not have
     <a>transient activation</a>, throw a "{{NotAllowedError}}"
     {{DOMException}}.
 5. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is greater than zero, but
@@ -166,7 +165,7 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 6. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is greater than zero, but
     |options|["{{DocumentPictureInPictureOptions/width}}"] does not exist or is zero, throw a
     {{RangeError}}.
-7. <a>Consume user activation</a>
+7. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
 8. The user agent may choose to close any existing
     DocumentPictureInPicture {{Window}}s or
         <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
