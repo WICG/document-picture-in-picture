@@ -192,11 +192,9 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 13. Configure |target browsing context|'s window to float on top of other
     windows.
 14. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
-    is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
-    <a>associated Document</a> should be copied and applied to the
-    |target document|. This is a one-time
-    copy, and any further changes to the current <a>associated Document</a>'s
-    <a>CSS style sheet</a>s will not be copied.
+    is <code>true</code>, then run the <a>copy CSS Style Sheets to Document Picture-in-Picture algorithm</a>
+    given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
+    <a>active document</a> and |target document|.
 15. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
@@ -255,6 +253,23 @@ To <dfn>close any existing picture-in-picture windows</dfn>:
             is not <code>null</code>, run the
             <a data-link-type="dfn" href="https://w3c.github.io/picture-in-picture/#exit-picture-in-picture-algorithm">exit Picture-in-Picture algorithm</a>
             with |navigable|'s <a>active document</a>.
+
+## Copy Style Sheets to Document Picture-in-Picture ## {#copy-style-sheets-to-document-picture-in-picture}
+
+The <dfn>copy CSS Style Sheets to Document Picture-in-Picture algorithm</dfn>
+steps, given |source document| and |target document| are:
+    1. For each |sheet| of |source document|'s <a>document or shadow root CSS style sheets</a>:
+        1. If |sheet|'s <a data-link-type="idl" href="https://drafts.csswg.org/cssom/#dom-stylesheet-disabled">disabled</a>
+            attribute is set, then continue.
+        2. Create a new CSSStyleSheet |copied sheet|, which is a copy of |sheet|.
+        3. Run the <a>add a CSS style sheet</a> steps with |copied sheet| and |target document|.
+
+<p class="note">
+Copying CSS Style Sheets to Document Picture-in-Picture is a one-time copy, and
+any further changes to |source document|'s <a>document or shadow root CSS style sheets</a>
+will not be copied.
+</p>
+
 
 ## One PiP Window ## {#one-pip-window}
 
