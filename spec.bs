@@ -154,8 +154,9 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
 2. If <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a> is not a
     <a>top-level traversable</a>, throw a "{{NotAllowedError}}"
     {{DOMException}}.
-3. If <a>this</a>'s <a>relevant global object</a> is a DocumentPictureInPicture
-    {{Window}}, throw a "{{NotAllowedError}}" {{DOMException}}.
+3. If <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, throw a
+    "{{NotAllowedError}}" {{DOMException}}.
 4. If <a>this</a>'s <a>relevant global object</a> does not have
     <a>transient activation</a>, throw a "{{NotAllowedError}}"
     {{DOMException}}.
@@ -166,38 +167,44 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     |options|["{{DocumentPictureInPictureOptions/width}}"] does not exist or is zero, throw a
     {{RangeError}}.
 7. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
-8. The user agent may choose to close any existing
-    DocumentPictureInPicture {{Window}}s or
-        <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>s.
-9. Let |target browsing context| be a new
-    <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a> navigated to
-    the <code>about:blank</code> <a>URL</a>.
-10. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+8. Optionally, the user agent can <a>close any existing picture-in-picture windows</a>.
+9. Set |target browsing context| and |target document| be the result of
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-auxiliary-browsing-context">creating a new auxiliary browsing context and document</a>
+    given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
+    <a>active browsing context</a>.
+10. Set |target browsing context|'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean to <code>true</code>.
+11. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
         small in order to fit a user-friendly window size.
-    2. Set the window width for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/width}}"].
-11. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+    2. Optionally, size |target browsing context|'s window such that the
+        distance between the left and right edges of the viewport are
+        |options|["{{DocumentPictureInPictureOptions/width}}"] pixels.
+12. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
-    2. Set the window height for the |target browsing context| to |options|["{{DocumentPictureInPictureOptions/height}}"].
-12. Configure the window containing |target browsing context| to float on top of
-    other windows.
-13. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+    2. Optionally, size |target browsing context|'s window such that the
+        distance between the top and bottom edges of the viewport are
+        |options|["{{DocumentPictureInPictureOptions/height}}"]
+        pixels.
+13. Configure |target browsing context|'s window to float on top of other
+    windows.
+14. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then the <a>CSS style sheet</a>s applied the current
     <a>associated Document</a> should be copied and applied to the
-    |target browsing context|'s <a>associated Document</a>. This is a one-time
+    |target document|. This is a one-time
     copy, and any further changes to the current <a>associated Document</a>'s
     <a>CSS style sheet</a>s will not be copied.
-14. <a>Queue a global task</a> on the
+15. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>false</code>
     and its {{DocumentPictureInPictureEvent/window}}
-    attribute initialized to |target browsing context|.
-15. Return |target browsing context|.
+    attribute initialized to |target browsing context|'s <a>active window</a>.
+16. Return |target browsing context|'s <a>active window</a>.
 
 </div>
 
@@ -220,14 +227,44 @@ Each user agent has a <dfn>Document Picture-in-Picture Support</dfn> boolean,
 whose value is <a>implementation-defined</a> (and might vary according to user
 preferences).
 
+## DocumentPictureInPicture Window ## {#is-document-picture-in-picture-window}
+
+Each <a>top-level traversable</a> has an <dfn>Is Document Picture-in-Picture</dfn>
+boolean, whose value defaults to <code>false</code>, but can be set to
+<code>true</code> in the <a>requestWindow()</a> method steps.
+
+## Close any existing PiP windows ## {#close-existing-pip-windows}
+
+To <dfn>close any existing picture-in-picture windows</dfn>:
+
+1. For each |top-level traversable| of the user agent's
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/#top-level-traversable-set">top-level traversable set</a>:
+    1. If |top-level traversable|'s <a>Is Document Picture-in-Picture</a>
+        boolean is <code>true</code>, then
+        <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+        |top-level traversable|.
+    2. If |top-level traversable|'s <a>active document</a>'s
+        <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a>
+        is not <code>null</code>, run the
+        <a data-link-type="dfn" href="https://w3c.github.io/picture-in-picture/#exit-picture-in-picture-algorithm">exit Picture-in-Picture algorithm</a>
+        with |top-level traversable|'s <a>active document</a>.
+    3. For each |navigable| of |top-level traversable|'s <a>active document</a>'s
+        <a>descendant navigables</a>:
+        1. If |navigable|'s <a>active document</a>'s
+            <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a>
+            is not <code>null</code>, run the
+            <a data-link-type="dfn" href="https://w3c.github.io/picture-in-picture/#exit-picture-in-picture-algorithm">exit Picture-in-Picture algorithm</a>
+            with |navigable|'s <a>active document</a>.
+
 ## One PiP Window ## {#one-pip-window}
 
 Whether only one window is allowed in Picture-in-Picture mode is left to the
 implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while a {{DocumentPictureInPicture}} {{Window}} or
+Picture-in-Picture request while a <a>top-level traversable</a> whose
+<a>Is Document Picture-in-Picture</a> boolean is <code>true</code> or a
 <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>
-is already open will be left as an implementation detail: the current window
-could be closed, the Picture-in-Picture request could be rejected, or multiple
+is already open will be left as an implementation detail: the user agent could
+<a>close any existing picture-in-picture windows</a> or multiple
 Picture-in-Picture windows could be created. Regardless, the user agent must
 fire the appropriate events in order to notify the websites of the
 Picture-in-Picture status changes.
