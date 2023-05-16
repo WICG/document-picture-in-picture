@@ -284,19 +284,6 @@ Picture-in-Picture windows could be created. Regardless, the user agent must
 fire the appropriate events in order to notify the websites of the
 Picture-in-Picture status changes.
 
-## Relative URLs ## {#relative-urls}
-
-A primary use case of DocumentPictureInPicture is to put existing elements (e.g.
-an {{HTMLVideoElement}}) into an always-on-top window so the user can continue
-to see them while multitasking. However, sometimes these elements have
-attributes that use a <a>relative-URL string</a> (e.g.
-<a attribute for="HTMLMediaElement">src</a>). Since the {{Document}} in a
-{{DocumentPictureInPicture}} {{Window}} is always navigated to the
-<code>about:blank</code> <a>URL</a>, these <a>relative-URL string</a>s would
-break. To prevent this, the user agent must parse <a>relative-URL string</a>s as
-if they were being parsed on the {{Document}} that opened the
-{{DocumentPictureInPicture}} {{Window}}.
-
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
