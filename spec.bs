@@ -275,14 +275,13 @@ will not be copied.
 
 Whether only one window is allowed in Picture-in-Picture mode is left to the
 implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while a <a>top-level traversable</a> whose
-<a>Is Document Picture-in-Picture</a> boolean is <code>true</code> or a
-<a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#pictureinpicturewindow">PictureInPictureWindow</a>
-is already open will be left as an implementation detail: the user agent could
-<a>close any existing picture-in-picture windows</a> or multiple
-Picture-in-Picture windows could be created. Regardless, the user agent must
-fire the appropriate events in order to notify the websites of the
-Picture-in-Picture status changes.
+Picture-in-Picture request while there is a <a>top-level traversable</a> whose
+<a>Is Document Picture-in-Picture</a> boolean is <code>true</code> or whose
+<a>active document</a>'s
+<a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a>
+is not <code>null</code> will be left as an implementation detail: the user
+agent could <a>close any existing picture-in-picture windows</a> or multiple
+Picture-in-Picture windows could be created.
 
 # Examples # {#examples}
 
