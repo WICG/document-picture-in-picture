@@ -12,7 +12,6 @@ Abstract: in an always-on-top window.
 </pre>
 
 <pre class="link-defaults">
-spec:dom; type:attribute; text:bubbles
 spec:html; type:dfn; for:navigable; text:top-level traversable
 spec:html; type:dfn; for:Window; text:navigable
 spec:url; type:dfn; for:/; text:url
@@ -208,9 +207,8 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
-    <a>this</a> with its {{bubbles}} attribute initialized to <code>false</code>
-    and its {{DocumentPictureInPictureEvent/window}}
-    attribute initialized to |pip traversable|'s <a>active window</a>.
+    <a>this</a> with its {{DocumentPictureInPictureEvent/window}} attribute
+    initialized to |pip traversable|'s <a>active window</a>.
 17. Return |pip traversable|'s <a>active window</a>.
 
 </div>
