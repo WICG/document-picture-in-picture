@@ -138,11 +138,18 @@ The <dfn attribute for="Window">documentPictureInPicture</dfn> getter steps are:
 
 </div>
 
+Each {{DocumentPictureInPicture}} object has an associated
+<dfn for="DocumentPictureInPicture">last-opened window</dfn> which is a
+{{Window}} object that is initially <code>null</code> and is set as part of the
+<a>requestWindow()</a> method steps.
+
 <div algorithm>
 The <dfn attribute for="DocumentPictureInPicture">window</dfn> getter steps are:
 
-1. Return the last {{Window}} opened by <a>this</a> if it exists and is still
-    open. Otherwise, return <code>null</code>.
+1. Let |win| be <a>this</a>'s <a>last-opened window</a>.
+2. If |win| is not <code>null</code> and |win|'s <a for="Window" idl>closed</a>
+    attribute is <code>false</code>, return |win|.
+3. Return <code>null</code>.
 
 </div>
 
@@ -195,14 +202,15 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     is <code>true</code>, then run the <a>copy CSS Style Sheets to Document Picture-in-Picture algorithm</a>
     given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
     <a>active document</a> and |target document|.
-15. <a>Queue a global task</a> on the
+15. Set <a>this</a>'s <a>last-opened window</a> to |target browsing context|'s <a>active window</a>.
+16. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{bubbles}} attribute initialized to <code>false</code>
     and its {{DocumentPictureInPictureEvent/window}}
     attribute initialized to |target browsing context|'s <a>active window</a>.
-16. Return |target browsing context|'s <a>active window</a>.
+17. Return |target browsing context|'s <a>active window</a>.
 
 </div>
 
