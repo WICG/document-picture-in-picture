@@ -23,7 +23,6 @@ existing `window.open()` API, with some differences:
 - The website cannot set the position of the PiP window.
 - The PiP window cannot be navigated (any `window.history` or `window.location`
     calls that change to a new document will close the PiP window).
-- The PiP window cannot open more windows.
 - The website can have only one PiP window open at a time, and the user agent
   may also restrict how many PiP windows can be open globally, similar to
   `HTMLVideoElement.requestPictureInPicture()` API.
