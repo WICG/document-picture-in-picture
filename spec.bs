@@ -289,6 +289,42 @@ is not <code>null</code> will be left as an implementation detail: the user
 agent could <a>close any existing picture-in-picture windows</a> or multiple
 Picture-in-Picture windows could be created.
 
+## Closing the PiP window when either the original or PiP document aborts ## {#close-on-abort}
+
+To <dfn>close any associated Document Picture-in-Picture windows</dfn> given a
+{{Document}} |document|:
+
+1. Let |navigable| be |document|'s <a>node navigable</a>.
+2. If |navigable| is not a <a>top-level traversable</a>, abort these steps.
+3. If |navigable|'s <a>Is Document Picture-in-Picture</a> boolean is
+    <code>true</code>, then
+    <a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+    |navigable| and abort these steps.
+4. Let |win| be |navigable|'s <a>active window</a>'s
+    <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
+5. If |win| is not <code>null</code> and |win|'s <a for="Window" idl>closed</a>
+    attribute is <code>false</code>, then
+    <a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+    |win|'s <a for="Window" dfn>navigable</a>
+
+<p class="issue">
+Merge this into
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>
+once it has enough consensus.
+</p>
+
+Add a step 5 to the end of
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>:
+
+5. <a>Close any associated Document Picture-in-Picture windows</a> given |document|.
+
+<p class="note">
+This ensures that when a page with an open Document Picture-in-Picture window is
+closed or navigated, then its PiP window is closed as well. It also ensures that
+when the document in a Document Picture-in-Picture window is navigated, the
+Document Picture-in-Picture window is closed.
+</p>
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
