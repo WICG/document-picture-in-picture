@@ -53,6 +53,9 @@ Document in Picture-in-Picture, the website can provide custom controls and
 inputs (e.g. captions, playlists, time scrubber, liking/disliking videos, etc)
 to improve the user's PiP video experience.
 
+![Custom video player wireframe 1](svg/custom-video-player-1.svg)
+![Custom video player wireframe 2](svg/custom-video-player-2.svg)
+
 #### Video conferencing
 
 It is common for users to leave the tab during a video conferencing session for
@@ -64,6 +67,9 @@ in Picture-in-Picture, the website can easily combine multiple video streams
 into a single PiP window and provide custom controls like sending a message,
 muting another user, raising a hand, etc.
 
+![Video conferencing wireframe 1](svg/video-conferencing-1.svg)
+![Video conferencing wireframe 2](svg/video-conferencing-2.svg)
+
 #### Pomodoro timers
 
 The Pomodoro technique is a time management method that uses a kitchen timer to
@@ -71,6 +77,8 @@ break work into intervals, typically 25 minutes in length, separated by short
 breaks. Pomodoro timer apps on desktop and mobile can use the PiP feature to
 display the current timer permanently on the screen as a floating timer for
 timed focus management while sat at a desk or while on the go.
+
+![Pomodoro timers wireframe 1](svg/pomodoro-timers-1.svg)
 
 ## Example code
 
@@ -248,3 +256,4 @@ implementing.
 Many thanks to Frank Liberato, Mark Foltz, Klaus Weidner, François Beaufort,
 Charlie Reis, Joe DeBlasio, Domenic Denicola, and Yiren Wang for their comments
 and contributions to this document and to the discussions that have informed it.
+Special thanks to Mikaela Watson and Glen Anderson for the initial wireframes.
