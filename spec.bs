@@ -176,7 +176,7 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     <code>null</code> and |win|'s <a for="Window" idl>closed</a> attribute is
     <code>false</code>, then
     <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
-    |win|'s <a for="Window" dfn>navigable</a>
+    |win|'s <a for="Window" dfn>navigable</a>.
 9. Optionally, the user agent can <a>close any existing picture-in-picture windows</a>.
 10. Set |pip traversable| to be the result of
     <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-top-level-traversable">creating a new top-level traversable</a>
@@ -302,7 +302,7 @@ is not <code>null</code> will be left as an implementation detail: the user
 agent could <a>close any existing picture-in-picture windows</a> or multiple
 Picture-in-Picture windows could be created.
 
-## Closing the PiP window when either the original or PiP document aborts ## {#close-on-abort}
+## Closing the PiP window when either the original or PiP document is destroyed ## {#close-on-destroy}
 
 To <dfn>close any associated Document Picture-in-Picture windows</dfn> given a
 {{Document}} |document|:
@@ -318,16 +318,16 @@ To <dfn>close any associated Document Picture-in-Picture windows</dfn> given a
 5. If |win| is not <code>null</code> and |win|'s <a for="Window" idl>closed</a>
     attribute is <code>false</code>, then
     <a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
-    |win|'s <a for="Window" dfn>navigable</a>
+    |win|'s <a for="Window" dfn>navigable</a>.
 
 <p class="issue">
 Merge this into
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>
 once it has enough consensus.
 </p>
 
-Add a step 5 to the end of
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>:
+Add a step 10 to the end of
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>:
 
 5. <a>Close any associated Document Picture-in-Picture windows</a> given |document|.
 
