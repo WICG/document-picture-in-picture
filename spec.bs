@@ -172,14 +172,19 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     |options|["{{DocumentPictureInPictureOptions/width}}"] does not exist or is zero, throw a
     {{RangeError}}.
 7. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
-8. Optionally, the user agent can <a>close any existing picture-in-picture windows</a>.
-9. Set |pip traversable| to be the result of
+8. Let |win| be <a>this</a>'s <a>last-opened window</a>. If |win| is not
+    <code>null</code> and |win|'s <a for="Window" idl>closed</a> attribute is
+    <code>false</code>, then
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+    |win|'s <a for="Window" dfn>navigable</a>
+9. Optionally, the user agent can <a>close any existing picture-in-picture windows</a>.
+10. Set |pip traversable| to be the result of
     <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-top-level-traversable">creating a new top-level traversable</a>
     given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
     <a>active browsing context</a> and "<code>_blank</code>".
-10. Set |pip traversable|'s <a>Is Document Picture-in-Picture</a> boolean to
+11. Set |pip traversable|'s <a>Is Document Picture-in-Picture</a> boolean to
     <code>true</code>.
-11. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+12. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
         small in order to fit a user-friendly window size.
@@ -187,7 +192,7 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
         window such that the distance between the left and right edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/width}}"]
         pixels.
-12. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+13. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
@@ -195,20 +200,20 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
         window such that the distance between the top and bottom edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
-13. Configure |pip traversable|'s <a>active browsing context</a>'s window to
+14. Configure |pip traversable|'s <a>active browsing context</a>'s window to
     float on top of other windows.
-14. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
+15. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
     is <code>true</code>, then run the <a>copy CSS Style Sheets to Document Picture-in-Picture algorithm</a>
     given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
     <a>active document</a> and |pip traversable|'s <a>active document</a>.
-15. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
-16. <a>Queue a global task</a> on the
+16. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
+17. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{DocumentPictureInPictureEvent/window}} attribute
     initialized to |pip traversable|'s <a>active window</a>.
-17. Return |pip traversable|'s <a>active window</a>.
+18. Return |pip traversable|'s <a>active window</a>.
 
 </div>
 
@@ -279,11 +284,19 @@ will not be copied.
 
 ## One PiP Window ## {#one-pip-window}
 
-Whether only one window is allowed in Picture-in-Picture mode is left to the
-implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while there is a <a>top-level traversable</a> whose
-<a>Is Document Picture-in-Picture</a> boolean is <code>true</code> or whose
-<a>active document</a>'s
+Any <a>top-level traversable</a> must have at most one document
+picture-in-picture window open at a time. If a <a>top-level traversable</a>
+whose <a>active window</a>'s <a>documentPictureInPicture API</a>'s
+<a>last-opened window</a> is not <code>null</code> tries to open another
+document picture-in-picture window, the user agent must close the existing
+<a>last-opened window</a> as described in the <a>requestWindow()</a> method
+steps.
+
+However, whether only one window is allowed in Picture-in-Picture mode across
+all <a>top-level traversables</a> is left to the implementation and the platform.
+As such, what happens when there is a Picture-in-Picture request while there is
+a <a>top-level traversable</a> whose <a>Is Document Picture-in-Picture</a>
+boolean is <code>true</code> or whose <a>active document</a>'s
 <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a>
 is not <code>null</code> will be left as an implementation detail: the user
 agent could <a>close any existing picture-in-picture windows</a> or multiple
