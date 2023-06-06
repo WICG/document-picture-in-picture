@@ -4,9 +4,9 @@
   <title>Document Picture-in-Picture Specification</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
+  <meta content="Bikeshed version 5fcd28d6d, updated Tue May 30 13:12:11 2023 -0700" name="generator">
   <link href="https://wicg.github.io/document-picture-in-picture/" rel="canonical">
-<style>/* style-autolinks */
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -67,8 +67,16 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
 </style>
-<style>/* style-colors */
+<style>/* Boilerplate: style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
@@ -177,236 +185,6 @@ pre .property::before, pre .property::after {
 
     --editedrec-bg: darkorange;
 }
-</style>
-<style>/* style-counters */
-body {
-    counter-reset: example figure issue;
-}
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}
-</style>
-<style>/* style-dfn-panel */
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
-}
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    width: 20em;
-    width: 300px;
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
-.dfn-panel li a {
-    white-space: pre;
-    display: inline-block;
-    max-width: calc(300px - 1.5em - 1em);
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled[role="button"] { cursor: pointer; }
-</style>
-<style>/* style-issues */
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}
-</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-syntax-highlighting */
-
-            pre.idl.highlight {
-                background: var(--borderedblock-bg, var(--def-bg));
-            }
-            
-code.highlight { padding: .1em; border-radius: .3em; }
-pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
-
-.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
-c-[a] { color: #990055 } /* Keyword.Declaration */
-c-[b] { color: #990055 } /* Keyword.Type */
-c-[c] { color: #708090 } /* Comment */
-c-[d] { color: #708090 } /* Comment.Multiline */
-c-[e] { color: #0077aa } /* Name.Attribute */
-c-[f] { color: #669900 } /* Name.Tag */
-c-[g] { color: #222222 } /* Name.Variable */
-c-[k] { color: #990055 } /* Keyword */
-c-[l] { color: #000000 } /* Literal */
-c-[m] { color: #000000 } /* Literal.Number */
-c-[n] { color: #0077aa } /* Name */
-c-[o] { color: #999999 } /* Operator */
-c-[p] { color: #999999 } /* Punctuation */
-c-[s] { color: #a67f59 } /* Literal.String */
-c-[t] { color: #a67f59 } /* Literal.String.Single */
-c-[u] { color: #a67f59 } /* Literal.String.Double */
-c-[cp] { color: #708090 } /* Comment.Preproc */
-c-[c1] { color: #708090 } /* Comment.Single */
-c-[cs] { color: #708090 } /* Comment.Special */
-c-[kc] { color: #990055 } /* Keyword.Constant */
-c-[kn] { color: #990055 } /* Keyword.Namespace */
-c-[kp] { color: #990055 } /* Keyword.Pseudo */
-c-[kr] { color: #990055 } /* Keyword.Reserved */
-c-[ld] { color: #000000 } /* Literal.Date */
-c-[nc] { color: #0077aa } /* Name.Class */
-c-[no] { color: #0077aa } /* Name.Constant */
-c-[nd] { color: #0077aa } /* Name.Decorator */
-c-[ni] { color: #0077aa } /* Name.Entity */
-c-[ne] { color: #0077aa } /* Name.Exception */
-c-[nf] { color: #0077aa } /* Name.Function */
-c-[nl] { color: #0077aa } /* Name.Label */
-c-[nn] { color: #0077aa } /* Name.Namespace */
-c-[py] { color: #0077aa } /* Name.Property */
-c-[ow] { color: #999999 } /* Operator.Word */
-c-[mb] { color: #000000 } /* Literal.Number.Bin */
-c-[mf] { color: #000000 } /* Literal.Number.Float */
-c-[mh] { color: #000000 } /* Literal.Number.Hex */
-c-[mi] { color: #000000 } /* Literal.Number.Integer */
-c-[mo] { color: #000000 } /* Literal.Number.Oct */
-c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
-c-[sc] { color: #a67f59 } /* Literal.String.Char */
-c-[sd] { color: #a67f59 } /* Literal.String.Doc */
-c-[se] { color: #a67f59 } /* Literal.String.Escape */
-c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
-c-[si] { color: #a67f59 } /* Literal.String.Interpol */
-c-[sx] { color: #a67f59 } /* Literal.String.Other */
-c-[sr] { color: #a67f59 } /* Literal.String.Regex */
-c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
-c-[vc] { color: #0077aa } /* Name.Variable.Class */
-c-[vg] { color: #0077aa } /* Name.Variable.Global */
-c-[vi] { color: #0077aa } /* Name.Variable.Instance */
-c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-</style>
-<style>/* style-var-click-highlighting */
-var { cursor: pointer; }
-var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
-var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
-var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
-var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
-var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
-var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
-var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
-</style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -519,21 +297,308 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
        which is quite common in practice... */
     img { background: white; }
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
 }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+</style>
+<style>/* Boilerplate: style-style-var-click-highlighting */
+/*
+Colors were chosen in Lab using https://nixsensor.com/free-color-converter/
+D50 2deg illuminant, L in [0,100], a and b in [-128, 128]
+0 = lab(85,0,85)
+1 = lab(85,80,30)
+2 = lab(85,-40,40)
+3 = lab(85,-50,0)
+4 = lab(85,5,15)
+5 = lab(85,-10,-50)
+6 = lab(85,35,-15)
+*/
+var { cursor: pointer; }
+var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
+var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
+var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
+var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
+var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
+var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
+var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -602,7 +667,7 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-05-28">28 May 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-05">5 June 2023</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -832,9 +897,11 @@ which is a new <code class="idl"><a data-link-type="idl" href="#documentpicturei
      <li data-md>
       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-consume-user-activation">Consume user activation</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global③">relevant global object</a>.</p>
      <li data-md>
+      <p>Let <var>win</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window①">last-opened window</a>. If <var>win</var> is not <code>null</code> and <var>win</var>’s <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed" id="ref-for-dom-window-closed①">closed</a> attribute is <code>false</code>, then <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a> <var>win</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable②">navigable</a></p>
+     <li data-md>
       <p>Optionally, the user agent can <a data-link-type="dfn" href="#close-any-existing-picture-in-picture-windows" id="ref-for-close-any-existing-picture-in-picture-windows">close any existing picture-in-picture windows</a>.</p>
      <li data-md>
-      <p>Set <var>pip traversable</var> to be the result of <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-top-level-traversable">creating a new top-level traversable</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global④">relevant global object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable②">navigable</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-bc" id="ref-for-nav-bc">active browsing context</a> and "<code>_blank</code>".</p>
+      <p>Set <var>pip traversable</var> to be the result of <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-top-level-traversable">creating a new top-level traversable</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global④">relevant global object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable③">navigable</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-bc" id="ref-for-nav-bc">active browsing context</a> and "<code>_blank</code>".</p>
      <li data-md>
       <p>Set <var>pip traversable</var>’s <a data-link-type="dfn" href="#is-document-picture-in-picture" id="ref-for-is-document-picture-in-picture①">Is Document Picture-in-Picture</a> boolean to <code>true</code>.</p>
      <li data-md>
@@ -868,11 +935,11 @@ pixels.</p>
 float on top of other windows.</p>
      <li data-md>
       <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-copystylesheets" id="ref-for-dom-documentpictureinpictureoptions-copystylesheets">copyStyleSheets</a></code>"] exists and
-is <code>true</code>, then run the <a data-link-type="dfn" href="#copy-css-style-sheets-to-document-picture-in-picture-algorithm" id="ref-for-copy-css-style-sheets-to-document-picture-in-picture-algorithm">copy CSS Style Sheets to Document Picture-in-Picture algorithm</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global⑤">relevant global object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable③">navigable</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document">active document</a> and <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document①">active document</a>.</p>
+is <code>true</code>, then run the <a data-link-type="dfn" href="#copy-css-style-sheets-to-document-picture-in-picture-algorithm" id="ref-for-copy-css-style-sheets-to-document-picture-in-picture-algorithm">copy CSS Style Sheets to Document Picture-in-Picture algorithm</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global⑤">relevant global object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable④">navigable</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document">active document</a> and <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document①">active document</a>.</p>
      <li data-md>
-      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window①">last-opened window</a> to <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window">active window</a>.</p>
+      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window②">last-opened window</a> to <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window">active window</a>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-queue-a-global-task">Queue a global task</a> on the <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global⑥">relevant global object</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#eventdef-documentpictureinpicture-enter" id="ref-for-eventdef-documentpictureinpicture-enter">enter</a></code> using <code class="idl"><a data-link-type="idl" href="#documentpictureinpictureevent" id="ref-for-documentpictureinpictureevent">DocumentPictureInPictureEvent</a></code> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a> with its <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureevent-window" id="ref-for-dom-documentpictureinpictureevent-window">window</a></code> attribute
+      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-queue-a-global-task">Queue a global task</a> on the <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a> given <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global⑥">relevant global object</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#eventdef-documentpictureinpicture-enter" id="ref-for-eventdef-documentpictureinpicture-enter">enter</a></code> using <code class="idl"><a data-link-type="idl" href="#documentpictureinpictureevent" id="ref-for-documentpictureinpictureevent">DocumentPictureInPictureEvent</a></code> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a> with its <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureevent-window" id="ref-for-dom-documentpictureinpictureevent-window">window</a></code> attribute
 initialized to <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window①">active window</a>.</p>
      <li data-md>
       <p>Return <var>pip traversable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window②">active window</a>.</p>
@@ -928,9 +995,14 @@ preferences).</p>
    <p class="note" role="note"> Copying CSS Style Sheets to Document Picture-in-Picture is a one-time copy, and
 any further changes to <var>source document</var>’s <a data-link-type="dfn" href="https://drafts.csswg.org/cssom-1/#documentorshadowroot-document-or-shadow-root-css-style-sheets" id="ref-for-documentorshadowroot-document-or-shadow-root-css-style-sheets①">document or shadow root CSS style sheets</a> will not be copied. </p>
    <h3 class="heading settled" data-level="6.5" id="one-pip-window"><span class="secno">6.5. </span><span class="content">One PiP Window</span><a class="self-link" href="#one-pip-window"></a></h3>
-   <p>Whether only one window is allowed in Picture-in-Picture mode is left to the
-implementation and the platform. As such, what happens when there is a
-Picture-in-Picture request while there is a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top③">top-level traversable</a> whose <a data-link-type="dfn" href="#is-document-picture-in-picture" id="ref-for-is-document-picture-in-picture③">Is Document Picture-in-Picture</a> boolean is <code>true</code> or whose <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document⑦">active document</a>’s <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a> is not <code>null</code> will be left as an implementation detail: the user
+   <p>Any <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top③">top-level traversable</a> must have at most one document
+picture-in-picture window open at a time. If a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top④">top-level traversable</a> whose <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window③">active window</a>’s <a data-link-type="dfn" href="#window-documentpictureinpicture-api" id="ref-for-window-documentpictureinpicture-api①">documentPictureInPicture API</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window③">last-opened window</a> is not <code>null</code> tries to open another
+document picture-in-picture window, the user agent must close the existing <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window④">last-opened window</a> as described in the <a data-link-type="functionish" href="#dom-documentpictureinpicture-requestwindow" id="ref-for-dom-documentpictureinpicture-requestwindow③">requestWindow()</a> method
+steps.</p>
+   <p>However, whether only one window is allowed in Picture-in-Picture mode across
+all <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top⑤">top-level traversables</a> is left to the implementation and the platform.
+As such, what happens when there is a Picture-in-Picture request while there is
+a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top⑥">top-level traversable</a> whose <a data-link-type="dfn" href="#is-document-picture-in-picture" id="ref-for-is-document-picture-in-picture③">Is Document Picture-in-Picture</a> boolean is <code>true</code> or whose <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document⑦">active document</a>’s <a data-link-type="idl" href="https://w3c.github.io/picture-in-picture/#dom-documentorshadowroot-pictureinpictureelement">pictureInPictureElement</a> is not <code>null</code> will be left as an implementation detail: the user
 agent could <a data-link-type="dfn" href="#close-any-existing-picture-in-picture-windows" id="ref-for-close-any-existing-picture-in-picture-windows①">close any existing picture-in-picture windows</a> or multiple
 Picture-in-Picture windows could be created.</p>
    <h3 class="heading settled" data-level="6.6" id="close-on-abort"><span class="secno">6.6. </span><span class="content">Closing the PiP window when either the original or PiP document aborts</span><a class="self-link" href="#close-on-abort"></a></h3>
@@ -939,13 +1011,13 @@ Picture-in-Picture windows could be created.</p>
     <li data-md>
      <p>Let <var>navigable</var> be <var>document</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#node-navigable" id="ref-for-node-navigable">node navigable</a>.</p>
     <li data-md>
-     <p>If <var>navigable</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top④">top-level traversable</a>, abort these steps.</p>
+     <p>If <var>navigable</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top⑦">top-level traversable</a>, abort these steps.</p>
     <li data-md>
      <p>If <var>navigable</var>’s <a data-link-type="dfn" href="#is-document-picture-in-picture" id="ref-for-is-document-picture-in-picture④">Is Document Picture-in-Picture</a> boolean is <code>true</code>, then <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a> <var>navigable</var> and abort these steps.</p>
     <li data-md>
-     <p>Let <var>win</var> be <var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window③">active window</a>’s <a data-link-type="dfn" href="#window-documentpictureinpicture-api" id="ref-for-window-documentpictureinpicture-api①">documentPictureInPicture API</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window②">last-opened window</a>.</p>
+     <p>Let <var>win</var> be <var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window④">active window</a>’s <a data-link-type="dfn" href="#window-documentpictureinpicture-api" id="ref-for-window-documentpictureinpicture-api②">documentPictureInPicture API</a>’s <a data-link-type="dfn" href="#documentpictureinpicture-last-opened-window" id="ref-for-documentpictureinpicture-last-opened-window⑤">last-opened window</a>.</p>
     <li data-md>
-     <p>If <var>win</var> is not <code>null</code> and <var>win</var>’s <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed" id="ref-for-dom-window-closed①">closed</a> attribute is <code>false</code>, then <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a> <var>win</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable④">navigable</a></p>
+     <p>If <var>win</var> is not <code>null</code> and <var>win</var>’s <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed" id="ref-for-dom-window-closed②">closed</a> attribute is <code>false</code>, then <a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a> <var>win</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable" id="ref-for-window-navigable⑤">navigable</a></p>
    </ol>
    <p class="issue" id="issue-460a4ed7"><a class="self-link" href="#issue-460a4ed7"></a> Merge this into <a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a> once it has enough consensus. </p>
    <p>Add a step 5 to the end of <a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>:</p>
@@ -1256,7 +1328,7 @@ and contributions to this document and to the discussions that have informed it.
   <div style="counter-reset:issue">
    <div class="issue"> Merge this into <a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a> once it has enough consensus. <a class="issue-return" href="#issue-460a4ed7" title="Jump to section">↵</a></div>
   </div>
-<script>/* script-dfn-panel */
+<script>/* Boilerplate: script-dfn-panel */
 "use strict";
 {
     const dfnsJson = window.dfnsJson || {};
@@ -1409,7 +1481,160 @@ and contributions to this document and to the discussions that have informed it.
     }
 }
 </script>
-<script>/* script-dfn-panel-json */
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
 window.dfnpanelData = {};
 window.dfnpanelData['84b4fbe4'] = {"dfnID": "84b4fbe4", "url": "https://drafts.csswg.org/cssom-1/#add-a-css-style-sheet", "dfnText": "add a css style sheet", "refSections": [{"refs": [{"id": "ref-for-add-a-css-style-sheet"}], "title": "6.4. Copy Style Sheets to Document Picture-in-Picture"}], "external": true};
 window.dfnpanelData['4cd9ca96'] = {"dfnID": "4cd9ca96", "url": "https://drafts.csswg.org/cssom-1/#documentorshadowroot-document-or-shadow-root-css-style-sheets", "dfnText": "document or shadow root css style sheets", "refSections": [{"refs": [{"id": "ref-for-documentorshadowroot-document-or-shadow-root-css-style-sheets"}, {"id": "ref-for-documentorshadowroot-document-or-shadow-root-css-style-sheets\u2460"}], "title": "6.4. Copy Style Sheets to Document Picture-in-Picture"}], "external": true};
@@ -1426,17 +1651,17 @@ window.dfnpanelData['f57f330b'] = {"dfnID": "f57f330b", "url": "https://html.spe
 window.dfnpanelData['5d7209e9'] = {"dfnID": "5d7209e9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window", "dfnText": "Window", "refSections": [{"refs": [{"id": "ref-for-window"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-window\u2460"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-window\u2461"}, {"id": "ref-for-window\u2462"}, {"id": "ref-for-window\u2463"}, {"id": "ref-for-window\u2464"}, {"id": "ref-for-window\u2465"}, {"id": "ref-for-window\u2466"}, {"id": "ref-for-window\u2467"}, {"id": "ref-for-window\u2468"}, {"id": "ref-for-window\u2460\u24ea"}, {"id": "ref-for-window\u2460\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window\u2460\u2461"}, {"id": "ref-for-window\u2460\u2462"}], "title": "7.4. Exiting PiP"}, {"refs": [{"id": "ref-for-window\u2460\u2463"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
 window.dfnpanelData['55a6b830'] = {"dfnID": "55a6b830", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-bc", "dfnText": "active browsing context", "refSections": [{"refs": [{"id": "ref-for-nav-bc"}, {"id": "ref-for-nav-bc\u2460"}, {"id": "ref-for-nav-bc\u2461"}, {"id": "ref-for-nav-bc\u2462"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['35972864'] = {"dfnID": "35972864", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document", "dfnText": "active document", "refSections": [{"refs": [{"id": "ref-for-nav-document"}, {"id": "ref-for-nav-document\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-document\u2461"}, {"id": "ref-for-nav-document\u2462"}, {"id": "ref-for-nav-document\u2463"}, {"id": "ref-for-nav-document\u2464"}, {"id": "ref-for-nav-document\u2465"}], "title": "6.3. Close any existing PiP windows"}, {"refs": [{"id": "ref-for-nav-document\u2466"}], "title": "6.5. One PiP Window"}], "external": true};
-window.dfnpanelData['101c721c'] = {"dfnID": "101c721c", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window", "dfnText": "active window", "refSections": [{"refs": [{"id": "ref-for-nav-window"}, {"id": "ref-for-nav-window\u2460"}, {"id": "ref-for-nav-window\u2461"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-window\u2462"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
+window.dfnpanelData['101c721c'] = {"dfnID": "101c721c", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window", "dfnText": "active window", "refSections": [{"refs": [{"id": "ref-for-nav-window"}, {"id": "ref-for-nav-window\u2460"}, {"id": "ref-for-nav-window\u2461"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-window\u2462"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-nav-window\u2463"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
 window.dfnpanelData['0e1e41a8'] = {"dfnID": "0e1e41a8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close", "dfnText": "close()", "refSections": [{"refs": [{"id": "ref-for-dom-window-close"}], "title": "7.4. Exiting PiP"}], "external": true};
-window.dfnpanelData['fab043c9'] = {"dfnID": "fab043c9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed", "dfnText": "closed", "refSections": [{"refs": [{"id": "ref-for-dom-window-closed"}], "title": "5. API"}, {"refs": [{"id": "ref-for-dom-window-closed\u2460"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
+window.dfnpanelData['fab043c9'] = {"dfnID": "fab043c9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed", "dfnText": "closed", "refSections": [{"refs": [{"id": "ref-for-dom-window-closed"}, {"id": "ref-for-dom-window-closed\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-dom-window-closed\u2461"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
 window.dfnpanelData['aca22383'] = {"dfnID": "aca22383", "url": "https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation", "dfnText": "consume user activation", "refSections": [{"refs": [{"id": "ref-for-consume-user-activation"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['82529e79'] = {"dfnID": "82529e79", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#descendant-navigables", "dfnText": "descendant navigables", "refSections": [{"refs": [{"id": "ref-for-descendant-navigables"}], "title": "6.3. Close any existing PiP windows"}], "external": true};
-window.dfnpanelData['228be966'] = {"dfnID": "228be966", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable", "dfnText": "navigable", "refSections": [{"refs": [{"id": "ref-for-window-navigable"}, {"id": "ref-for-window-navigable\u2460"}, {"id": "ref-for-window-navigable\u2461"}, {"id": "ref-for-window-navigable\u2462"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window-navigable\u2463"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
+window.dfnpanelData['228be966'] = {"dfnID": "228be966", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable", "dfnText": "navigable", "refSections": [{"refs": [{"id": "ref-for-window-navigable"}, {"id": "ref-for-window-navigable\u2460"}, {"id": "ref-for-window-navigable\u2461"}, {"id": "ref-for-window-navigable\u2462"}, {"id": "ref-for-window-navigable\u2463"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window-navigable\u2464"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
 window.dfnpanelData['13dd6cae'] = {"dfnID": "13dd6cae", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#node-navigable", "dfnText": "node navigable", "refSections": [{"refs": [{"id": "ref-for-node-navigable"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
 window.dfnpanelData['f449d4f8'] = {"dfnID": "f449d4f8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open", "dfnText": "open(url, target, features)", "refSections": [{"refs": [{"id": "ref-for-dom-open"}], "title": "1. Introduction"}], "external": true};
 window.dfnpanelData['48438eb3'] = {"dfnID": "48438eb3", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task", "dfnText": "queue a global task", "refSections": [{"refs": [{"id": "ref-for-queue-a-global-task"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['e99bd18e'] = {"dfnID": "e99bd18e", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global", "dfnText": "relevant global object", "refSections": [{"refs": [{"id": "ref-for-concept-relevant-global"}, {"id": "ref-for-concept-relevant-global\u2460"}, {"id": "ref-for-concept-relevant-global\u2461"}, {"id": "ref-for-concept-relevant-global\u2462"}, {"id": "ref-for-concept-relevant-global\u2463"}, {"id": "ref-for-concept-relevant-global\u2464"}, {"id": "ref-for-concept-relevant-global\u2465"}], "title": "5. API"}], "external": true};
-window.dfnpanelData['30717154'] = {"dfnID": "30717154", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top", "dfnText": "top-level traversable", "refSections": [{"refs": [{"id": "ref-for-nav-top"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-nav-top\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-top\u2461"}], "title": "6.2. DocumentPictureInPicture Window"}, {"refs": [{"id": "ref-for-nav-top\u2462"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-nav-top\u2463"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
+window.dfnpanelData['30717154'] = {"dfnID": "30717154", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top", "dfnText": "top-level traversable", "refSections": [{"refs": [{"id": "ref-for-nav-top"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-nav-top\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-top\u2461"}], "title": "6.2. DocumentPictureInPicture Window"}, {"refs": [{"id": "ref-for-nav-top\u2462"}, {"id": "ref-for-nav-top\u2463"}, {"id": "ref-for-nav-top\u2464"}, {"id": "ref-for-nav-top\u2465"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-nav-top\u2466"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": true};
 window.dfnpanelData['47fe679e'] = {"dfnID": "47fe679e", "url": "https://html.spec.whatwg.org/multipage/interaction.html#transient-activation", "dfnText": "transient activation", "refSections": [{"refs": [{"id": "ref-for-transient-activation"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['8bd6a569'] = {"dfnID": "8bd6a569", "url": "https://html.spec.whatwg.org/multipage/indices.html#event-unload", "dfnText": "unload", "refSections": [{"refs": [{"id": "ref-for-event-unload"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
 window.dfnpanelData['860300d4'] = {"dfnID": "860300d4", "url": "https://infra.spec.whatwg.org/#implementation-defined", "dfnText": "implementation-defined", "refSections": [{"refs": [{"id": "ref-for-implementation-defined"}], "title": "6.1. Document Picture-in-Picture Support"}], "external": true};
@@ -1452,7 +1677,7 @@ window.dfnpanelData['ec878a66'] = {"dfnID": "ec878a66", "url": "https://webidl.s
 window.dfnpanelData['a5c91173'] = {"dfnID": "a5c91173", "url": "https://webidl.spec.whatwg.org/#SameObject", "dfnText": "SameObject", "refSections": [{"refs": [{"id": "ref-for-SameObject"}, {"id": "ref-for-SameObject\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['b75bb3bd'] = {"dfnID": "b75bb3bd", "url": "https://webidl.spec.whatwg.org/#SecureContext", "dfnText": "SecureContext", "refSections": [{"refs": [{"id": "ref-for-SecureContext"}, {"id": "ref-for-SecureContext\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['5372cca8'] = {"dfnID": "5372cca8", "url": "https://webidl.spec.whatwg.org/#idl-boolean", "dfnText": "boolean", "refSections": [{"refs": [{"id": "ref-for-idl-boolean"}], "title": "5. API"}], "external": true};
-window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}], "title": "5. API"}], "external": true};
+window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}, {"id": "ref-for-this\u2460\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}, {"id": "ref-for-idl-unsigned-long-long\u2460"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['documentpictureinpicture'] = {"dfnID": "documentpictureinpicture", "url": "#documentpictureinpicture", "dfnText": "DocumentPictureInPicture", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpicture"}], "title": "3.2. Spoofing"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2460"}], "title": "3.2.2. Origin Visibility"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2461"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2462"}, {"id": "ref-for-documentpictureinpicture\u2463"}, {"id": "ref-for-documentpictureinpicture\u2464"}, {"id": "ref-for-documentpictureinpicture\u2465"}, {"id": "ref-for-documentpictureinpicture\u2466"}], "title": "5. API"}, {"refs": [{"id": "ref-for-documentpictureinpicture\u2467"}], "title": "7.4. Exiting PiP"}], "external": false};
 window.dfnpanelData['dictdef-documentpictureinpictureoptions'] = {"dfnID": "dictdef-documentpictureinpictureoptions", "url": "#dictdef-documentpictureinpictureoptions", "dfnText": "DocumentPictureInPictureOptions", "refSections": [{"refs": [{"id": "ref-for-dictdef-documentpictureinpictureoptions"}], "title": "5. API"}], "external": false};
@@ -1462,18 +1687,19 @@ window.dfnpanelData['dom-documentpictureinpictureoptions-copystylesheets'] = {"d
 window.dfnpanelData['documentpictureinpictureevent'] = {"dfnID": "documentpictureinpictureevent", "url": "#documentpictureinpictureevent", "dfnText": "DocumentPictureInPictureEvent", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpictureevent"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['dom-documentpictureinpictureevent-window'] = {"dfnID": "dom-documentpictureinpictureevent-window", "url": "#dom-documentpictureinpictureevent-window", "dfnText": "window", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpictureevent-window"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['dictdef-documentpictureinpictureeventinit'] = {"dfnID": "dictdef-documentpictureinpictureeventinit", "url": "#dictdef-documentpictureinpictureeventinit", "dfnText": "DocumentPictureInPictureEventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-documentpictureinpictureeventinit"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['window-documentpictureinpicture-api'] = {"dfnID": "window-documentpictureinpicture-api", "url": "#window-documentpictureinpicture-api", "dfnText": "documentPictureInPicture API", "refSections": [{"refs": [{"id": "ref-for-window-documentpictureinpicture-api"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window-documentpictureinpicture-api\u2460"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
+window.dfnpanelData['window-documentpictureinpicture-api'] = {"dfnID": "window-documentpictureinpicture-api", "url": "#window-documentpictureinpicture-api", "dfnText": "documentPictureInPicture API", "refSections": [{"refs": [{"id": "ref-for-window-documentpictureinpicture-api"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window-documentpictureinpicture-api\u2460"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-window-documentpictureinpicture-api\u2461"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
 window.dfnpanelData['dom-window-documentpictureinpicture'] = {"dfnID": "dom-window-documentpictureinpicture", "url": "#dom-window-documentpictureinpicture", "dfnText": "documentPictureInPicture", "refSections": [{"refs": [{"id": "ref-for-dom-window-documentpictureinpicture"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['documentpictureinpicture-last-opened-window'] = {"dfnID": "documentpictureinpicture-last-opened-window", "url": "#documentpictureinpicture-last-opened-window", "dfnText": "last-opened window", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpicture-last-opened-window"}, {"id": "ref-for-documentpictureinpicture-last-opened-window\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-documentpictureinpicture-last-opened-window\u2461"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
+window.dfnpanelData['documentpictureinpicture-last-opened-window'] = {"dfnID": "documentpictureinpicture-last-opened-window", "url": "#documentpictureinpicture-last-opened-window", "dfnText": "last-opened window", "refSections": [{"refs": [{"id": "ref-for-documentpictureinpicture-last-opened-window"}, {"id": "ref-for-documentpictureinpicture-last-opened-window\u2460"}, {"id": "ref-for-documentpictureinpicture-last-opened-window\u2461"}], "title": "5. API"}, {"refs": [{"id": "ref-for-documentpictureinpicture-last-opened-window\u2462"}, {"id": "ref-for-documentpictureinpicture-last-opened-window\u2463"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-documentpictureinpicture-last-opened-window\u2464"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
 window.dfnpanelData['dom-documentpictureinpicture-window'] = {"dfnID": "dom-documentpictureinpicture-window", "url": "#dom-documentpictureinpicture-window", "dfnText": "window", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpicture-window"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['dom-documentpictureinpicture-requestwindow'] = {"dfnID": "dom-documentpictureinpicture-requestwindow", "url": "#dom-documentpictureinpicture-requestwindow", "dfnText": "requestWindow(options)", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow"}, {"id": "ref-for-dom-documentpictureinpicture-requestwindow\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow\u2461"}], "title": "6.2. DocumentPictureInPicture Window"}], "external": false};
+window.dfnpanelData['dom-documentpictureinpicture-requestwindow'] = {"dfnID": "dom-documentpictureinpicture-requestwindow", "url": "#dom-documentpictureinpicture-requestwindow", "dfnText": "requestWindow(options)", "refSections": [{"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow"}, {"id": "ref-for-dom-documentpictureinpicture-requestwindow\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow\u2461"}], "title": "6.2. DocumentPictureInPicture Window"}, {"refs": [{"id": "ref-for-dom-documentpictureinpicture-requestwindow\u2462"}], "title": "6.5. One PiP Window"}], "external": false};
 window.dfnpanelData['eventdef-documentpictureinpicture-enter'] = {"dfnID": "eventdef-documentpictureinpicture-enter", "url": "#eventdef-documentpictureinpicture-enter", "dfnText": "enter", "refSections": [{"refs": [{"id": "ref-for-eventdef-documentpictureinpicture-enter"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['document-picture-in-picture-support'] = {"dfnID": "document-picture-in-picture-support", "url": "#document-picture-in-picture-support", "dfnText": "Document Picture-in-Picture Support", "refSections": [{"refs": [{"id": "ref-for-document-picture-in-picture-support"}], "title": "5. API"}], "external": false};
 window.dfnpanelData['is-document-picture-in-picture'] = {"dfnID": "is-document-picture-in-picture", "url": "#is-document-picture-in-picture", "dfnText": "Is Document Picture-in-Picture", "refSections": [{"refs": [{"id": "ref-for-is-document-picture-in-picture"}, {"id": "ref-for-is-document-picture-in-picture\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-is-document-picture-in-picture\u2461"}], "title": "6.3. Close any existing PiP windows"}, {"refs": [{"id": "ref-for-is-document-picture-in-picture\u2462"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-is-document-picture-in-picture\u2463"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
 window.dfnpanelData['close-any-existing-picture-in-picture-windows'] = {"dfnID": "close-any-existing-picture-in-picture-windows", "url": "#close-any-existing-picture-in-picture-windows", "dfnText": "close any existing picture-in-picture windows", "refSections": [{"refs": [{"id": "ref-for-close-any-existing-picture-in-picture-windows"}], "title": "5. API"}, {"refs": [{"id": "ref-for-close-any-existing-picture-in-picture-windows\u2460"}], "title": "6.5. One PiP Window"}], "external": false};
 window.dfnpanelData['copy-css-style-sheets-to-document-picture-in-picture-algorithm'] = {"dfnID": "copy-css-style-sheets-to-document-picture-in-picture-algorithm", "url": "#copy-css-style-sheets-to-document-picture-in-picture-algorithm", "dfnText": "copy CSS Style Sheets to Document Picture-in-Picture algorithm", "refSections": [{"refs": [{"id": "ref-for-copy-css-style-sheets-to-document-picture-in-picture-algorithm"}], "title": "5. API"}], "external": false};
-window.dfnpanelData['close-any-associated-document-picture-in-picture-windows'] = {"dfnID": "close-any-associated-document-picture-in-picture-windows", "url": "#close-any-associated-document-picture-in-picture-windows", "dfnText": "close any associated Document Picture-in-Picture windows", "refSections": [{"refs": [{"id": "ref-for-close-any-associated-document-picture-in-picture-windows"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};</script>
-<script>/* script-dom-helper */
+window.dfnpanelData['close-any-associated-document-picture-in-picture-windows'] = {"dfnID": "close-any-associated-document-picture-in-picture-windows", "url": "#close-any-associated-document-picture-in-picture-windows", "dfnText": "close any associated Document Picture-in-Picture windows", "refSections": [{"refs": [{"id": "ref-for-close-any-associated-document-picture-in-picture-windows"}], "title": "6.6. Closing the PiP window when either the original or PiP document aborts"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
 function query(sel) { return document.querySelector(sel); }
 
 function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
@@ -1667,89 +1893,103 @@ function parseHTML(markup) {
 		el.innerHTML = markup;
 		return el.content;
 	}
-}</script>
-<script>/* script-var-click-highlighting */
+}
+</script>
+<script>/* Boilerplate: script-var-click-highlighting */
+/*
+Color-choosing design:
 
-    "use strict";
-    {
-        document.addEventListener("click", e=>{
-            if(e.target.nodeName == "VAR") {
-                highlightSameAlgoVars(e.target);
-            }
-        });
-        const indexCounts = new Map();
-        const indexNames = new Map();
-        function highlightSameAlgoVars(v) {
-            // Find the algorithm container.
-            let algoContainer = null;
-            let searchEl = v;
-            while(algoContainer == null && searchEl != document.body) {
-                searchEl = searchEl.parentNode;
-                if(searchEl.hasAttribute("data-algorithm")) {
-                    algoContainer = searchEl;
-                }
-            }
+Colors are ordered by goodness.
+Each color has a usage count (initially zero).
+Each variable has a last-used color.
 
-            // Not highlighting document-global vars,
-            // too likely to be unrelated.
-            if(algoContainer == null) return;
-
-            const algoName = algoContainer.getAttribute("data-algorithm");
-            const varName = getVarName(v);
-            const addClass = !v.classList.contains("selected");
-            let highlightClass = null;
-            if(addClass) {
-                const index = chooseHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] += 1;
-                indexNames.set(algoName+"///"+varName, index);
-                highlightClass = nameFromIndex(index);
-            } else {
-                const index = previousHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] -= 1;
-                highlightClass = nameFromIndex(index);
-            }
-
-            // Find all same-name vars, and toggle their class appropriately.
-            for(const el of algoContainer.querySelectorAll("var")) {
-                if(getVarName(el) == varName) {
-                    el.classList.toggle("selected", addClass);
-                    el.classList.toggle(highlightClass, addClass);
-                }
+* If the var has a last-used color, and that color's usage is 0,
+    return that color.
+* Otherwise, return the lowest-indexed color with the lowest usage.
+    Increment the color's usage and set it as the last-used color
+    for that var.
+* On unclicking, decrement usage of the color.
+*/
+"use strict";
+{
+    document.addEventListener("click", e=>{
+        if(e.target.nodeName == "VAR") {
+            highlightSameAlgoVars(e.target);
+        }
+    });
+    const indexCounts = new Map();
+    const indexNames = new Map();
+    function highlightSameAlgoVars(v) {
+        // Find the algorithm container.
+        let algoContainer = null;
+        let searchEl = v;
+        while(algoContainer == null && searchEl != document.body) {
+            searchEl = searchEl.parentNode;
+            if(searchEl.hasAttribute("data-algorithm")) {
+                algoContainer = searchEl;
             }
         }
-        function getVarName(el) {
-            return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
-        }
-        function chooseHighlightIndex(algoName, varName) {
-            let indexes = null;
-            if(indexCounts.has(algoName)) {
-                indexes = indexCounts.get(algoName);
-            } else {
-                // 7 classes right now
-                indexes = [0,0,0,0,0,0,0];
-                indexCounts.set(algoName, indexes);
-            }
 
-            // If the element was recently unclicked,
-            // *and* that color is still unclaimed,
-            // give it back the same color.
-            const lastIndex = previousHighlightIndex(algoName, varName);
-            if(indexes[lastIndex] === 0) return lastIndex;
+        // Not highlighting document-global vars,
+        // too likely to be unrelated.
+        if(algoContainer == null) return;
 
-            // Find the earliest index with the lowest count.
-            const minCount = Math.min.apply(null, indexes);
-            let index = null;
-            for(var i = 0; i < indexes.length; i++) {
-                if(indexes[i] == minCount) {
-                    return i;
-                }
+        const algoName = algoContainer.getAttribute("data-algorithm");
+        const varName = getVarName(v);
+        const addClass = !v.classList.contains("selected");
+        let highlightClass = null;
+        if(addClass) {
+            const index = chooseHighlightIndex(algoName, varName);
+            indexCounts.get(algoName)[index] += 1;
+            indexNames.set(algoName+"///"+varName, index);
+            highlightClass = nameFromIndex(index);
+        } else {
+            const index = previousHighlightIndex(algoName, varName);
+            indexCounts.get(algoName)[index] -= 1;
+            highlightClass = nameFromIndex(index);
+        }
+
+        // Find all same-name vars, and toggle their class appropriately.
+        for(const el of algoContainer.querySelectorAll("var")) {
+            if(getVarName(el) == varName) {
+                el.classList.toggle("selected", addClass);
+                el.classList.toggle(highlightClass, addClass);
             }
-        }
-        function previousHighlightIndex(algoName, varName) {
-            return indexNames.get(algoName+"///"+varName);
-        }
-        function nameFromIndex(index) {
-            return "selected" + index;
         }
     }
+    function getVarName(el) {
+        return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
+    }
+    function chooseHighlightIndex(algoName, varName) {
+        let indexes = null;
+        if(indexCounts.has(algoName)) {
+            indexes = indexCounts.get(algoName);
+        } else {
+            // 7 classes right now
+            indexes = [0,0,0,0,0,0,0];
+            indexCounts.set(algoName, indexes);
+        }
+
+        // If the element was recently unclicked,
+        // *and* that color is still unclaimed,
+        // give it back the same color.
+        const lastIndex = previousHighlightIndex(algoName, varName);
+        if(indexes[lastIndex] === 0) return lastIndex;
+
+        // Find the earliest index with the lowest count.
+        const minCount = Math.min.apply(null, indexes);
+        let index = null;
+        for(var i = 0; i < indexes.length; i++) {
+            if(indexes[i] == minCount) {
+                return i;
+            }
+        }
+    }
+    function previousHighlightIndex(algoName, varName) {
+        return indexNames.get(algoName+"///"+varName);
+    }
+    function nameFromIndex(index) {
+        return "selected" + index;
+    }
+}
 </script>
