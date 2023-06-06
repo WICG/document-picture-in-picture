@@ -242,6 +242,24 @@ Each <a>top-level traversable</a> has an <dfn>Is Document Picture-in-Picture</df
 boolean, whose value defaults to <code>false</code>, but can be set to
 <code>true</code> in the <a>requestWindow()</a> method steps.
 
+## Closing a Document Picture-in-Picture window ## {#close-document-pip-window}
+
+<p class="issue">
+Merge this into
+<a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+once it has enough consensus.
+</p>
+
+Modify step 2 of
+<a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>,
+"If the result of checking if unloading is user-canceled for toUnload is true,
+then return." to be:
+
+2. If <var ignore>traversable</var>'s <a>Is Document Picture-in-Picture</a> boolean is
+    true, then skip this step. Otherwise, if the result of
+    <a href="https://html.spec.whatwg.org/#checking-if-unloading-is-user-canceled" dfn>checking if unloading is user-canceled</a>
+    for toUnload is true, then return.
+
 ## Close any existing PiP windows ## {#close-existing-pip-windows}
 
 To <dfn>close any existing picture-in-picture windows</dfn>:
@@ -280,7 +298,6 @@ Copying CSS Style Sheets to Document Picture-in-Picture is a one-time copy, and
 any further changes to |source document|'s <a>document or shadow root CSS style sheets</a>
 will not be copied.
 </p>
-
 
 ## One PiP Window ## {#one-pip-window}
 
