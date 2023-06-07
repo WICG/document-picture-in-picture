@@ -362,10 +362,39 @@ Add a step 10 to the end of
 
 <p class="note">
 This ensures that when a page with an open Document Picture-in-Picture window is
-closed or navigated, then its PiP window is closed as well. It also ensures that
-when the document in a Document Picture-in-Picture window is navigated, the
-Document Picture-in-Picture window is closed.
+closed, then its PiP window is closed as well.
 </p>
+
+## Closing the PiP window when either the original or PiP document is navigated ## {#close-on-navigate}
+
+<p class="issue">
+Merge this into
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigate">navigate</a>
+once it has enough consensus.
+</p>
+
+Modify step 16.3 of
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigate">navigate</a>,
+"Queue a global task on the navigation and traversal task source given navigable's active window to abort navigable's active document.",
+and also insert a step 16.4 immediately after it:
+
+3. <a>Queue a global task</a> on the
+    <a dfn href="https://html.spec.whatwg.org/#navigation-and-traversal-task-source">navigation and traversal task source</a>
+    given |navigable|'s <a>active window</a> to
+    <a dfn href="https://html.spec.whatwg.org/#abort-a-document">abort</a>
+    |navigable|'s <a>active document</a> and <a>close any associated Document Picture-in-Picture windows</a>
+    given |navigable|'s <a>active document</a>.
+4. If |navigable| is a <a>top-level traversable</a> whose
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
+    abort these steps.
+
+<p class="note">
+This ensures that when a page with an open Document Picture-in-Picture window is
+navigated, then its PiP window is closed as well. It also ensures that when the
+document in a Document Picture-in-Picture window is navigated, the Document
+Picture-in-Picture window is closed.
+</p>
+
 
 # Examples # {#examples}
 
