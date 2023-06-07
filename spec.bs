@@ -182,6 +182,18 @@ The <dfn method for="DocumentPictureInPicture">requestWindow(options)</dfn> meth
     <a data-link-type="dfn" href="https://html.spec.whatwg.org/#creating-a-new-top-level-traversable">creating a new top-level traversable</a>
     given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
     <a>active browsing context</a> and "<code>_blank</code>".
+
+<p class="note">
+The resulting {{Document}}'s [=Document/URL=] will be `about:blank`, but its
+[=document base URL=] will fall back to be that of the initiator that called
+{{DocumentPictureInPicture/requestWindow()}}. Some browsers do not implement
+this fallback behavior for normal `about:blank` popups; see
+<a href="https://github.com/whatwg/html/issues/421">whatwg/html#421</a> for
+discussion. Implementers are advised to make sure this inheritance happens as
+specified for document picture-in-picture windows, to avoid further interop
+problems.
+</p>
+
 11. Set |pip traversable|'s <a>Is Document Picture-in-Picture</a> boolean to
     <code>true</code>.
 12. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
