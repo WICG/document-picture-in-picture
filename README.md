@@ -100,7 +100,6 @@ async function enterPiP() {
   const pipOptions = {
     width: player.clientWidth,
     height: player.clientHeight,
-    copyStyleSheets: true,
   };
 
   pipWindow = await documentPictureInPicture.requestWindow(pipOptions);
