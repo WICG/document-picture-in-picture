@@ -107,7 +107,6 @@ interface DocumentPictureInPicture : EventTarget {
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
-  boolean copyStyleSheets = false;
 };
 
 [Exposed=Window]
@@ -214,18 +213,14 @@ problems.
         pixels.
 14. Configure |pip traversable|'s <a>active browsing context</a>'s window to
     float on top of other windows.
-15. If |options|["{{DocumentPictureInPictureOptions/copyStyleSheets}}"] exists and
-    is <code>true</code>, then run the <a>copy CSS Style Sheets to Document Picture-in-Picture algorithm</a>
-    given <a>this</a>'s <a>relevant global object</a>'s <a>navigable</a>'s
-    <a>active document</a> and |pip traversable|'s <a>active document</a>.
-16. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
-17. <a>Queue a global task</a> on the
+15. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
+16. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{DocumentPictureInPictureEvent/window}} attribute
     initialized to |pip traversable|'s <a>active window</a>.
-18. Return |pip traversable|'s <a>active window</a>.
+17. Return |pip traversable|'s <a>active window</a>.
 
 </div>
 
@@ -294,22 +289,6 @@ To <dfn>close any existing picture-in-picture windows</dfn>:
             is not <code>null</code>, run the
             <a data-link-type="dfn" href="https://w3c.github.io/picture-in-picture/#exit-picture-in-picture-algorithm">exit Picture-in-Picture algorithm</a>
             with |navigable|'s <a>active document</a>.
-
-## Copy Style Sheets to Document Picture-in-Picture ## {#copy-style-sheets-to-document-picture-in-picture}
-
-The <dfn>copy CSS Style Sheets to Document Picture-in-Picture algorithm</dfn>
-steps, given |source document| and |pip document| are:
-    1. For each |sheet| of |source document|'s <a>document or shadow root CSS style sheets</a>:
-        1. If |sheet|'s <a data-link-type="idl" href="https://drafts.csswg.org/cssom/#dom-stylesheet-disabled">disabled</a>
-            attribute is set, then continue.
-        2. Create a new CSSStyleSheet |copied sheet|, which is a copy of |sheet|.
-        3. Run the <a>add a CSS style sheet</a> steps with |copied sheet| and |pip document|.
-
-<p class="note">
-Copying CSS Style Sheets to Document Picture-in-Picture is a one-time copy, and
-any further changes to |source document|'s <a>document or shadow root CSS style sheets</a>
-will not be copied.
-</p>
 
 ## One PiP Window ## {#one-pip-window}
 
@@ -429,7 +408,6 @@ function enterPiP() {
   const pipOptions = {
     width: player.clientWidth,
     height: player.clientHeight,
-    copyStyleSheets: true
   };
 
   documentPictureInPicture.requestWindow(pipOptions).then((pipWin) => {
