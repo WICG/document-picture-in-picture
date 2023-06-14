@@ -120,7 +120,7 @@ async function enterPiP() {
   pipWindow.document.body.append(player);
 
   // Listen for the PiP closing event to put the video back.
-  pipWindow.addEventListener("unload", onLeavePiP.bind(pipWindow), {
+  pipWindow.addEventListener("pagehide", onLeavePiP.bind(pipWindow), {
     once: true,
   });
 }
@@ -185,7 +185,7 @@ pipWindow.close();
 When the PiP window is closed for any reason (either because the website
 initiated it or the user closed it), the website will often want to get the
 elements back out of the PiP window. The website can perform this in an event
-handler for the `unload` event on the `Window` object. This is shown in the
+handler for the `pagehide` event on the `Window` object. This is shown in the
 `onLeavePiP()` handler in [Example code](#example-code) section above and is
 copied below:
 
