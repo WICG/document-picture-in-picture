@@ -667,7 +667,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-13">13 June 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-14">14 June 2023</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1078,7 +1078,7 @@ Picture-in-Picture window is closed. </p>
     pipWindow<c- p>.</c->document<c- p>.</c->body<c- p>.</c->append<c- p>(</c->player<c- p>);</c->
 
     <c- c1>// Listen for the PiP closing event to put the video back.</c->
-    pipWindow<c- p>.</c->addEventListener<c- p>(</c-><c- t>'unload'</c-><c- p>,</c-> onLeavePiP<c- p>.</c->bind<c- p>(</c->pipWindow<c- p>),</c-> <c- p>{</c-> once<c- o>:</c-> <c- kc>true</c-> <c- p>});</c->
+    pipWindow<c- p>.</c->addEventListener<c- p>(</c-><c- t>'pagehide'</c-><c- p>,</c-> onLeavePiP<c- p>.</c->bind<c- p>(</c->pipWindow<c- p>),</c-> <c- p>{</c-> once<c- o>:</c-> <c- kc>true</c-> <c- p>});</c->
   <c- p>});</c->
 <c- p>}</c->
 
@@ -1126,7 +1126,7 @@ pipWindow<c- p>.</c->close<c- p>();</c->
    <p>When the PiP window is closed for any reason (either because the website
 initiated it or the user closed it), the website will often want to get the
 elements back out of the PiP window. The website can perform this in an event
-handler for the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/indices.html#event-unload" id="ref-for-event-unload">unload</a></code> event on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①④">Window</a></code> object. This is shown in the <code>onLeavePiP()</code> handler in <a href="#example-video-player">video player example</a> above and is copied
+handler for the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/indices.html#event-pagehide" id="ref-for-event-pagehide">pagehide</a></code> event on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①④">Window</a></code> object. This is shown in the <code>onLeavePiP()</code> handler in <a href="#example-video-player">video player example</a> above and is copied
 below:</p>
 <pre class="lang-javascript highlight"><c- c1>// Called when the PiP window has closed.</c->
 <c- a>function</c-> onLeavePiP<c- p>()</c-> <c- p>{</c->
@@ -1244,11 +1244,11 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="228be966">navigable</span>
      <li><span class="dfn-paneled" id="13dd6cae">node navigable</span>
      <li><span class="dfn-paneled" id="f449d4f8">open(url, target, features)</span>
+     <li><span class="dfn-paneled" id="324be8d3">pagehide</span>
      <li><span class="dfn-paneled" id="48438eb3">queue a global task</span>
      <li><span class="dfn-paneled" id="e99bd18e">relevant global object</span>
      <li><span class="dfn-paneled" id="30717154">top-level traversable</span>
      <li><span class="dfn-paneled" id="47fe679e">transient activation</span>
-     <li><span class="dfn-paneled" id="8bd6a569">unload</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
@@ -1662,11 +1662,11 @@ window.dfnpanelData['6eb8a5d8'] = {"dfnID": "6eb8a5d8", "url": "https://html.spe
 window.dfnpanelData['228be966'] = {"dfnID": "228be966", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window-navigable", "dfnText": "navigable", "refSections": [{"refs": [{"id": "ref-for-window-navigable"}, {"id": "ref-for-window-navigable\u2460"}, {"id": "ref-for-window-navigable\u2461"}, {"id": "ref-for-window-navigable\u2462"}], "title": "5. API"}, {"refs": [{"id": "ref-for-window-navigable\u2463"}], "title": "6.6. Closing the PiP window when either the original or PiP document is destroyed"}], "external": true};
 window.dfnpanelData['13dd6cae'] = {"dfnID": "13dd6cae", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#node-navigable", "dfnText": "node navigable", "refSections": [{"refs": [{"id": "ref-for-node-navigable"}], "title": "6.6. Closing the PiP window when either the original or PiP document is destroyed"}], "external": true};
 window.dfnpanelData['f449d4f8'] = {"dfnID": "f449d4f8", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open", "dfnText": "open(url, target, features)", "refSections": [{"refs": [{"id": "ref-for-dom-open"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['324be8d3'] = {"dfnID": "324be8d3", "url": "https://html.spec.whatwg.org/multipage/indices.html#event-pagehide", "dfnText": "pagehide", "refSections": [{"refs": [{"id": "ref-for-event-pagehide"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
 window.dfnpanelData['48438eb3'] = {"dfnID": "48438eb3", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task", "dfnText": "queue a global task", "refSections": [{"refs": [{"id": "ref-for-queue-a-global-task"}], "title": "5. API"}, {"refs": [{"id": "ref-for-queue-a-global-task\u2460"}], "title": "6.7. Closing the PiP window when either the original or PiP document is navigated"}], "external": true};
 window.dfnpanelData['e99bd18e'] = {"dfnID": "e99bd18e", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global", "dfnText": "relevant global object", "refSections": [{"refs": [{"id": "ref-for-concept-relevant-global"}, {"id": "ref-for-concept-relevant-global\u2460"}, {"id": "ref-for-concept-relevant-global\u2461"}, {"id": "ref-for-concept-relevant-global\u2462"}, {"id": "ref-for-concept-relevant-global\u2463"}, {"id": "ref-for-concept-relevant-global\u2464"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['30717154'] = {"dfnID": "30717154", "url": "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top", "dfnText": "top-level traversable", "refSections": [{"refs": [{"id": "ref-for-nav-top"}], "title": "3.3. IFrames"}, {"refs": [{"id": "ref-for-nav-top\u2460"}], "title": "5. API"}, {"refs": [{"id": "ref-for-nav-top\u2461"}], "title": "6.2. DocumentPictureInPicture Window"}, {"refs": [{"id": "ref-for-nav-top\u2462"}, {"id": "ref-for-nav-top\u2463"}, {"id": "ref-for-nav-top\u2464"}, {"id": "ref-for-nav-top\u2465"}], "title": "6.5. One PiP Window"}, {"refs": [{"id": "ref-for-nav-top\u2466"}], "title": "6.6. Closing the PiP window when either the original or PiP document is destroyed"}, {"refs": [{"id": "ref-for-nav-top\u2467"}], "title": "6.7. Closing the PiP window when either the original or PiP document is navigated"}], "external": true};
 window.dfnpanelData['47fe679e'] = {"dfnID": "47fe679e", "url": "https://html.spec.whatwg.org/multipage/interaction.html#transient-activation", "dfnText": "transient activation", "refSections": [{"refs": [{"id": "ref-for-transient-activation"}], "title": "5. API"}], "external": true};
-window.dfnpanelData['8bd6a569'] = {"dfnID": "8bd6a569", "url": "https://html.spec.whatwg.org/multipage/indices.html#event-unload", "dfnText": "unload", "refSections": [{"refs": [{"id": "ref-for-event-unload"}], "title": "7.5. Getting elements out of the PiP window when it closes"}], "external": true};
 window.dfnpanelData['860300d4'] = {"dfnID": "860300d4", "url": "https://infra.spec.whatwg.org/#implementation-defined", "dfnText": "implementation-defined", "refSections": [{"refs": [{"id": "ref-for-implementation-defined"}], "title": "6.1. Document Picture-in-Picture Support"}], "external": true};
 window.dfnpanelData['dca2de17'] = {"dfnID": "dca2de17", "url": "https://webidl.spec.whatwg.org/#idl-DOMException", "dfnText": "DOMException", "refSections": [{"refs": [{"id": "ref-for-idl-DOMException"}, {"id": "ref-for-idl-DOMException\u2460"}, {"id": "ref-for-idl-DOMException\u2461"}, {"id": "ref-for-idl-DOMException\u2462"}], "title": "5. API"}], "external": true};
 window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}], "title": "5. API"}], "external": true};
