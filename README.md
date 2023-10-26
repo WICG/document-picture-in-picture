@@ -2,6 +2,8 @@
 
 2022-10-31
 
+Spec: https://wicg.github.io/document-picture-in-picture/
+
 ## What's all this then?
 
 There currently exists a Web API for putting an `HTMLVideoElement` into a
