@@ -548,6 +548,21 @@ function onLeavePiP() {
 }
 </pre>
 
+## Programatically resize the PiP window ## {#example-programmatic-resize}
+
+The document picture-in-picture window supports the {{Window/resizeTo()}} and
+{{Window/resizeBy()}} APIs, but only with a user gesture on the PiP window:
+
+<pre class="lang-javascript">
+const expandButton = pipDocument.document.createElement('button');
+expandButton.textContent = 'Expand PiP Window';
+expandButton.addEventListener('click', () => {
+  // Expand the PiP window's width by 20px and height by 30px.
+  pipWindow.resizeBy(20, 30);
+});
+pipWindow.document.append(expandButton);
+</pre>
+
 # Acknowledgments # {#acknowledgments}
 
 Many thanks to Frank Liberato, Mark Foltz, Klaus Weidner, François Beaufort,

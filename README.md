@@ -1,6 +1,6 @@
 # Document Picture-in-Picture Explained
 
-2022-10-31
+2023-10-26
 
 Spec: https://wicg.github.io/document-picture-in-picture/
 
@@ -208,6 +208,21 @@ function onLeavePiP() {
 
   pipWindow = null;
 }
+```
+
+### Programatically resize the PiP window
+
+The document picture-in-picture window supports the resizeTo() and resizeBy()
+APIs, but only with a user gesture on the PiP window:
+
+```js
+const expandButton = pipDocument.document.createElement('button');
+expandButton.textContent = 'Expand PiP Window';
+expandButton.addEventListener('click', () => {
+  // Expand the PiP window's width by 20px and height by 30px.
+  pipWindow.resizeBy(20, 30);
+});
+pipWindow.document.append(expandButton);
 ```
 
 ## Detailed design discussion
