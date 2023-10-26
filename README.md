@@ -216,13 +216,13 @@ The document picture-in-picture window supports the resizeTo() and resizeBy()
 APIs, but only with a user gesture on the PiP window:
 
 ```js
-const expandButton = pipDocument.document.createElement('button');
+const expandButton = pipWindow.document.createElement('button');
 expandButton.textContent = 'Expand PiP Window';
 expandButton.addEventListener('click', () => {
   // Expand the PiP window's width by 20px and height by 30px.
   pipWindow.resizeBy(20, 30);
 });
-pipWindow.document.append(expandButton);
+pipWindow.document.body.append(expandButton);
 ```
 
 ## Detailed design discussion
