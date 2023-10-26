@@ -374,6 +374,46 @@ document in a Document Picture-in-Picture window is navigated, the Document
 Picture-in-Picture window is closed.
 </p>
 
+## Resizing the PiP window ## {#resizing-the-pip-window}
+
+<p>
+While programmatically resizing a document picture-in-picture window can be
+useful, the always-on-top nature of the window means an unrestricted ability
+to resize the window could be abused in annoying or intrusive way. To mitigate
+these concerns without completely preventing the use of window resize APIs, we
+will have those APIs consume a user gesture for document picture-in-picture
+windows.
+</p>
+
+<p class="issue">
+Merge this into {{Window/resizeTo()}} once it has enough consensus.
+</p>
+
+Add a new step to {{Window/resizeTo()}} after step 3, "If |target| is not an
+[=auxiliary browsing context=] that was created by a script (as opposed to by an
+action of the user), then return.":
+
+4. If |target|'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then:
+    1. If <a>this</a>'s <a>relevant global object</a> does not have
+        <a>transient activation</a>, throw a "{{NotAllowedError}}"
+        {{DOMException}}.
+    2. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
+
+<p class="issue">
+Merge this into {{Window/resizeBy()}} once it has enough consensus.
+</p>
+
+Add a new step to {{Window/resizeBy()}} after step 3, "If |target| is not an
+[=auxiliary browsing context=] that was created by a script (as opposed to by an
+action of the user), then return.":
+
+4. If |target|'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then:
+    1. If <a>this</a>'s <a>relevant global object</a> does not have
+        <a>transient activation</a>, throw a "{{NotAllowedError}}"
+        {{DOMException}}.
+    2. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
 
 # Examples # {#examples}
 
