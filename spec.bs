@@ -70,6 +70,13 @@ controlling the {{DocumentPictureInPicture}} window at all times to ensure that
 the user is aware of where the content is coming from. For example, the user
 agent may display the origin of the website in a titlebar on the window.
 
+### Maximum size ### {#maximum-size}
+
+The user agent should restrict the maximum size of the document
+picture-in-picture window to prevent the website from covering the screen with
+an always-on-top window and locking the user in the picture-in-picture window.
+This also helps prevent spoofing the user's desktop.
+
 ## IFrames ## {#iframes}
 
 This API is only available on a <a>top-level traversable</a>. However, the
