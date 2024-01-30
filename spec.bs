@@ -422,6 +422,31 @@ action of the user), then return.":
         {{DOMException}}.
     2. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
 
+## Focusing the opener window ## {#focusing-the-opener-window}
+
+<p>
+It can often be useful for the picture-in-picture window to be able to re-focus
+its opener tab, e.g. when the smaller form-factor of the window doesn't fit the
+experience the user needs. We modify the {{Window/focus()}} API to allow it to
+take system-level focus when a picture-in-picture window is focusing its
+opener.
+</p>
+
+<p class="issue">
+Merge this into {{Window/focus()}} once it has enough consensus.
+</p>
+
+Add a new step to {{Window/focus()}} after step 3, "Run the <a>focusing steps</a> with |current|.":
+
+4. If |current| is a <a>top-level traversable</a>, then:
+    1. Let |pipWindow| be |current|'s <a>active window</a>'s
+        <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
+    2. If |pipWindow| is not <code>null</code> and |pipWindow|'s <a>relevant global object</a>
+        is the <a>incumbent global object</a>, and |pipWindow|'s <a>relevant global object</a>
+        has <a>transient activation</a>, then:
+        1. <a>Consume user activation</a> given |pipWindow|'s <a>relevant global object</a>.
+        2. Give |current| <a>system focus</a>.
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
@@ -568,6 +593,27 @@ expandButton.addEventListener('click', () => {
   pipWindow.resizeBy(20, 30);
 });
 pipWindow.document.body.append(expandButton);
+</pre>
+
+## Return to the opener tab ## {#example-return-to-tab}
+
+The {{Window/focus()}} API can be used to focus the opener tab from a
+picture-in-picture window (requiring a user gesture):
+
+<pre class="lang-javascript">
+const addReturnToTabButtonScript = pipWindow.document.createElement('script');
+addReturnToTabButtonScript.src = 'addReturnToTabButton.js';
+pipWindow.document.body.append(addReturnToTabButtonScript);
+</pre>
+
+addReturnToTabButton.js:
+<pre class="lang-javascript">
+const returnToTabButton = document.createElement('button');
+returnToTabButton.textContent = 'Return to opener tab';
+returnToTabButton.addEventListener('click', () => {
+  opener.focus();
+});
+document.body.append(returnToTabButton);
 </pre>
 
 # Acknowledgments # {#acknowledgments}
