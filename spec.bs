@@ -442,7 +442,6 @@ Add a new step to {{Window/focus()}} after step 3, "Run the <a>focusing steps</a
     1. Let |pipWindow| be |current|'s <a>active window</a>'s
         <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
     2. If |pipWindow| is not <code>null</code> and |pipWindow|'s <a>relevant global object</a>
-        is the <a>incumbent global object</a>, and |pipWindow|'s <a>relevant global object</a>
         has <a>transient activation</a>, then:
         1. <a>Consume user activation</a> given |pipWindow|'s <a>relevant global object</a>.
         2. Give |current| <a>system focus</a>.
@@ -601,19 +600,12 @@ The {{Window/focus()}} API can be used to focus the opener tab from a
 picture-in-picture window (requiring a user gesture):
 
 <pre class="lang-javascript">
-const addReturnToTabButtonScript = pipWindow.document.createElement('script');
-addReturnToTabButtonScript.src = 'addReturnToTabButton.js';
-pipWindow.document.body.append(addReturnToTabButtonScript);
-</pre>
-
-addReturnToTabButton.js:
-<pre class="lang-javascript">
-const returnToTabButton = document.createElement('button');
+const returnToTabButton = pipWindow.document.createElement('button');
 returnToTabButton.textContent = 'Return to opener tab';
 returnToTabButton.addEventListener('click', () => {
-  opener.focus();
+  window.focus();
 });
-document.body.append(returnToTabButton);
+pipWindow.document.body.append(returnToTabButton);
 </pre>
 
 # Acknowledgments # {#acknowledgments}
