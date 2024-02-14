@@ -446,6 +446,13 @@ Add a new step to {{Window/focus()}} after step 3, "Run the <a>focusing steps</a
         1. <a>Consume user activation</a> given |pipWindow|'s <a>relevant global object</a>.
         2. Give |current| <a>system focus</a>.
 
+<p class="note">
+Giving system focus to the opener does not necessarily need to close the
+document picture-in-picture window. If the website wants to close the document
+picture-in-picture window after focusing, they can always do so using
+{{Window/close()}} on the document picture-in-picture window itself.
+</p>
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
