@@ -453,6 +453,14 @@ picture-in-picture window after focusing, they can always do so using
 {{Window/close()}} on the document picture-in-picture window itself.
 </p>
 
+## CSS display-mode ## {#css-display-mode}
+
+<p>
+The CSS display mode media feature [=display mode/picture-in-picture=] lets web developers
+write specific CSS rules that are only applied when (part of the) the web app is shown in
+picture-in-picture mode.
+</p>
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
@@ -613,6 +621,23 @@ returnToTabButton.addEventListener('click', () => {
   window.focus();
 });
 pipWindow.document.body.append(returnToTabButton);
+</pre>
+
+## CSS picture-in-picture display mode usage ## {#example-display-mode}
+
+The following example shows how to remove margins on the body element
+and reduce the font size of titles in PiP window to better fit the
+content in question inside the PiP window:
+
+<pre class="lang-css">
+@media all and (display-mode: picture-in-picture) {
+  body {
+    margin: 0;
+  }
+  h1 {
+    font-size: 0.8em;
+  }
+}
 </pre>
 
 # Acknowledgments # {#acknowledgments}
