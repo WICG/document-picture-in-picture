@@ -712,7 +712,7 @@ var[data-var-color="6"] { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBC
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-02-14">14 February 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-02-20">20 February 2024</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -782,6 +782,7 @@ in an always-on-top window.</p>
       <li><a href="#close-on-navigate"><span class="secno">6.7</span> <span class="content">Closing the PiP window when either the original or PiP document is navigated</span></a>
       <li><a href="#resizing-the-pip-window"><span class="secno">6.8</span> <span class="content">Resizing the PiP window</span></a>
       <li><a href="#focusing-the-opener-window"><span class="secno">6.9</span> <span class="content">Focusing the opener window</span></a>
+      <li><a href="#css-display-mode"><span class="secno">6.10</span> <span class="content">CSS display-mode</span></a>
      </ol>
     <li>
      <a href="#examples"><span class="secno">7</span> <span class="content">Examples</span></a>
@@ -798,6 +799,7 @@ in an always-on-top window.</p>
       <li><a href="#example-elements-out-on-close"><span class="secno">7.5</span> <span class="content">Getting elements out of the PiP window when it closes</span></a>
       <li><a href="#example-programmatic-resize"><span class="secno">7.6</span> <span class="content">Programatically resize the PiP window</span></a>
       <li><a href="#example-return-to-tab"><span class="secno">7.7</span> <span class="content">Return to the opener tab</span></a>
+      <li><a href="#example-display-mode"><span class="secno">7.8</span> <span class="content">CSS picture-in-picture display mode usage</span></a>
      </ol>
     <li><a href="#acknowledgments"><span class="secno">8</span> <span class="content">Acknowledgments</span></a>
     <li>
@@ -1155,6 +1157,10 @@ opener. </p>
    <p class="note" role="note"> Giving system focus to the opener does not necessarily need to close the
 document picture-in-picture window. If the website wants to close the document
 picture-in-picture window after focusing, they can always do so using <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-close" id="ref-for-dom-window-close">close()</a></code> on the document picture-in-picture window itself. </p>
+   <h3 class="heading settled" data-level="6.10" id="css-display-mode"><span class="secno">6.10. </span><span class="content">CSS display-mode</span><a class="self-link" href="#css-display-mode"></a></h3>
+   <p> The CSS display mode media feature <a data-link-type="dfn" href="https://drafts.csswg.org/mediaqueries-5/#display-mode-picture-in-picture" id="ref-for-display-mode-picture-in-picture">picture-in-picture</a> lets web developers
+write specific CSS rules that are only applied when (part of the) the web app is shown in
+picture-in-picture mode. </p>
    <h2 class="heading settled" data-level="7" id="examples"><span class="secno">7. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
    <p><em>This section is non-normative</em></p>
    <h3 class="heading settled" data-level="7.1" id="example-video-player"><span class="secno">7.1. </span><span class="content">Extracting a video player into PiP</span><a class="self-link" href="#example-video-player"></a></h3>
@@ -1279,6 +1285,19 @@ returnToTabButton<c- p>.</c->addEventListener<c- p>(</c-><c- t>'click'</c-><c- p
 <c- p>});</c->
 pipWindow<c- p>.</c->document<c- p>.</c->body<c- p>.</c->append<c- p>(</c->returnToTabButton<c- p>);</c->
 </pre>
+   <h3 class="heading settled" data-level="7.8" id="example-display-mode"><span class="secno">7.8. </span><span class="content">CSS picture-in-picture display mode usage</span><a class="self-link" href="#example-display-mode"></a></h3>
+   <p>The following example shows how to remove margins on the body element
+and reduce the font size of titles in PiP window to better fit the
+content in question inside the PiP window:</p>
+<pre class="lang-css highlight"><c- n>@media</c-> all and <c- p>(</c->display-mode: picture-in-picture<c- p>)</c-> <c- p>{</c->
+  body <c- p>{</c->
+    <c- k>margin</c-><c- p>:</c-> <c- m>0</c-><c- p>;</c->
+  <c- p>}</c->
+  h1 <c- p>{</c->
+    <c- k>font-size</c-><c- p>:</c-> <c- m>0.8</c-><c- k>em</c-><c- p>;</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
    <h2 class="heading settled" data-level="8" id="acknowledgments"><span class="secno">8. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
    <p>Many thanks to Frank Liberato, Mark Foltz, Klaus Weidner, François Beaufort,
 Charlie Reis, Joe DeBlasio, Domenic Denicola, and Yiren Wang for their comments
@@ -1396,6 +1415,11 @@ and contributions to this document and to the discussions that have informed it.
      <li><span class="dfn-paneled" id="860300d4">implementation-defined</span>
     </ul>
    <li>
+    <a data-link-type="biblio">[MEDIAQUERIES-5]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="fd018e6b">picture-in-picture</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="dca2de17">DOMException</span>
@@ -1424,6 +1448,8 @@ and contributions to this document and to the discussions that have informed it.
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-infra">[INFRA]
    <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+   <dt id="biblio-mediaqueries-5">[MEDIAQUERIES-5]
+   <dd>Dean Jackson; et al. <a href="https://drafts.csswg.org/mediaqueries-5/"><cite>Media Queries Level 5</cite></a>. URL: <a href="https://drafts.csswg.org/mediaqueries-5/">https://drafts.csswg.org/mediaqueries-5/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webidl">[WEBIDL]
@@ -1741,6 +1767,7 @@ let dfnPanelData = {
 "f449d4f8": {"dfnID":"f449d4f8","dfnText":"open(url, target, features)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-open"}],"title":"1. Introduction"}],"url":"https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-open"},
 "f57f330b": {"dfnID":"f57f330b","dfnText":"HTMLVideoElement","external":true,"refSections":[{"refs":[{"id":"ref-for-htmlvideoelement"}],"title":"1. Introduction"}],"url":"https://html.spec.whatwg.org/multipage/media.html#htmlvideoelement"},
 "fab043c9": {"dfnID":"fab043c9","dfnText":"closed","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-window-closed"},{"id":"ref-for-dom-window-closed\u2460"}],"title":"5. API"},{"refs":[{"id":"ref-for-dom-window-closed\u2461"}],"title":"6.6. Closing the PiP window when either the original or PiP document is destroyed"}],"url":"https://html.spec.whatwg.org/multipage/nav-history-apis.html#dom-window-closed"},
+"fd018e6b": {"dfnID":"fd018e6b","dfnText":"picture-in-picture","external":true,"refSections":[{"refs":[{"id":"ref-for-display-mode-picture-in-picture"}],"title":"6.10. CSS display-mode"}],"url":"https://drafts.csswg.org/mediaqueries-5/#display-mode-picture-in-picture"},
 "fd03704d": {"dfnID":"fd03704d","dfnText":"resizeBy(x, y)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-window-resizeby"},{"id":"ref-for-dom-window-resizeby\u2460"}],"title":"6.8. Resizing the PiP window"},{"refs":[{"id":"ref-for-dom-window-resizeby\u2461"}],"title":"7.6. Programatically resize the PiP window"}],"url":"https://drafts.csswg.org/cssom-view-1/#dom-window-resizeby"},
 "fe07e8b2": {"dfnID":"fe07e8b2","dfnText":"focusing steps","external":true,"refSections":[{"refs":[{"id":"ref-for-focusing-steps"}],"title":"6.9. Focusing the opener window"}],"url":"https://html.spec.whatwg.org/multipage/interaction.html#focusing-steps"},
 "is-document-picture-in-picture": {"dfnID":"is-document-picture-in-picture","dfnText":"Is Document Picture-in-Picture","external":false,"refSections":[{"refs":[{"id":"ref-for-is-document-picture-in-picture"},{"id":"ref-for-is-document-picture-in-picture\u2460"}],"title":"5. API"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2461"}],"title":"6.3. Closing a Document Picture-in-Picture window"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2462"}],"title":"6.4. Close any existing PiP windows"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2463"}],"title":"6.5. One PiP Window"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2464"}],"title":"6.6. Closing the PiP window when either the original or PiP document is destroyed"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2465"}],"title":"6.7. Closing the PiP window when either the original or PiP document is navigated"},{"refs":[{"id":"ref-for-is-document-picture-in-picture\u2466"},{"id":"ref-for-is-document-picture-in-picture\u2467"}],"title":"6.8. Resizing the PiP window"}],"url":"#is-document-picture-in-picture"},
@@ -2160,6 +2187,7 @@ let refsData = {
 "https://drafts.csswg.org/cssom-view-1/#dom-window-moveto": {"export":true,"for_":["Window"],"level":"1","normative":true,"shortname":"cssom-view","spec":"cssom-view-1","status":"current","text":"moveTo(x, y)","type":"method","url":"https://drafts.csswg.org/cssom-view-1/#dom-window-moveto"},
 "https://drafts.csswg.org/cssom-view-1/#dom-window-resizeby": {"export":true,"for_":["Window"],"level":"1","normative":true,"shortname":"cssom-view","spec":"cssom-view-1","status":"current","text":"resizeBy(x, y)","type":"method","url":"https://drafts.csswg.org/cssom-view-1/#dom-window-resizeby"},
 "https://drafts.csswg.org/cssom-view-1/#dom-window-resizeto": {"export":true,"for_":["Window"],"level":"1","normative":true,"shortname":"cssom-view","spec":"cssom-view-1","status":"current","text":"resizeTo(width, height)","type":"method","url":"https://drafts.csswg.org/cssom-view-1/#dom-window-resizeto"},
+"https://drafts.csswg.org/mediaqueries-5/#display-mode-picture-in-picture": {"export":true,"for_":["display mode"],"level":"5","normative":true,"shortname":"mediaqueries","spec":"mediaqueries-5","status":"current","text":"picture-in-picture","type":"dfn","url":"https://drafts.csswg.org/mediaqueries-5/#display-mode-picture-in-picture"},
 "https://html.spec.whatwg.org/multipage/document-sequences.html#auxiliary-browsing-context": {"export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"auxiliary browsing context","type":"dfn","url":"https://html.spec.whatwg.org/multipage/document-sequences.html#auxiliary-browsing-context"},
 "https://html.spec.whatwg.org/multipage/document-sequences.html#descendant-navigables": {"export":true,"for_":["Document"],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"descendant navigables","type":"dfn","url":"https://html.spec.whatwg.org/multipage/document-sequences.html#descendant-navigables"},
 "https://html.spec.whatwg.org/multipage/document-sequences.html#nav-bc": {"export":true,"for_":["navigable"],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"active browsing context","type":"dfn","url":"https://html.spec.whatwg.org/multipage/document-sequences.html#nav-bc"},
