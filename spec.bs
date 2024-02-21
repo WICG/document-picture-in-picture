@@ -230,7 +230,7 @@ button for the user to return to the original tab and close the
 picture-in-picture window. While this actino makes sense in most cases
 (especially for a video picture-in-picture window that returns the video to the
 main document), it does not always make sense for document picture-in-picture
-windows. {{DocumentPictureInPictureOptions\allowReturnToTab}} is a hint to the
+windows. {{DocumentPictureInPictureOptions/allowReturnToTab}} is a hint to the
 user agent from the website as to whether that action makes sense for their
 particular document picture-in-picture experience.
 </p>
@@ -663,7 +663,7 @@ While user agents often display a button on their video and document
 picture-in-picture windows to return to the original tab and close the window,
 this button doesn't always make sense for some websites' document
 picture-in-picture experience. Use the
-{{DocumentPictureInPictureOptions\allowReturnToTab}} option to hide the button.
+{{DocumentPictureInPictureOptions/allowReturnToTab}} option to hide the button.
 
 <pre class="lang-javascript">
 documentPictureInPicture.requestWindow({ allowReturnToTab: false });
