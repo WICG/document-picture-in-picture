@@ -657,6 +657,18 @@ content in question inside the PiP window:
 }
 </pre>
 
+## Hide return-to-tab button ## {#example-hide-return-to-tab}
+
+While user agents often display a button on their video and document
+picture-in-picture windows to return to the original tab and close the window,
+this button doesn't always make sense for some websites' document
+picture-in-picture experience. Use the
+{{DocumentPictureInPictureOptions\allowReturnToTab}} option to hide the button.
+
+<pre class="lang-javascript">
+documentPictureInPicture.requestWindow({ allowReturnToTab: false });
+</pre>
+
 # Acknowledgments # {#acknowledgments}
 
 Many thanks to Frank Liberato, Mark Foltz, Klaus Weidner, François Beaufort,
