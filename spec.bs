@@ -114,6 +114,7 @@ interface DocumentPictureInPicture : EventTarget {
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
+  boolean allowReturnToTab = true;
 };
 
 [Exposed=Window, SecureContext]
@@ -218,16 +219,32 @@ problems.
         window such that the distance between the top and bottom edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
-14. Configure |pip traversable|'s <a>active browsing context</a>'s window to
+14. If |options|["{{DocumentPictureInPictureOptions/allowReturnToTab}}"] exists
+    and is <code>false</code>, the user agent should not display UI affordances
+    on the picture-in-picture window that allow the user to return to the
+    opener window.
+
+<p class="note">
+For both video and document picture-in-picture, user agents often display a
+button for the user to return to the original tab and close the
+picture-in-picture window. While this actino makes sense in most cases
+(especially for a video picture-in-picture window that returns the video to the
+main document), it does not always make sense for document picture-in-picture
+windows. {{DocumentPictureInPictureOptions\allowReturnToTab}} is a hint to the
+user agent from the website as to whether that action makes sense for their
+particular document picture-in-picture experience.
+</p>
+
+15. Configure |pip traversable|'s <a>active browsing context</a>'s window to
     float on top of other windows.
-15. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
-16. <a>Queue a global task</a> on the
+16. Set <a>this</a>'s <a>last-opened window</a> to |pip traversable|'s <a>active window</a>.
+17. <a>Queue a global task</a> on the
     <a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source">DOM manipulation task source</a>
     given <a>this</a>'s <a>relevant global object</a> to <a>fire an event</a>
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{DocumentPictureInPictureEvent/window}} attribute
     initialized to |pip traversable|'s <a>active window</a>.
-17. Return |pip traversable|'s <a>active window</a>.
+18. Return |pip traversable|'s <a>active window</a>.
 
 </div>
 
