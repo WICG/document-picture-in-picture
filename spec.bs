@@ -114,7 +114,7 @@ interface DocumentPictureInPicture : EventTarget {
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
-  boolean allowReturnToOpener = true;
+  boolean disallowReturnToOpener = false;
 };
 
 [Exposed=Window, SecureContext]
@@ -219,8 +219,8 @@ problems.
         window such that the distance between the top and bottom edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
-14. If |options|["{{DocumentPictureInPictureOptions/allowReturnToOpener}}"] exists
-    and is <code>false</code>, the user agent should not display UI affordances
+14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
+    and is <code>true</code>, the user agent should not display UI affordances
     on the picture-in-picture window that allow the user to return to the
     opener window.
 
@@ -230,8 +230,8 @@ button for the user to return to the original page and close the
 picture-in-picture window. While this action makes sense in most cases
 (especially for a video picture-in-picture window that returns the video to the
 main document), it does not always make sense for document picture-in-picture
-windows. {{DocumentPictureInPictureOptions/allowReturnToOpener}} is a hint to the
-user agent from the website as to whether that action makes sense for their
+windows. {{DocumentPictureInPictureOptions/disallowReturnToOpener}} is a hint to
+the user agent from the website as to whether that action makes sense for their
 particular document picture-in-picture experience.
 </p>
 
@@ -663,10 +663,11 @@ While user agents often display a button on their video and document
 picture-in-picture windows to return to the opener and close the window,
 this button doesn't always make sense for some websites' document
 picture-in-picture experience. Use the
-{{DocumentPictureInPictureOptions/allowReturnToOpener}} option to hide the button.
+{{DocumentPictureInPictureOptions/disallowReturnToOpener}} option to hide the
+button.
 
 <pre class="lang-javascript">
-documentPictureInPicture.requestWindow({ allowReturnToOpener: false });
+documentPictureInPicture.requestWindow({ disallowReturnToOpener: true });
 </pre>
 
 # Acknowledgments # {#acknowledgments}
