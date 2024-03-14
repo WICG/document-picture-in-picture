@@ -714,7 +714,7 @@ var[data-var-color="6"] { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBC
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Document Picture-in-Picture Specification</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-03-13">13 March 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-03-14">14 March 2024</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -900,7 +900,7 @@ websites an avenue for fingerprinting a user.</p>
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></dfn> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long" id="dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></dfn> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange①"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="unsigned long long" id="dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></dfn> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="true" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean" id="dom-documentpictureinpictureoptions-allowreturntoopener"><code><c- g>allowReturnToOpener</c-></code></dfn> = <c- b>true</c->;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="DocumentPictureInPictureOptions" data-dfn-type="dict-member" data-export data-type="boolean" id="dom-documentpictureinpictureoptions-disallowreturntoopener"><code><c- g>disallowReturnToOpener</c-></code></dfn> = <c- b>false</c->;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=<c- n>Window</c->, <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext②"><c- g>SecureContext</c-></a>]
@@ -998,8 +998,8 @@ viewport are <var>options</var>["<code class="idl"><a data-link-type="idl" href=
 pixels.</p>
       </ol>
      <li data-md>
-      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-allowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-allowreturntoopener">allowReturnToOpener</a></code>"] exists
-and is <code>false</code>, the user agent should not display UI affordances
+      <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-disallowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener">disallowReturnToOpener</a></code>"] exists
+and is <code>true</code>, the user agent should not display UI affordances
 on the picture-in-picture window that allow the user to return to the
 opener window.</p>
     </ol>
@@ -1008,8 +1008,8 @@ button for the user to return to the original page and close the
 picture-in-picture window. While this action makes sense in most cases
 (especially for a video picture-in-picture window that returns the video to the
 main document), it does not always make sense for document picture-in-picture
-windows. <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-allowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-allowreturntoopener①">allowReturnToOpener</a></code> is a hint to the
-user agent from the website as to whether that action makes sense for their
+windows. <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-disallowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener①">disallowReturnToOpener</a></code> is a hint to
+the user agent from the website as to whether that action makes sense for their
 particular document picture-in-picture experience. </p>
     <ol start="15">
      <li data-md>
@@ -1321,8 +1321,9 @@ content in question inside the PiP window:</p>
    <p>While user agents often display a button on their video and document
 picture-in-picture windows to return to the opener and close the window,
 this button doesn’t always make sense for some websites' document
-picture-in-picture experience. Use the <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-allowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-allowreturntoopener②">allowReturnToOpener</a></code> option to hide the button.</p>
-<pre class="lang-javascript highlight">documentPictureInPicture<c- p>.</c->requestWindow<c- p>({</c-> allowReturnToOpener<c- o>:</c-> <c- kc>false</c-> <c- p>});</c->
+picture-in-picture experience. Use the <code class="idl"><a data-link-type="idl" href="#dom-documentpictureinpictureoptions-disallowreturntoopener" id="ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener②">disallowReturnToOpener</a></code> option to hide the
+button.</p>
+<pre class="lang-javascript highlight">documentPictureInPicture<c- p>.</c->requestWindow<c- p>({</c-> disallowReturnToOpener<c- o>:</c-> <c- kc>true</c-> <c- p>});</c->
 </pre>
    <h2 class="heading settled" data-level="8" id="acknowledgments"><span class="secno">8. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
    <p>Many thanks to Frank Liberato, Mark Foltz, Klaus Weidner, François Beaufort,
@@ -1360,10 +1361,10 @@ and contributions to this document and to the discussions that have informed it.
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-documentpictureinpictureoptions-allowreturntoopener">allowReturnToOpener</a><span>, in § 5</span>
    <li><a href="#close-any-associated-document-picture-in-picture-windows">close any associated Document Picture-in-Picture windows</a><span>, in § 6.6</span>
    <li><a href="#close-any-existing-picture-in-picture-windows">close any existing picture-in-picture windows</a><span>, in § 6.4</span>
    <li><a href="#dom-documentpictureinpictureevent-documentpictureinpictureevent">constructor(type, eventInitDict)</a><span>, in § 5</span>
+   <li><a href="#dom-documentpictureinpictureoptions-disallowreturntoopener">disallowReturnToOpener</a><span>, in § 5</span>
    <li><a href="#documentpictureinpicture">DocumentPictureInPicture</a><span>, in § 5</span>
    <li><a href="#dom-window-documentpictureinpicture">documentPictureInPicture</a><span>, in § 5</span>
    <li><a href="#window-documentpictureinpicture-api">documentPictureInPicture API</a><span>, in § 5</span>
@@ -1506,7 +1507,7 @@ and contributions to this document and to the discussions that have informed it.
 <c- b>dictionary</c-> <a href="#dictdef-documentpictureinpictureoptions"><code><c- g>DocumentPictureInPictureOptions</c-></code></a> {
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long" href="#dom-documentpictureinpictureoptions-width"><code><c- g>width</c-></code></a> = 0;
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-default="0" data-type="unsigned long long" href="#dom-documentpictureinpictureoptions-height"><code><c- g>height</c-></code></a> = 0;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="true" data-type="boolean" href="#dom-documentpictureinpictureoptions-allowreturntoopener"><code><c- g>allowReturnToOpener</c-></code></a> = <c- b>true</c->;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean" href="#dom-documentpictureinpictureoptions-disallowreturntoopener"><code><c- g>disallowReturnToOpener</c-></code></a> = <c- b>false</c->;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->, <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>]
@@ -1786,7 +1787,7 @@ let dfnPanelData = {
 "dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-type": {"dfnID":"dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-type","dfnText":"type","external":false,"refSections":[],"url":"#dom-documentpictureinpictureevent-documentpictureinpictureevent-type-eventinitdict-type"},
 "dom-documentpictureinpictureevent-window": {"dfnID":"dom-documentpictureinpictureevent-window","dfnText":"window","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-documentpictureinpictureevent-window"}],"title":"5. API"}],"url":"#dom-documentpictureinpictureevent-window"},
 "dom-documentpictureinpictureeventinit-window": {"dfnID":"dom-documentpictureinpictureeventinit-window","dfnText":"window","external":false,"refSections":[],"url":"#dom-documentpictureinpictureeventinit-window"},
-"dom-documentpictureinpictureoptions-allowreturntoopener": {"dfnID":"dom-documentpictureinpictureoptions-allowreturntoopener","dfnText":"allowReturnToOpener","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-allowreturntoopener"},{"id":"ref-for-dom-documentpictureinpictureoptions-allowreturntoopener\u2460"}],"title":"5. API"},{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-allowreturntoopener\u2461"}],"title":"7.9. Hide return-to-opener button"}],"url":"#dom-documentpictureinpictureoptions-allowreturntoopener"},
+"dom-documentpictureinpictureoptions-disallowreturntoopener": {"dfnID":"dom-documentpictureinpictureoptions-disallowreturntoopener","dfnText":"disallowReturnToOpener","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener"},{"id":"ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener\u2460"}],"title":"5. API"},{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-disallowreturntoopener\u2461"}],"title":"7.9. Hide return-to-opener button"}],"url":"#dom-documentpictureinpictureoptions-disallowreturntoopener"},
 "dom-documentpictureinpictureoptions-height": {"dfnID":"dom-documentpictureinpictureoptions-height","dfnText":"height","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-height"},{"id":"ref-for-dom-documentpictureinpictureoptions-height\u2460"},{"id":"ref-for-dom-documentpictureinpictureoptions-height\u2461"},{"id":"ref-for-dom-documentpictureinpictureoptions-height\u2462"},{"id":"ref-for-dom-documentpictureinpictureoptions-height\u2463"}],"title":"5. API"}],"url":"#dom-documentpictureinpictureoptions-height"},
 "dom-documentpictureinpictureoptions-width": {"dfnID":"dom-documentpictureinpictureoptions-width","dfnText":"width","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-documentpictureinpictureoptions-width"},{"id":"ref-for-dom-documentpictureinpictureoptions-width\u2460"},{"id":"ref-for-dom-documentpictureinpictureoptions-width\u2461"},{"id":"ref-for-dom-documentpictureinpictureoptions-width\u2462"},{"id":"ref-for-dom-documentpictureinpictureoptions-width\u2463"}],"title":"5. API"}],"url":"#dom-documentpictureinpictureoptions-width"},
 "dom-window-documentpictureinpicture": {"dfnID":"dom-window-documentpictureinpicture","dfnText":"documentPictureInPicture","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-window-documentpictureinpicture"}],"title":"5. API"}],"url":"#dom-window-documentpictureinpicture"},
@@ -2202,7 +2203,7 @@ let refsData = {
 "#dom-documentpictureinpicture-requestwindow": {"export":true,"for_":["DocumentPictureInPicture"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"requestWindow(options)","type":"method","url":"#dom-documentpictureinpicture-requestwindow"},
 "#dom-documentpictureinpicture-window": {"export":true,"for_":["DocumentPictureInPicture"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"window","type":"attribute","url":"#dom-documentpictureinpicture-window"},
 "#dom-documentpictureinpictureevent-window": {"export":true,"for_":["DocumentPictureInPictureEvent"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"window","type":"attribute","url":"#dom-documentpictureinpictureevent-window"},
-"#dom-documentpictureinpictureoptions-allowreturntoopener": {"export":true,"for_":["DocumentPictureInPictureOptions"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"allowReturnToOpener","type":"dict-member","url":"#dom-documentpictureinpictureoptions-allowreturntoopener"},
+"#dom-documentpictureinpictureoptions-disallowreturntoopener": {"export":true,"for_":["DocumentPictureInPictureOptions"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"disallowReturnToOpener","type":"dict-member","url":"#dom-documentpictureinpictureoptions-disallowreturntoopener"},
 "#dom-documentpictureinpictureoptions-height": {"export":true,"for_":["DocumentPictureInPictureOptions"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"height","type":"dict-member","url":"#dom-documentpictureinpictureoptions-height"},
 "#dom-documentpictureinpictureoptions-width": {"export":true,"for_":["DocumentPictureInPictureOptions"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"width","type":"dict-member","url":"#dom-documentpictureinpictureoptions-width"},
 "#dom-window-documentpictureinpicture": {"export":true,"for_":["Window"],"level":"1","normative":true,"shortname":"document-pip-spec","spec":"document-pip-spec-1","status":"local","text":"documentPictureInPicture","type":"attribute","url":"#dom-window-documentpictureinpicture"},
