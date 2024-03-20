@@ -478,6 +478,72 @@ write specific CSS rules that are only applied when (part of the) the web app is
 picture-in-picture mode.
 </p>
 
+## User activation propagation ## {#user-activation-propagation}
+
+<p>
+Due to the nature of document picture-in-picture windows, event handlers on
+buttons within the window often end up actually running in the opener's context.
+This can make it unergonomic for websites to call
+<a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api">activation consuming APIs</a>,
+since sometimes the document
+picture-in-picture window has <a>transient activation</a> while the opener does
+not.
+
+To make this easier, we will update the
+<a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
+steps to also trigger user activation in the opener when triggering user
+activation in a document picture-in-picture window.
+</p>
+
+<p class="issue">
+Merge this into
+<a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
+steps once it has enough consensus.
+</p>
+
+Add a new step to
+<a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
+after step 3, "<a>Extend</a>
+|windows| with the <a>active window</a> of each of |document|'s
+<a>ancestor navigables</a>.":
+
+4. If |document|'s <a>node navigable</a>'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
+    <a>extend</a> |windows| with |document|'s <a>node navigable</a>'s
+    <a>top-level traversable</a>'s <a>active browsing context</a>'s
+    <a>opener browsing context</a>'s <a>active window</a>.
+
+<p>
+Additionally, we need to make sure that this activation is properly consumed so
+it can't be used twice (once in the opener and once in the picture-in-picture
+window). We do this by adding steps to <a>consume user activation</a> which
+consume user activation from the opener when consuming a picture-in-picture
+window's user activation, and consuming an associated picture-in-picture
+window's user activation when consuming an opener's user activation.
+</p>
+
+<p class="issue">
+Merge this into <a>consume user activation</a> steps once it has enough
+consensus.
+</p>
+
+Add three new steps to <a>consume user activation</a> after step 3, "Let
+|navigables| be the <a>inclusive descendant navigables</a> of |top|'s
+<a>active document</a>.":
+
+4. If |top|'s <a>Is Document Picture-in-Picture</a> boolean is
+    <code>true</code>, then <a>extend</a> |navigables| with the
+    <a>inclusive descendant navigables</a> of |top|'s
+    <a>active browsing context</a>'s <a>opener browsing context</a>'s
+    <a>active document</a>.
+
+5. Let |document picture-in-picture window| be |top|'s <a>active window</a>'s
+    <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
+
+6. If |document picture-in-picture window| is not <code>null</code> then
+    <a>extend</a> |navigables| with the <a>inclusive descendant navigables</a>
+    of |document picture-in-picture window|'s <a>associated document</a>.
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
