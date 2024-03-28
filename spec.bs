@@ -116,6 +116,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
+  boolean disallowPositionReuse = false;
 };
 
 [Exposed=Window, SecureContext]
@@ -752,6 +753,24 @@ button.
 
 <pre class="lang-javascript">
 documentPictureInPicture.requestWindow({ disallowReturnToOpener: true });
+</pre>
+
+## Disallow position reuse ## {#example-disallow-position-reuse}
+
+While a document picture-in-picture window is open, the user may choose
+to resize or reposition it. If the document picture-in-picture window is
+closed, then reopened later, the user agent may use the previous position
+and size as a hint for where to place the new window.
+
+The site can provide a hint to the user agent that reusing the previous
+document picture-in-picture window position and size is not desirable
+by setting the {{DocumentPictureInPictureOptions/disallowPositionReuse}}
+option.  For example, if the site is requesting the new document picture-in-
+picture window for an unrelated activity from the previous one, then the site
+could provide this hint to the user agent.
+
+<pre class="lang-javascript">
+documentPictureInPicture.requestWindow({ disallowPositionReuse: true });
 </pre>
 
 # Acknowledgments # {#acknowledgments}
