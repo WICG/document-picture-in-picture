@@ -767,10 +767,16 @@ document picture-in-picture window position and size is not desirable
 by setting the {{DocumentPictureInPictureOptions/disallowPositionReuse}}
 option.  For example, if the site is requesting the new document picture-in-
 picture window for an unrelated activity from the previous one, then the site
-could provide this hint to the user agent.
+might provide this hint to the user agent.  In response, the user agent may
+choose to use the default position, the default size, or the size hint
+provided by the site instead.
 
 <pre class="lang-javascript">
-documentPictureInPicture.requestWindow({ disallowPositionReuse: true });
+documentPictureInPicture.requestWindow({
+  disallowPositionReuse: true,
+  width: 320,
+  height: 480
+});
 </pre>
 
 # Acknowledgments # {#acknowledgments}
