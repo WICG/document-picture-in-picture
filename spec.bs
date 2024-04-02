@@ -116,7 +116,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
-  boolean disallowPositionReuse = false;
+  boolean ignorePreviousWindowBounds = false;
 };
 
 [Exposed=Window, SecureContext]
@@ -222,9 +222,10 @@ problems.
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
 <p class="note">
-The |options|["{{DocumentPictureInPictureOptions/disallowPositionReuse}}"] may be used as a hint
-to prefer behavior that is similar to steps 12 and 13, rather than considering any previous
-position or size of any previously closed |pip traversable| window.
+The |options|["{{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}"]
+may be used as a hint to prefer behavior that is similar to steps 12 and 13,
+rather than considering any previous position or size of any previously closed
+|pip traversable| window.
 </p>
 14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
@@ -769,7 +770,7 @@ and size as a hint for where to place the new window.
 
 The site can provide a hint to the user agent that reusing the previous
 document picture-in-picture window position and size is not desirable
-by setting the {{DocumentPictureInPictureOptions/disallowPositionReuse}}
+by setting the {{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}
 option.  For example, if the site is requesting the new document picture-in-
 picture window for an unrelated activity from the previous one, then the site
 might provide this hint to the user agent.  In response, the user agent may
@@ -778,7 +779,7 @@ provided by the site instead.
 
 <pre class="lang-javascript">
 documentPictureInPicture.requestWindow({
-  disallowPositionReuse: true,
+  ignorePreviousWindowBounds: true,
   width: 320,
   height: 480
 });
