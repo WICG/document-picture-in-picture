@@ -223,7 +223,7 @@ problems.
         pixels.
 <p class="note">
 The |options|["{{DocumentPictureInPictureOptions/disallowPositionReuse}}"] may be used as a hint
-to prefer behavior that similar to steps 12 and 13, rather than considering any previous
+to prefer behavior that is similar to steps 12 and 13, rather than considering any previous
 position or size of any previously closed |pip traversable| window.
 </p>
 14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
