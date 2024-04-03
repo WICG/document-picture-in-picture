@@ -221,10 +221,10 @@ problems.
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
 <p class="note">
-The |options|["{{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}"]
-may be used as a hint to prefer behavior that is similar to steps 12 and 13,
-rather than considering any previous position or size of any previously closed
-|pip traversable| window.
+If |options|["{{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}"]
+exists and is true, then the user agent may use this hint to prefer behavior
+that is similar to steps 12 and 13, rather than considering any previous
+position or size of any previously closed |pip traversable| window.
 </p>
 14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
@@ -677,9 +677,9 @@ button.
 documentPictureInPicture.requestWindow({ disallowReturnToOpener: true });
 </pre>
 
-## Disallow position reuse ## {#example-disallow-position-reuse}
+## Ignore previous window bounds ## {#example-ignore-previous-window-bounds}
 
-While a document picture-in-picture window is open, the user may choose
+While a document picture-in-picture window is opened, the user may choose
 to resize or reposition it. If the document picture-in-picture window is
 closed, then reopened later, the user agent may use the previous position
 and size as a hint for where to place the new window.
@@ -687,7 +687,7 @@ and size as a hint for where to place the new window.
 The site can provide a hint to the user agent that reusing the previous
 document picture-in-picture window position and size is not desirable
 by setting the {{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}
-option.  For example, if the site is requesting the new document picture-in-
+option to true.  For example, if the site is requesting the new document picture-in-
 picture window for an unrelated activity from the previous one, then the site
 might provide this hint to the user agent.  In response, the user agent may
 choose to use the default position, the default size, or the size hint
