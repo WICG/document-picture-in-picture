@@ -758,9 +758,9 @@ picture-in-picture experience. Use the
 button.
 
 <pre class="lang-javascript">
-documentPictureInPicture.requestWindow({
+await documentPictureInPicture.requestWindow({
   disallowReturnToOpener: true
-}).then(...);
+});
 </pre>
 
 ## Ignore previous window bounds ## {#example-ignore-previous-window-bounds}
@@ -780,11 +780,9 @@ choose to use the default position, the default size, or the size hint
 provided by the site instead.
 
 <pre class="lang-javascript">
-documentPictureInPicture.requestWindow({
-  ignorePreviousWindowBounds: true,
-  width: 320,
-  height: 480
-}).then(...);
+await documentPictureInPicture.requestWindow({
+  ignorePreviousWindowBounds: true
+});
 </pre>
 
 # Acknowledgments # {#acknowledgments}
