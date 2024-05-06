@@ -12,6 +12,7 @@ Abstract: in an always-on-top window.
 </pre>
 
 <pre class="link-defaults">
+spec:dom; type:dfn; text:origin
 spec:html; type:dfn; for:navigable; text:top-level traversable
 spec:html; type:dfn; for:Window; text:navigable
 spec:url; type:dfn; for:/; text:url
@@ -492,7 +493,10 @@ not.
 To make this easier, we will update the
 <a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
 steps to also trigger user activation in the opener when triggering user
-activation in a document picture-in-picture window.
+activation in a document picture-in-picture window. Additionally, when user
+activation is triggered in the opener, we will activate same-origin frames
+insides the document picture-in-picture window, similar to how same-origin
+descendant frames are activated.
 </p>
 
 <p class="issue">
@@ -501,17 +505,31 @@ Merge this into
 steps once it has enough consensus.
 </p>
 
-Add a new step to
+Add three new steps to
 <a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
-after step 3, "<a>Extend</a>
+after step 4, "<a>Extend</a>
 |windows| with the <a>active window</a> of each of |document|'s
-<a>ancestor navigables</a>.":
+<a>descendant navigables</a>, filtered to include only those <a>navigables</a>
+whose <a>active document</a>'s <a>origin</a> is <a>same origin</a> with
+|document|'s <a>origin</a>":
 
-4. If |document|'s <a>node navigable</a>'s <a>top-level traversable</a>'s
+5. If |document|'s <a>node navigable</a>'s <a>top-level traversable</a>'s
     <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
     <a>extend</a> |windows| with |document|'s <a>node navigable</a>'s
     <a>top-level traversable</a>'s <a>active browsing context</a>'s
     <a>opener browsing context</a>'s <a>active window</a>.
+
+6. Let |document picture-in-picture window| be |document|'s <a>node navigable</a>'s
+    <a>top-level traversable</a>'s <a>active window</a>'s
+    <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
+
+7. If |document picture-in-picture window| is not <code>null</code> then
+    <a>extend</a> |windows| with the <a>active window</a> of each of
+    |document picture-in-picture window|'s <a>associated document</a>'s
+    <a>descendant navigables</a>, filtered to include only those
+    <a>navigables</a> whose <a>active document</a>'s <a>origin</a> is
+    <a>same origin</a> with |document picture-in-picture window|'s
+    <a>associated document</a>'s <a>origin</a>.
 
 <p>
 Additionally, we need to make sure that this activation is properly consumed so
