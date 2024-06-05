@@ -112,11 +112,16 @@ interface DocumentPictureInPicture : EventTarget {
   attribute EventHandler onenter;
 };
 
+enum DocumentPictureInPictureWindowPlacement {
+  "preferInitial",
+  "preferMostRecent"
+};
+
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
-  boolean ignorePreviousWindowBounds = false;
+  DocumentPictureInPictureWindowPlacement windowPlacement = "preferMostRecent";
 };
 
 [Exposed=Window, SecureContext]
@@ -222,10 +227,11 @@ problems.
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
 <p class="note">
-If |options|["{{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}"]
-exists and is true, then the user agent may use this hint to prefer behavior
-that is similar to steps 12 and 13, rather than considering any previous
-position or size of any previously closed |pip traversable| window.
+If |options|["{{DocumentPictureInPictureOptions/windowPlacement}}"]
+exists and is "preferInitial", then the user agent may use this hint to prefer
+behavior that is similar that is similar to steps 12 and 13, rather than
+considering any previous position or size of any previously closed |pip
+traversable| window.
 </p>
 14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
@@ -763,7 +769,7 @@ await documentPictureInPicture.requestWindow({
 });
 </pre>
 
-## Ignore previous window bounds ## {#example-ignore-previous-window-bounds}
+## Window placement ## {#example-window-placement}
 
 While a document picture-in-picture window is opened, the user may choose
 to resize or reposition it. If the document picture-in-picture window is
@@ -772,16 +778,16 @@ and size as a hint for where to place the new window.
 
 The site can provide a hint to the user agent that reusing the previous
 document picture-in-picture window position and size is not desirable
-by setting the {{DocumentPictureInPictureOptions/ignorePreviousWindowBounds}}
-option to true.  For example, if the site is requesting the new document picture-in-
-picture window for an unrelated activity from the previous one, then the site
-might provide this hint to the user agent.  In response, the user agent may
-choose to use the default position, the default size, or the size hint
-provided by the site instead.
+by setting the {{DocumentPictureInPictureOptions/windowPlacement}}
+value to "preferInitial".  For example, if the site is requesting the new
+document picture-in-picture window for an unrelated activity from the previous
+one, then the site might provide this hint to the user agent.  In response, the
+user agent may choose to use the default position, the default size, or the size
+hint provided by the site instead.
 
 <pre class="lang-javascript">
 await documentPictureInPicture.requestWindow({
-  ignorePreviousWindowBounds: true
+  windowPlacement: "preferInitial"
 });
 </pre>
 
