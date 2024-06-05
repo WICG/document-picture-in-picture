@@ -121,7 +121,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
-  DocumentPictureInPictureColorMode colorMode = "preferDark";
+  DocumentPictureInPictureColorMode colorMode = "preferDevice";
 };
 
 [Exposed=Window, SecureContext]
@@ -485,6 +485,23 @@ write specific CSS rules that are only applied when (part of the) the web app is
 picture-in-picture mode.
 </p>
 
+## Color Mode ## {#color-mode}
+
+<p>
+A primary use-case for document picture-in-picture is to display video content
+that does not require the user's primary attention. Because of this, it is
+sometimes desirable to make the window less conspicuous, such as by enabling
+dark mode themeing even if other windows default to light mode. To support
+this, |options|["{{DocumentPictureInPictureOptions/colorMode}}"] can be
+provided by the website as a hint about the desired color mode.
+</p>
+
+<p>
+In addition to "preferLight" and "preferDark" to request the color mode
+directly, the option "preferDevice" means that the website prefers if the
+color mode matches the user's preference for the rest of the device.
+</p>
+
 # Examples # {#examples}
 
 <em>This section is non-normative</em>
@@ -679,11 +696,12 @@ documentPictureInPicture.requestWindow({ disallowReturnToOpener: true });
 
 ## Provide color mode hint ## {#example-color-mode}
 
-Use the {{DocumentPictureInPictureOptions/colorMode}} option to do stuff
-TODO: write this ...
+Use the {{DocumentPictureInPictureOptions/colorMode}} option to provide a hint
+to the user agent about the preferred color scheme for the document picture-
+in-picture window. For example, this requests dark mode:
 
 <pre class="lang-javascript">
-documentPictureInPicture.requestWindow({ colorMode: "preferLight" });
+documentPictureInPicture.requestWindow({ colorMode: "preferDark" });
 </pre>
 
 # Acknowledgments # {#acknowledgments}
