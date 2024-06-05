@@ -111,10 +111,17 @@ interface DocumentPictureInPicture : EventTarget {
   attribute EventHandler onenter;
 };
 
+enum DocumentPictureInPictureColorMode {
+  "preferDark",
+  "preferLight",
+  "preferDevice"
+};
+
 dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
+  DocumentPictureInPictureColorMode colorMode = "preferDark";
 };
 
 [Exposed=Window, SecureContext]
@@ -668,6 +675,15 @@ button.
 
 <pre class="lang-javascript">
 documentPictureInPicture.requestWindow({ disallowReturnToOpener: true });
+</pre>
+
+## Provide color mode hint ## {#example-color-mode}
+
+Use the {{DocumentPictureInPictureOptions/colorMode}} option to do stuff
+TODO: write this ...
+
+<pre class="lang-javascript">
+documentPictureInPicture.requestWindow({ colorMode: "preferLight" });
 </pre>
 
 # Acknowledgments # {#acknowledgments}
