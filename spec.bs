@@ -497,7 +497,7 @@ provided by the website as a hint about the desired color mode.
 </p>
 
 <p>
-In addition to "preferLight" and "preferDark" to request the color mode
+In addition to "preferLight" and "preferDark", which request a specific theme
 directly, the option "preferDevice" means that the website prefers if the
 color mode matches the user's preference for the rest of the device.
 </p>
