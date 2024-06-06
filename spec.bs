@@ -489,7 +489,7 @@ picture-in-picture mode.
 
 <p>
 A primary use-case for document picture-in-picture is to display video content
-that does not require the user's primary attention. Because of this, it is
+that does not require the user's full attention. Because of this, it is
 sometimes desirable to make the window less conspicuous, such as by enabling
 dark mode themeing even if other windows default to light mode. To support
 this, |options|["{{DocumentPictureInPictureOptions/colorMode}}"] can be
