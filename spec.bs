@@ -474,7 +474,7 @@ picture-in-picture window after focusing, they can always do so using
 ## CSS display-mode ## {#css-display-mode}
 
 <p>
-The CSS display mode media feature [=display mode/picture-in-picture=] lets web developers
+The CSS display mode media feature ''@media/display-mode/picture-in-picture'' lets web developers
 write specific CSS rules that are only applied when (part of the) the web app is shown in
 picture-in-picture mode.
 </p>
