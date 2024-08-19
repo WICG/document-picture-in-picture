@@ -108,6 +108,7 @@ partial interface Window {
 interface DocumentPictureInPicture : EventTarget {
   [NewObject] Promise&lt;Window&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
+  void ready(Window window);
   readonly attribute Window window;
   attribute EventHandler onenter;
 };
@@ -117,6 +118,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
   boolean preferInitialWindowPlacement = false;
+  boolean waitForReady = false;
 };
 
 [Exposed=Window, SecureContext]
