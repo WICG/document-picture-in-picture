@@ -221,12 +221,12 @@ problems.
         window such that the distance between the top and bottom edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
-<p class="note">
+
 If |options|["{{DocumentPictureInPictureOptions/preferInitialWindowPlacement}}"]
 exists and is true, then the user agent may use this hint to prefer behavior
 that is similar that is similar to steps 12 and 13, rather than considering any
 previous position or size of any previously closed |pip traversable| window.
-</p>
+
 14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
     on the picture-in-picture window that allow the user to return to the
