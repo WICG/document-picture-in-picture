@@ -108,7 +108,7 @@ partial interface Window {
 interface DocumentPictureInPicture : EventTarget {
   [NewObject] Promise&lt;Window&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
-  void ready(Window window);
+  void show(Window window);
   readonly attribute Window window;
   attribute EventHandler onenter;
 };
@@ -118,7 +118,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
   boolean preferInitialWindowPlacement = false;
-  boolean waitForReady = false;
+  boolean createHidden = false;
 };
 
 [Exposed=Window, SecureContext]
@@ -233,15 +233,15 @@ previous position or size of any previously closed |pip traversable| window.
     and is <code>true</code>, the user agent should not display UI affordances
     on the picture-in-picture window that allow the user to return to the
     opener window.
-15. If |options|["{{DocumentPictureInPictureOptions/waitForReady}}"] exists
+15. If |options|["{{DocumentPictureInPictureOptions/createHidden}}"] exists
     and is <code>true</code>, the user agent should not show the picture-in-picture
     window immediately.  Instead, it will wait until one of these becomes true:
-    1. {{DocumentPictureInPicture/ready()}} is called, with the corresponding
+    1. {{DocumentPictureInPicture/show()}} is called, with the corresponding
         window as its argument.
     2. The transient activation used in step 4 would time out.
-    Calls to {{DocumentPictureInPicture/ready()}} after the picture-in-picture window
+    Calls to {{DocumentPictureInPicture/show()}} after the picture-in-picture window
     is shown, after it is destroyed, will do nothing.
-    If |options|["{{DocumentPictureInPictureOptions/waitForReady}}"] does not exist
+    If |options|["{{DocumentPictureInPictureOptions/createHidden}}"] does not exist
     or is not true, then the picture-in-picture window will be shown immediately after
     it is created.
 <p class="note">
@@ -807,16 +807,16 @@ await documentPictureInPicture.requestWindow({
 });
 </pre>
 
-## Defer showing the picture-in-picture window ## {#example-wait-for-ready}
+## Defer showing the picture-in-picture window ## {#example-create-hidden}
 
 If the site would like to configure the picture-in-picture window contents
 before showing the window, it may use the
-{{DocumentPictureInPictureOptions/waitForReady}} option to do so.
+{{DocumentPictureInPictureOptions/createHidden}} option to do so.
 
 <pre class="lang-javascript">
-let pip = await documentPictureInPicture.requestWindow({ waitForReady: true });
+let pip = await documentPictureInPicture.requestWindow({ createHidden: true });
 // Add things to pip.document here!
-documentPictureInPicture.ready(pip);
+documentPictureInPicture.show(pip);
 </pre>
 
 # Acknowledgments # {#acknowledgments}
