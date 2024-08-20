@@ -240,7 +240,9 @@ previous position or size of any previously closed |pip traversable| window.
         window as its argument.
     2. The transient activation used in step 4 would time out.
     Calls to {{DocumentPictureInPicture/show()}} after the picture-in-picture window
-    is shown, after it is destroyed, will do nothing.
+    is shown, or after it is closed, will do nothing.  A call that provides a window argument
+    that was not returned by {{DocumentPictureInPicture/requestWindow()}} will throw a
+    "{{NotAllowedError}}" {{DOMException}}.
     If |options|["{{DocumentPictureInPictureOptions/createHidden}}"] does not exist
     or is not true, then the picture-in-picture window will be shown immediately after
     it is created.
