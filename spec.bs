@@ -233,6 +233,25 @@ previous position or size of any previously closed |pip traversable| window.
     and is <code>true</code>, the user agent should not display UI affordances
     on the picture-in-picture window that allow the user to return to the
     opener window.
+15. If |options|["{{DocumentPictureInPictureOptions/waitForReady}}"] exists
+    and is <code>true</code>, the user agent should not show the picture-in-picture
+    window immediately.  Instead, it will wait until one of these becomes true:
+    1. {{DocumentPictureInPicture/ready()}} is called, with the corresponding
+        window as its argument.
+    2. The transient activation used in step 4 would time out.
+    Calls to {{DocumentPictureInPicture/ready()}} after the picture-in-picture window
+    is shown, after it is destroyed, will do nothing.
+    If |options|["{{DocumentPictureInPictureOptions/waitForReady}}"] does not exist
+    or is not true, then the picture-in-picture window will be shown immediately after
+    it is created.
+<p class="note">
+The intention for automatically showing the window when the transient activation would
+time out is to allow the site to delay showing the window approximately as long as it
+could have waited to call {{DocumentPictureInPicture/requestWindow()}}.  Allowing the
+site to defer showing the window is intended to let it do initial setup of the window
+for a smoother transition, but not to allow the site to postpone showing the window
+any longer than it could without the option.
+</p>
 
 <p class="note">
 For both video and document picture-in-picture, user agents often display a
@@ -786,6 +805,18 @@ hint provided by the site instead.
 await documentPictureInPicture.requestWindow({
   preferInitialWindowPlacement: true
 });
+</pre>
+
+## Defer showing the picture-in-picture window ## {#example-wait-for-ready}
+
+If the site would like to configure the picture-in-picture window contents
+before showing the window, it may use the
+{{DocumentPictureInPictureOptions/waitForReady}} option to do so.
+
+<pre class="lang-javascript">
+let pip = await documentPictureInPicture.requestWindow({ waitForReady: true });
+// Add things to pip.document here!
+documentPictureInPicture.ready(pip);
 </pre>
 
 # Acknowledgments # {#acknowledgments}
