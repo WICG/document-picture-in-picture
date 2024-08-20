@@ -235,10 +235,10 @@ previous position or size of any previously closed |pip traversable| window.
     opener window.
 15. If |options|["{{DocumentPictureInPictureOptions/createHidden}}"] exists
     and is <code>true</code>, the user agent should not show the picture-in-picture
-    window immediately.  Instead, it will wait until one of these becomes true:
+    window immediately.  Instead, it will wait until either:
     1. {{DocumentPictureInPicture/show()}} is called, with the corresponding
         window as its argument.
-    2. The transient activation used in step 4 would time out.
+    2. The UA shows the window automatically after some time has elapsed.
     Calls to {{DocumentPictureInPicture/show()}} after the picture-in-picture window
     is shown, or after it is closed, will do nothing.  A call that provides a window argument
     that was not returned by {{DocumentPictureInPicture/requestWindow()}} will throw a
@@ -247,12 +247,12 @@ previous position or size of any previously closed |pip traversable| window.
     or is not true, then the picture-in-picture window will be shown immediately after
     it is created.
 <p class="note">
-The intention for automatically showing the window when the transient activation would
-time out is to allow the site to delay showing the window approximately as long as it
-could have waited to call {{DocumentPictureInPicture/requestWindow()}}.  Allowing the
-site to defer showing the window is intended to let it do initial setup of the window
-for a smoother transition, but not to allow the site to postpone showing the window
-any longer than it could without the option.
+The intention to automatically show the window after a timeout is to allow the UA to
+prevent a site from waiting indefinitely to show a window.  For example, a UA might
+choose to use the remaining lifetime of the transient activation that allowed the call to
+{{DocumentPictureInPicture/requestWindow()}} to succeed, so that the site cannot show
+the window any later than it could by simply waiting to open the picture-in-picture
+window.  The UA is free to choose any timeout, including "forever".
 </p>
 
 <p class="note">
