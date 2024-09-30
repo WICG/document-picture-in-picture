@@ -12,6 +12,7 @@ Abstract: in an always-on-top window.
 </pre>
 
 <pre class="link-defaults">
+spec:dom; type:dfn; for:Document; text:mode
 spec:dom; type:dfn; text:origin
 spec:html; type:dfn; for:navigable; text:top-level traversable
 spec:html; type:dfn; for:Window; text:navigable
