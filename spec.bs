@@ -203,9 +203,12 @@ specified for document picture-in-picture windows, to avoid further interop
 problems.
 </p>
 
-11. Set |pip traversable|'s <a>Is Document Picture-in-Picture</a> boolean to
+11. Set |pip traversable|'s <a>active document</a>'s <a>mode</a> to
+    <a>this</a>'s <a>relevant global object</a>'s <a>associated Document</a>'s
+    <a>mode</a>.
+12. Set |pip traversable|'s <a>Is Document Picture-in-Picture</a> boolean to
     <code>true</code>.
-12. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
+13. If |options|["{{DocumentPictureInPictureOptions/width}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/width}}"] if it is too large or too
         small in order to fit a user-friendly window size.
@@ -213,7 +216,7 @@ problems.
         window such that the distance between the left and right edges of the
         viewport are |options|["{{DocumentPictureInPictureOptions/width}}"]
         pixels.
-13. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
+14. If |options|["{{DocumentPictureInPictureOptions/height}}"] exists and is
     greater than zero:
     1. Optionally, clamp or ignore |options|["{{DocumentPictureInPictureOptions/height}}"] if it is too large or too
         small in order to fit a user-friendly window size.
@@ -224,10 +227,10 @@ problems.
 
 If |options|["{{DocumentPictureInPictureOptions/preferInitialWindowPlacement}}"]
 exists and is true, then the user agent may use this hint to prefer behavior
-that is similar that is similar to steps 12 and 13, rather than considering any
+that is similar that is similar to steps 13 and 14, rather than considering any
 previous position or size of any previously closed |pip traversable| window.
 
-14. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
+15. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
     on the picture-in-picture window that allow the user to return to the
     opener window.
