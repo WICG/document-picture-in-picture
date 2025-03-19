@@ -79,6 +79,11 @@ picture-in-picture window to prevent the website from covering the screen with
 an always-on-top window and locking the user in the picture-in-picture window.
 This also helps prevent spoofing the user's desktop.
 
+### Overlay ### {#overlay}
+
+The user agent should ensure that the picture-in-picture window does not hide
+any important notifications, like the fullscreen warning, by covering them.
+
 ## IFrames ## {#iframes}
 
 This API is only available on a <a>top-level traversable</a>. However, the
