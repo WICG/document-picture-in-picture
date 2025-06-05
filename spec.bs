@@ -265,8 +265,6 @@ While the size of the window can be configured by the website, the initial
 position is left to the discretion of the user agent.
 </p>
 
-</p>
-
 
 : <dfn event for="DocumentPictureInPicture">enter</dfn>
 :: Fired on {{DocumentPictureInPicture}} when a PiP window is opened.
