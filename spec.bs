@@ -117,6 +117,7 @@ dictionary DocumentPictureInPictureOptions {
   [EnforceRange] unsigned long long width = 0;
   [EnforceRange] unsigned long long height = 0;
   boolean disallowReturnToOpener = false;
+  ScreenDetailed? preferScreen;
   boolean preferInitialWindowPlacement = false;
 };
 
@@ -226,10 +227,26 @@ problems.
         viewport are |options|["{{DocumentPictureInPictureOptions/height}}"]
         pixels.
 
+If |options|["{{DocumentPictureInPictureOptions/preferScreen}}"] exists and is not
+<code>null</code>, then the user agent may use this hint to prefer to place the
+|pip traversable|'s <a>active browsing context</a>'s window on the indicate screen.
+If |options|["{{DocumentPictureInPictureOptions/preferScreen}}"] does not represent
+a currently connected screen, this hint must be ignored.
+
 If |options|["{{DocumentPictureInPictureOptions/preferInitialWindowPlacement}}"]
 exists and is true, then the user agent may use this hint to prefer behavior
 that is similar that is similar to steps 13 and 14, rather than considering any
 previous position or size of any previously closed |pip traversable| window.
+
+Both |options|["{{DocumentPictureInPictureOptions/preferScreen}}"] and
+|options|["{{DocumentPictureInPictureOptions/preferInitialWindowPlacement}}"]
+are hints; the user agent may refer to both, either or neither.
+If the application specifies both, it is recommended that the user agent consider
+|options|["{{DocumentPictureInPictureOptions/preferScreen}}"] as taking precedence.
+If this results in using a different screen, it is recommended that the user agent
+try to scale relative coordinates so as to produce a similar position. (That is,
+if the PiP window was previously in the top-left conrer of one screen, put it in
+the top-left position of the indicated screen.)
 
 15. If |options|["{{DocumentPictureInPictureOptions/disallowReturnToOpener}}"] exists
     and is <code>true</code>, the user agent should not display UI affordances
@@ -263,8 +280,6 @@ particular document picture-in-picture experience.
 <p class="note">
 While the size of the window can be configured by the website, the initial
 position is left to the discretion of the user agent.
-</p>
-
 </p>
 
 
@@ -765,6 +780,24 @@ button.
 await documentPictureInPicture.requestWindow({
   disallowReturnToOpener: true
 });
+</pre>
+
+## Prefer screen ## {#example-prefer-screen}
+
+The site can provide a hint to the user agent that it would like for the
+document picture-in-picture window to be positioned on a specific screen.
+
+This way, applications can ensure the PiP does not occlude their own content.
+(Note that applications may span multiple windows on multiple screens.)
+
+<pre class="lang-javascript">
+const options = {};
+const details = await getScreenDetails();
+if (details.screens.length > 1) {
+  options.preferScreen =
+    details.screens.find(s => s !== details.currentScreen);
+}
+await documentPictureInPicture.requestWindow(options);
 </pre>
 
 ## Prefer initial window placement ## {#example-prefer-initial-window-placement}
