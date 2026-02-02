@@ -292,6 +292,21 @@ Each <a>top-level traversable</a> has an <dfn>Is Document Picture-in-Picture</df
 boolean, whose value defaults to <code>false</code>, but can be set to
 <code>true</code> in the <a>requestWindow()</a> method steps.
 
+<div class="note">
+<p>
+User agents typically suspend rendering and throttle script execution in windows
+that are minimized or otherwise not visible to the user. When a document
+picture-in-picture window is open, the opener window might execute scripts that
+affect the content of the document picture-in-picture window.
+</p>
+
+<p>
+Implementers are encouraged to consider the implications of throttling such
+opener windows, and developers are encouraged to execute application logic
+within the picture-in-picture window itself.
+</p>
+</div>
+
 ## Closing a Document Picture-in-Picture window ## {#close-document-pip-window}
 
 <p class="issue">
