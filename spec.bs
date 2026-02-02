@@ -289,19 +289,19 @@ boolean, whose value defaults to <code>false</code>, but can be set to
 
 <p class="issue">
 Merge this into
-<a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+<a dfn href="https://html.spec.whatwg.org/#definitely-close-a-top-level-traversable">definitely close</a>
 once it has enough consensus.
 </p>
 
 Modify step 2 of
-<a dfn href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>,
-"If the result of checking if unloading is user-canceled for toUnload is true,
+<a dfn href="https://html.spec.whatwg.org/#definitely-close-a-top-level-traversable">definitely close</a>,
+"If the result of checking if unloading is user-canceled for toUnload is not "continue",
 then return." to be:
 
 2. If <var ignore>traversable</var>'s <a>Is Document Picture-in-Picture</a> boolean is
     true, then skip this step. Otherwise, if the result of
     <a href="https://html.spec.whatwg.org/#checking-if-unloading-is-user-canceled" dfn>checking if unloading is user-canceled</a>
-    for toUnload is true, then return.
+    for toUnload is not "continue", then return.
 
 ## Close any existing PiP windows ## {#close-existing-pip-windows}
 
@@ -370,7 +370,7 @@ Merge this into
 once it has enough consensus.
 </p>
 
-Add a step 10 to the end of
+Add a step 12 to the end of
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>:
 
 5. <a>Close any associated Document Picture-in-Picture windows</a> given |document|.
@@ -388,16 +388,16 @@ Merge this into
 once it has enough consensus.
 </p>
 
-Modify step 16.3 of
+Modify step 23.3 of
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigate">navigate</a>,
-"Queue a global task on the navigation and traversal task source given navigable's active window to abort navigable's active document.",
-and also insert a step 16.4 immediately after it:
+"Queue a global task on the navigation and traversal task source given navigable's active window to abort a document and its descandants given navigable's active document.",
+and also insert a step 23.4 immediately after it:
 
 3. <a>Queue a global task</a> on the
     <a dfn href="https://html.spec.whatwg.org/#navigation-and-traversal-task-source">navigation and traversal task source</a>
     given |navigable|'s <a>active window</a> to
-    <a dfn href="https://html.spec.whatwg.org/#abort-a-document">abort</a>
-    |navigable|'s <a>active document</a> and <a>close any associated Document Picture-in-Picture windows</a>
+    <a dfn href="https://html.spec.whatwg.org/#abort-a-document-and-its-descendants">abort a document and its descendants</a>
+    given |navigable|'s <a>active document</a> and <a>close any associated Document Picture-in-Picture windows</a>
     given |navigable|'s <a>active document</a>.
 4. If |navigable| is a <a>top-level traversable</a> whose
     <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
@@ -465,9 +465,9 @@ opener.
 Merge this into {{Window/focus()}} once it has enough consensus.
 </p>
 
-Add a new step to {{Window/focus()}} after step 3, "Run the <a>focusing steps</a> with |current|.":
+Add a new step to {{Window/focus()}} after step 4, "Run the <a>focusing steps</a> with |current|.":
 
-4. If |current| is a <a>top-level traversable</a>, then:
+5. If |current| is a <a>top-level traversable</a>, then:
     1. Let |pipWindow| be |current|'s <a>active window</a>'s
         <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
     2. If |pipWindow| is not <code>null</code> and |pipWindow|'s <a>relevant global object</a>
