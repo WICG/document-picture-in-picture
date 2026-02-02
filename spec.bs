@@ -79,6 +79,13 @@ picture-in-picture window to prevent the website from covering the screen with
 an always-on-top window and locking the user in the picture-in-picture window.
 This also helps prevent spoofing the user's desktop.
 
+### Fullscreen ### {#fullscreen}
+
+The user agent must prevent the document picture-in-picture window from entering
+fullscreen with the same reasoning as stated for the <a href="#maximum-size">maximum size</a>
+restriction. In particular, this means the {{requestFullscreen()}} API must be
+disabled for all elements in document picture-in-picture windows.
+
 ## IFrames ## {#iframes}
 
 This API is only available on a <a>top-level traversable</a>. However, the
@@ -572,6 +579,31 @@ Add three new steps to <a>consume user activation</a> after step 3, "Let
 6. If |document picture-in-picture window| is not <code>null</code> then
     <a for="list">extend</a> |navigables| with the <a>inclusive descendant navigables</a>
     of |document picture-in-picture window|'s <a>associated document</a>.
+
+## Fullscreening the PiP window ## {#fullscreening-the-pip-window}
+
+As stated in [[#fullscreen]], document picture-in-picture windows are disallowed
+from entering fullscreen. We update <a spec=Fullscreen>fullscreen is supported</a>
+to enforce this restriction.
+
+<p class="issue">
+Merge this into <a spec=Fullscreen>fullscreen is supported</a> once it has
+enough consensus.
+</p>
+
+Replace <a spec=Fullscreen>fullscreen is supported</a> "if there is no
+previously-established user preference, security risk, or platform limitation."
+with
+
+<a spec="Fullscreen">Fullscreen is supported</a> for a {{Window}} |window| if all
+of the following are true:
+- There is no previously-established user preference, security risk, or platform
+    limitation.
+- |window|'s <a for="Window">navigable</a>'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>false</code>.
+
+Invocations of <a spec=Fullscreen>fullscreen is supported</a> need to be updated
+to pass the {{Window}}.
 
 # Examples # {#examples}
 
