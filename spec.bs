@@ -256,7 +256,7 @@ particular document picture-in-picture experience.
     named {{enter}} using {{DocumentPictureInPictureEvent}} on
     <a>this</a> with its {{DocumentPictureInPictureEvent/window}} attribute
     initialized to |pip traversable|'s <a>active window</a>.
-18. Return |pip traversable|'s <a>active window</a>.
+18. Return <a>a promise resolved with</a> |pip traversable|'s <a>active window</a>.
 
 </div>
 
