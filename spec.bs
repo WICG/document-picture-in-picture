@@ -131,7 +131,7 @@ dictionary DocumentPictureInPictureEventInit : EventInit {
 };
 </pre>
 
-<p>
+<div>
 A {{DocumentPictureInPicture}} object allows websites to create and open a new
 always-on-top {{Window}} as well as listen for events related to opening and
 closing that {{Window}}.
@@ -265,7 +265,7 @@ While the size of the window can be configured by the website, the initial
 position is left to the discretion of the user agent.
 </p>
 
-</p>
+</div>
 
 
 : <dfn event for="DocumentPictureInPicture">enter</dfn>
@@ -518,7 +518,7 @@ steps once it has enough consensus.
 
 Add three new steps to
 <a href="https://html.spec.whatwg.org/multipage/interaction.html#activation-notification">activation notification</a>
-after step 4, "<a>Extend</a>
+after step 4, "<a for="list">Extend</a>
 |windows| with the <a>active window</a> of each of |document|'s
 <a>descendant navigables</a>, filtered to include only those <a>navigables</a>
 whose <a>active document</a>'s <a>origin</a> is <a>same origin</a> with
@@ -526,7 +526,7 @@ whose <a>active document</a>'s <a>origin</a> is <a>same origin</a> with
 
 5. If |document|'s <a>node navigable</a>'s <a>top-level traversable</a>'s
     <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
-    <a>extend</a> |windows| with |document|'s <a>node navigable</a>'s
+    <a for="list">extend</a> |windows| with |document|'s <a>node navigable</a>'s
     <a>top-level traversable</a>'s <a>active browsing context</a>'s
     <a>opener browsing context</a>'s <a>active window</a>.
 
@@ -535,7 +535,7 @@ whose <a>active document</a>'s <a>origin</a> is <a>same origin</a> with
     <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
 
 7. If |document picture-in-picture window| is not <code>null</code> then
-    <a>extend</a> |windows| with the <a>active window</a> of each of
+    <a for="list">extend</a> |windows| with the <a>active window</a> of each of
     |document picture-in-picture window|'s <a>associated document</a>'s
     <a>descendant navigables</a>, filtered to include only those
     <a>navigables</a> whose <a>active document</a>'s <a>origin</a> is
@@ -561,7 +561,7 @@ Add three new steps to <a>consume user activation</a> after step 3, "Let
 <a>active document</a>.":
 
 4. If |top|'s <a>Is Document Picture-in-Picture</a> boolean is
-    <code>true</code>, then <a>extend</a> |navigables| with the
+    <code>true</code>, then <a for="list">extend</a> |navigables| with the
     <a>inclusive descendant navigables</a> of |top|'s
     <a>active browsing context</a>'s <a>opener browsing context</a>'s
     <a>active document</a>.
@@ -570,7 +570,7 @@ Add three new steps to <a>consume user activation</a> after step 3, "Let
     <a>documentPictureInPicture API</a>'s <a>last-opened window</a>.
 
 6. If |document picture-in-picture window| is not <code>null</code> then
-    <a>extend</a> |navigables| with the <a>inclusive descendant navigables</a>
+    <a for="list">extend</a> |navigables| with the <a>inclusive descendant navigables</a>
     of |document picture-in-picture window|'s <a>associated document</a>.
 
 # Examples # {#examples}
