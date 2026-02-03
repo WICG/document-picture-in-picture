@@ -473,6 +473,33 @@ action of the user), then return.":
         {{DOMException}}.
     2. <a>Consume user activation</a> given <a>this</a>'s <a>relevant global object</a>.
 
+
+## Moving the PiP window ## {#moving-the-pip-window}
+
+To prevent spoofing as described in [[#positioning]], we will disable {{Window/moveTo()}}
+and {{Window/moveBy()}} for document picture-in-picture windows.
+
+<p class="issue">
+Merge this into the {{Window/moveTo()}} and {{Window/moveBy()}} steps once it
+has enough consensus.
+</p>
+
+Add one new step to {{Window/moveTo()}} after step 3, "If |target| is not an
+[=auxiliary browsing context=] that was created by a script (as opposed to by an
+action of the user), then return.":
+
+4. If |target|'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
+    return.
+
+Add one new step to {{Window/moveBy()}} after step 3, "If |target| is not an
+[=auxiliary browsing context=] that was created by a script (as opposed to by an
+action of the user), then return.":
+
+4. If |target|'s <a>top-level traversable</a>'s
+    <a>Is Document Picture-in-Picture</a> boolean is <code>true</code>, then
+    return.
+
 ## Focusing the opener window ## {#focusing-the-opener-window}
 
 <p>
