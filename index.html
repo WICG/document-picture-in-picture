@@ -1142,21 +1142,21 @@ preferences).</p>
 boolean, whose value defaults to <code>false</code>, but can be set to
 <code>true</code> in the <a data-link-type="functionish" href="#dom-documentpictureinpicture-requestwindow" id="ref-for-dom-documentpictureinpicture-requestwindow③">requestWindow()</a> method steps.</p>
    <h3 class="heading settled" data-level="6.3" id="close-document-pip-window"><span class="secno">6.3. </span><span class="content">Closing a Document Picture-in-Picture window</span><a class="self-link" href="#close-document-pip-window"></a></h3>
-   <p class="issue" id="issue-52892068"><a class="self-link" href="#issue-52892068"></a>
+   <p class="issue" id="issue-58383d6d"><a class="self-link" href="#issue-58383d6d"></a>
 Merge this into
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#definitely-close-a-top-level-traversable">definitely close</a>
 once it has enough consensus.
 </p>
    <p>Modify step 2 of
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>,
-"If the result of checking if unloading is user-canceled for toUnload is true,
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#definitely-close-a-top-level-traversable">definitely close</a>,
+"If the result of checking if unloading is user-canceled for toUnload is not "continue",
 then return." to be:</p>
    <ol start="2">
     <li data-md>
      <p>If <var>traversable</var>’s <a data-link-type="dfn" href="#is-document-picture-in-picture" id="ref-for-is-document-picture-in-picture②">Is Document Picture-in-Picture</a> boolean is
 true, then skip this step. Otherwise, if the result of
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#checking-if-unloading-is-user-canceled">checking if unloading is user-canceled</a>
-for toUnload is true, then return.</p>
+for toUnload is not "continue", then return.</p>
    </ol>
    <h3 class="heading settled" data-level="6.4" id="close-existing-pip-windows"><span class="secno">6.4. </span><span class="content">Close any existing PiP windows</span><a class="self-link" href="#close-existing-pip-windows"></a></h3>
    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="close-any-existing-picture-in-picture-windows">close any existing picture-in-picture windows</dfn>:</p>
@@ -1233,7 +1233,7 @@ Merge this into
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>
 once it has enough consensus.
 </p>
-   <p>Add a step 10 to the end of
+   <p>Add a step 12 to the end of
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>:</p>
    <ol start="5">
     <li data-md>
@@ -1249,17 +1249,17 @@ Merge this into
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigate">navigate</a>
 once it has enough consensus.
 </p>
-   <p>Modify step 16.3 of
+   <p>Modify step 23.3 of
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigate">navigate</a>,
-"Queue a global task on the navigation and traversal task source given navigable’s active window to abort navigable’s active document.",
-and also insert a step 16.4 immediately after it:</p>
+"Queue a global task on the navigation and traversal task source given navigable’s active window to abort a document and its descandants given navigable’s active document.",
+and also insert a step 23.4 immediately after it:</p>
    <ol start="3">
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-queue-a-global-task①">Queue a global task</a> on the
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#navigation-and-traversal-task-source">navigation and traversal task source</a>
 given <var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-window" id="ref-for-nav-window⑤">active window</a> to
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document">abort</a>
-<var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document⑦">active document</a> and <a data-link-type="dfn" href="#close-any-associated-document-picture-in-picture-windows" id="ref-for-close-any-associated-document-picture-in-picture-windows①">close any associated Document Picture-in-Picture windows</a>
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#abort-a-document-and-its-descendants">abort a document and its descendants</a>
+given <var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document⑦">active document</a> and <a data-link-type="dfn" href="#close-any-associated-document-picture-in-picture-windows" id="ref-for-close-any-associated-document-picture-in-picture-windows①">close any associated Document Picture-in-Picture windows</a>
 given <var>navigable</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-nav-document⑧">active document</a>.</p>
     <li data-md>
      <p>If <var>navigable</var> is a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top⑧">top-level traversable</a> whose
@@ -1330,8 +1330,8 @@ opener.
    <p class="issue" id="issue-603497c9"><a class="self-link" href="#issue-603497c9"></a>
 Merge this into <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus" id="ref-for-dom-window-focus①">focus()</a></code> once it has enough consensus.
 </p>
-   <p>Add a new step to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus" id="ref-for-dom-window-focus②">focus()</a></code> after step 3, "Run the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#focusing-steps" id="ref-for-focusing-steps">focusing steps</a> with <var>current</var>.":</p>
-   <ol start="4">
+   <p>Add a new step to <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus" id="ref-for-dom-window-focus②">focus()</a></code> after step 4, "Run the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#focusing-steps" id="ref-for-focusing-steps">focusing steps</a> with <var>current</var>.":</p>
+   <ol start="5">
     <li data-md>
      <p>If <var>current</var> is a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top①①">top-level traversable</a>, then:</p>
      <ol>
@@ -1863,9 +1863,9 @@ and contributions to this document and to the discussions that have informed it.
   <div style="counter-reset:issue">
    <div class="issue">
 Merge this into
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/#close-a-top-level-traversable">close</a>
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/#definitely-close-a-top-level-traversable">definitely close</a>
 once it has enough consensus.
- <a class="issue-return" href="#issue-52892068" title="Jump to section">↵</a></div>
+ <a class="issue-return" href="#issue-58383d6d" title="Jump to section">↵</a></div>
    <div class="issue">
 Merge this into
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/#destroying-documents">destroy</a>
