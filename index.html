@@ -1141,6 +1141,19 @@ preferences).</p>
    <p>Each <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-top" id="ref-for-nav-top②">top-level traversable</a> has an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="is-document-picture-in-picture">Is Document Picture-in-Picture</dfn>
 boolean, whose value defaults to <code>false</code>, but can be set to
 <code>true</code> in the <a data-link-type="functionish" href="#dom-documentpictureinpicture-requestwindow" id="ref-for-dom-documentpictureinpicture-requestwindow③">requestWindow()</a> method steps.</p>
+   <div class="note" role="note">
+    <p>
+User agents typically suspend rendering and throttle script execution in windows
+that are minimized or otherwise not visible to the user. When a document
+picture-in-picture window is open, the opener window might execute scripts that
+affect the content of the document picture-in-picture window.
+</p>
+    <p>
+Implementers are encouraged to consider the implications of throttling such
+opener windows, and developers are encouraged to execute application logic
+within the picture-in-picture window itself.
+</p>
+   </div>
    <h3 class="heading settled" data-level="6.3" id="close-document-pip-window"><span class="secno">6.3. </span><span class="content">Closing a Document Picture-in-Picture window</span><a class="self-link" href="#close-document-pip-window"></a></h3>
    <p class="issue" id="issue-58383d6d"><a class="self-link" href="#issue-58383d6d"></a>
 Merge this into
