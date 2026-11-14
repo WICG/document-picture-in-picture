@@ -674,6 +674,7 @@ to pass the {{Window}}.
 let pipWindow = null;
 
 function enterPiP() {
+  const playerContainer = document.querySelector('#player-container');
   const player = document.querySelector('#player');
 
   // Set the width/height so the window is properly sized to the video.
