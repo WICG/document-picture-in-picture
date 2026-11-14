@@ -116,7 +116,7 @@ partial interface Window {
 interface DocumentPictureInPicture : EventTarget {
   [NewObject] Promise&lt;Window&gt; requestWindow(
     optional DocumentPictureInPictureOptions options = {});
-  readonly attribute Window window;
+  readonly attribute Window? window;
   attribute EventHandler onenter;
 };
 
